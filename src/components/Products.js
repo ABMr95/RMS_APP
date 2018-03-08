@@ -61,11 +61,6 @@ export class All extends Component {
         this.setState({ Order: event.target.value })
     }
 
-
-
-
-
-
     handleShowAll = () => {
         this.find()
     }
@@ -134,7 +129,7 @@ export class All extends Component {
 
 
     render() {
-        console.log('render: ', this.props.location.query)
+        // console.log('render: ', this.props.location.query)
         return (
             <div>
                 <BS.Button onClick={this.handleShowAll}>Show All</BS.Button>
@@ -257,26 +252,26 @@ export class All extends Component {
 
                         {this.state.meals.map(
 
-                            (pet) =>
+                            (meal) =>
 
-                                <tr key={pet.Id}>
+                                <tr key={meal.Id}>
 
-                                    <td>{pet.Id}</td>
+                                    <td>{meal.Id}</td>
 
-                                    <td>{pet.Name}</td>
+                                    <td>{meal.Name}</td>
 
-                                    <td><BS.Button bsStyle="link" onClick={() => this.handleFindBy(pet.OwnerId)}>{pet.Owner.Name}</BS.Button></td>
+                                    {/* <td><BS.Button bsStyle="link" onClick={() => this.handleFindBy(meal.OwnerId)}>{meal.Owner.Name}</BS.Button></td> */}
 
                                     <td>
 
-                                        {/* <LinkContainer to={'/meals/update/' + pet.Id}>
+                                        {/* <LinkContainer to={'/meals/update/' + meal.Id}>
 
                                             <BS.Button >Update</BS.Button>
 
                                         </LinkContainer> */}
                                         <BS.Button >Update</BS.Button>
 
-                                        <BS.Button onClick={() => this.handleDelete(pet.Id)}>Delete</BS.Button>
+                                        <BS.Button onClick={() => this.handleDelete(meal.Id)}>Delete</BS.Button>
 
                                     </td>
 
@@ -292,11 +287,10 @@ export class All extends Component {
     }
 }
 
-
 export class One extends Component {
 
     state = {
-        pet: null
+        meal: null
     }
 
     db = new DB('http://localhost:63719/api/Meals')
@@ -304,24 +298,24 @@ export class One extends Component {
     componentDidMount() {
         this.db.findOne(
             this.props.Id,
-            (data) => this.setState({ pet: data })
+            (data) => this.setState({ meal: data })
         )
     }
 
     render() {
-        console.log('Pet: ', this.state.pet)
+        console.log('Pet: ', this.state.meal)
         return (
             <div>
-                {this.state.pet
+                {this.state.meal
                     ?
                     <BS.Table striped bordered condensed hover>
                         <thead>
                             <tr><th>Field</th><th>Value</th></tr>
                         </thead>
                         <tbody>
-                            <tr><td>Id</td><td>{this.state.pet.Id}</td></tr>
-                            <tr><td>Name</td><td>{this.state.pet.Name}</td></tr>
-                            <tr><td>Owner</td><td>{this.state.pet.Owner.Name}</td></tr>
+                            <tr><td>Id</td><td>{this.state.meal.Id}</td></tr>
+                            <tr><td>Name</td><td>{this.state.meal.Name}</td></tr>
+                            <tr><td>Owner</td><td>{this.state.meal.Owner.Name}</td></tr>
                         </tbody>
                     </BS.Table>
                     :
