@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import * as BS from 'react-bootstrap'
-import * as RR from 'react-router'
+// import * as RR from 'react-router'
 
 export class Register extends Component {
     state = {
