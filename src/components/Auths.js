@@ -41,10 +41,10 @@ export class Register extends Component {
     }
 
     handleRegister = () => {
-        // this.register(
-        //     this.state,
-        //     ()=> RR.browserHistory.push("/login")
-        // )
+        this.register(
+            this.state,
+            console.log("account has been registred")
+        )
     }
 
     render() {
