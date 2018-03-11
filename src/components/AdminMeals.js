@@ -236,9 +236,13 @@ export class All extends Component {
                                             <BS.Button >Update</BS.Button>
 
                                         </LinkContainer> */}
+                                        <BS.Button  >Update</BS.Button>
+
+                                        <BS.Button onClick={() => this.handleDelete(meal.Id)}>Delete</BS.Button>
+
                                         <BS.Button >Buy</BS.Button>
 
-                                        {/* <BS.Button onClick={() => this.handleDelete(meal.Id)}>Delete</BS.Button> */}
+                                        
 
                                     </td>
 

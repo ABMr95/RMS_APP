@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import * as Meals from './Products';
 import * as Auths from './Auths'
 import * as BS from 'react-bootstrap';
+import * as AdminMeals from './AdminMeals'
 import '../stylesheet/App.css';
 
 export default class NB extends Component {
@@ -25,7 +26,7 @@ export default class NB extends Component {
 
                         <BS.NavDropdown eventKey={3} title="Admin" id="basic-nav-dropdown">
                             <BS.MenuItem eventKey={1} href="#">Customer</BS.MenuItem>
-                            <BS.MenuItem eventKey={1} href="#">Meals</BS.MenuItem>
+                            <BS.MenuItem eventKey={<AdminMeals.All/>} href="#">Meals</BS.MenuItem>
 
                         </BS.NavDropdown>
                     </BS.Nav>
