@@ -203,13 +203,7 @@ export class All extends Component {
                         <BS.Button bsStyle='link' onClick={this.handleOrderByName}>Name</BS.Button>
                         </th>
                         <th>
-                        <BS.Button bsStyle='link' onClick={this.handleOrderByName}>Category</BS.Button>
-                        </th>
-                        <th>
                         <BS.Button bsStyle='link' onClick={this.handleOrderByName}>Price</BS.Button>
-                        </th>
-                        <th>
-                        <BS.Button bsStyle='link' onClick={this.handleOrderByName}>thumbnail</BS.Button>
                         </th>
                         <th>
                             <BS.Button bsStyle='link' onClick={this.handleOrderByOwnerName}>options</BS.Button>
@@ -231,17 +225,20 @@ export class All extends Component {
 
                                     <td>{meal.Name}</td>
 
-                                    <td>{meal.Category.Name}</td>
-
                                     <td>{meal.Price}</td>
-
-                                    <td>{meal.Name}</td>
 
                                     {/* <td><BS.Button bsStyle="link" onClick={() => this.handleFindBy(meal.OwnerId)}>{meal.Owner.Name}</BS.Button></td> */}
 
                                     <td>
-                       
+
+                                        {/* <LinkContainer to={'/meals/update/' + meal.Id}>
+
+                                            <BS.Button >Update</BS.Button>
+
+                                        </LinkContainer> */}
                                         <BS.Button >Buy</BS.Button>
+
+                                        {/* <BS.Button onClick={() => this.handleDelete(meal.Id)}>Delete</BS.Button> */}
 
                                     </td>
 
