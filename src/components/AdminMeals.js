@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import DB from './DB'
 import * as BS from 'react-bootstrap'
-// import { LinkContainer } from 'react-router-bootstrap'
+import { LinkContainer } from 'react-router-bootstrap'
 
 export class All extends Component {
 
@@ -20,6 +20,7 @@ export class All extends Component {
 
 
     db = new DB('http://localhost:63719/api/Meals')
+    buy = new DB('http://localhost:63719/api/User')
 
     componentDidMount() {
         this.find()
@@ -28,6 +29,13 @@ export class All extends Component {
     find = (parameters) => {
         this.db.find(
             (data) => this.setState({ meals: data }),
+            parameters
+        )
+    }
+
+    Quary = (parameters) => {
+        this.buy.find(
+            (data) => this.setState({ }),
             parameters
         )
     }
@@ -126,10 +134,19 @@ export class All extends Component {
         }
     }
 
+    handleBuy = (val) => {
+        console.log("im buying: " + val)
+        this.Quary({
+            query: "buy",
+            id: val
+        })
+
+    }
+
 
 
     render() {
-        // console.log('render: ', this.props.location.query)
+        console.log('render: ', this.props.location.query)
         return (
             <div>
                 <BS.Button onClick={this.handleShowAll}>Show All</BS.Button>
@@ -148,7 +165,7 @@ export class All extends Component {
                         onChange={this.handleMaxId}
                     />
 
-                    {/* <LinkContainer to={
+                    <LinkContainer to={
                         {
                             pathname: '/meals/all',
                             query: {
@@ -160,9 +177,8 @@ export class All extends Component {
 
                     >
                         <BS.Button onClick={this.handleBetween}>Show with ID between Min and Max</BS.Button>
-                    </LinkContainer> */}
+                    </LinkContainer>
 
-                    <BS.Button onClick={this.handleBetween}>Show with ID between Min and Max</BS.Button>
 
                 </BS.Form> <br />
 
@@ -174,22 +190,17 @@ export class All extends Component {
                         placeholder="Enter Name"
                         onChange={this.handleMealName}
                     />
-                    {/* <LinkContainer to={
+                    <LinkContainer to={
                         {
                             pathname: '/meals/all',
                             query: { Name: this.state.Name }
                         }
                     } >
                         <BS.Button onClick={this.handleSearchByName}>Search By Pet Name</BS.Button>
-                    </LinkContainer> */}
+                    </LinkContainer>
 
-                    <BS.Button onClick={this.handleSearchByName}>Search By Pet Name</BS.Button>
 
                 </BS.Form> <br />
-
-
-
-
 
                 <br />
 
@@ -231,16 +242,15 @@ export class All extends Component {
 
                                     <td>
 
-                                        {/* <LinkContainer to={'/meals/update/' + meal.Id}>
+                                        <LinkContainer to={'/meals/update/' + meal.Id}>
 
                                             <BS.Button >Update</BS.Button>
 
-                                        </LinkContainer> */}
-                                        <BS.Button  >Update</BS.Button>
+                                        </LinkContainer>
 
                                         <BS.Button onClick={() => this.handleDelete(meal.Id)}>Delete</BS.Button>
 
-                                        <BS.Button >Buy</BS.Button>
+                                        <BS.Button onClick={() => this.handleBuy(meal.MealId)} >Buy</BS.Button>
 
                                         
 
