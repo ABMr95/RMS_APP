@@ -242,13 +242,13 @@ export class All extends Component {
 
                                     <td>
 
-                                        <LinkContainer to={'/meals/update/' + meal.Id}>
+                                        {/* <LinkContainer to={'/meals/update/' + meal.Id}>
 
                                             <BS.Button >Update</BS.Button>
 
-                                        </LinkContainer>
+                                        </LinkContainer> */}
 
-                                        <BS.Button onClick={() => this.handleDelete(meal.Id)}>Delete</BS.Button>
+                                        {/* <BS.Button onClick={() => this.handleDelete(meal.Id)}>Delete</BS.Button> */}
 
                                         <BS.Button onClick={() => this.handleBuy(meal.MealId)} >Buy</BS.Button>
 
