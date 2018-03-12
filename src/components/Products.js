@@ -35,7 +35,7 @@ export class All extends Component {
 
     Quary = (parameters) => {
         this.buy.find(
-            (data) => this.setState({ meals: data }),
+            (data) => this.setState({ }),
             parameters
         )
     }
