@@ -126,6 +126,8 @@ export class All extends Component {
         }
     }
 
+    
+
 
 
     render() {
@@ -212,7 +214,7 @@ export class All extends Component {
                             <BS.Button bsStyle='link' onClick={this.handleOrderByName}>thumbnail</BS.Button>
                         </th>
                         <th>
-                            <BS.Button bsStyle='link' onClick={this.handleOrderByOwnerName}>options</BS.Button>
+                            options
                         </th>
 
 
