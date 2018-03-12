@@ -20,6 +20,7 @@ export class All extends Component {
 
 
     db = new DB('http://localhost:63719/api/Meals')
+    buy = new DB('http://localhost:63719/api/User')
 
     componentDidMount() {
         this.find()
@@ -31,6 +32,15 @@ export class All extends Component {
             parameters
         )
     }
+
+    Quary = (parameters) => {
+        this.buy.find(
+            (data) => this.setState({ meals: data }),
+            parameters
+        )
+    }
+
+    
 
     handleDelete = (Id) => {
         this.db.destroy(Id, this.find)
@@ -124,6 +134,15 @@ export class All extends Component {
             })
             this.setState({ ToggleOwnerName: !this.state.ToggleOwnerName, Order: "DESC" })
         }
+    }
+
+    handleBuy = (val) => {
+        console.log("im buying: " + val)
+        this.Quary({
+            query: "buy",
+            id: val
+        })
+
     }
 
     
@@ -243,7 +262,7 @@ export class All extends Component {
 
                                     <td>
 
-                                        <BS.Button >Buy</BS.Button>
+                                        <BS.Button onClick={() => this.handleBuy(meal.MealId)} >Buy</BS.Button>
 
                                     </td>
 

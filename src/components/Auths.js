@@ -43,7 +43,7 @@ export class Register extends Component {
     handleRegister = () => {
         this.register(
             this.state,
-            console.log("account has been registred")
+            this.props.onSelect(<Login />)
         )
     }
 
