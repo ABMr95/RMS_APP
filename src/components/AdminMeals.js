@@ -7,18 +7,18 @@ export class All extends Component {
 
     state = {
         meals: [],
-        MinId: '',
-        MaxId: '',
+        MinPrice: '',
+        MaxPrice: '',
         Name: '',
+        CategoryName: '',
         Column: '',
         Order: '',
         ToggleId: false,
         ToggleName: false,
-        ToggleOwnerName: false
+        TogglePrice: false,
+        ToggleCategory: false
     }
     // small bug in the order
-
-
     db = new DB('http://localhost:63719/api/Meals')
     buy = new DB('http://localhost:63719/api/User')
 
@@ -50,16 +50,20 @@ export class All extends Component {
     }
 
 
-    handleMinId = (event) => {
-        this.setState({ MinId: event.target.value })
+    handleMinPrice = (event) => {
+        this.setState({ MinPrice: event.target.value })
     }
 
-    handleMaxId = (event) => {
-        this.setState({ MaxId: event.target.value })
+    handleMaxPrice = (event) => {
+        this.setState({ MaxPrice: event.target.value })
     }
 
     handleMealName = (event) => {
         this.setState({ Name: event.target.value })
+    }
+
+    handleCategoryText = (event) => {
+        this.setState({ CategoryName: event.target.value })
     }
 
     handleColumn = (event) => {
@@ -76,7 +80,7 @@ export class All extends Component {
 
     handleBetween = () => {
         this.find({
-            MinId: this.state.MinId, MaxId: this.state.MaxId,
+            MinPrice: this.state.MinPrice, MaxPrice: this.state.MaxPrice,
         })
     }
 
@@ -87,6 +91,12 @@ export class All extends Component {
     handleSearchByName = () => {
         this.find({
             Name: this.state.Name
+        })
+    }
+
+    handleSearchByCategory = () => {
+        this.find({
+            Category: this.state.CategoryName
         })
     }
 
@@ -120,18 +130,33 @@ export class All extends Component {
         }
     }
 
-    handleOrderByOwnerName = () => {
-        if (this.state.ToggleOwnerName) {
+    handleOrderByPrice = () => {
+        if (this.state.TogglePrice) {
             this.find({
-                Column: "OwnerName", Order: "ASC",
+                Column: "Price", Order: "ASC",
             })
-            this.setState({ ToggleOwnerName: !this.state.ToggleOwnerName, Order: "ASC" })
+            this.setState({ TogglePrice: !this.state.TogglePrice, Order: "ASC" })
         }
         else {
             this.find({
-                Column: "OwnerName", Order: "DSC",
+                Column: "Price", Order: "DSC",
             })
-            this.setState({ ToggleOwnerName: !this.state.ToggleOwnerName, Order: "DESC" })
+            this.setState({ TogglePrice: !this.state.TogglePrice, Order: "DESC" })
+        }
+    }
+
+    handleOrderByCategory = () => {
+        if (this.state.ToggleCategory) {
+            this.find({
+                Column: "Category", Order: "ASC",
+            })
+            this.setState({ ToggleCategory: !this.state.ToggleCategory, Order: "ASC" })
+        }
+        else {
+            this.find({
+                Column: "Category", Order: "DSC",
+            })
+            this.setState({ ToggleCategory: !this.state.ToggleCategory, Order: "DESC" })
         }
     }
 
@@ -148,8 +173,9 @@ export class All extends Component {
         console.log('render: ', this.props.location.query)
         return (
             <div>
+                <h1>Admin Meals</h1>
 
-                <LinkContainer to={{ pathname: '/meals/create' }}>
+                <LinkContainer to={{ pathname: '/adminmeals/create' }}>
                     <BS.Button>Create</BS.Button>
                 </LinkContainer>
 
@@ -159,23 +185,23 @@ export class All extends Component {
                 <BS.Form inline>
                     <BS.FormControl
                         type="text"
-                        value={this.state.MinId}
+                        value={this.state.MinPrice}
                         placeholder="Enter Min Id"
-                        onChange={this.handleMinId}
+                        onChange={this.handleMinPrice}
                     />
                     <BS.FormControl
                         type="text"
-                        value={this.state.MaxId}
+                        value={this.state.MaxPrice}
                         placeholder="Enter Max Id"
-                        onChange={this.handleMaxId}
+                        onChange={this.handleMaxPrice}
                     />
 
                     <LinkContainer to={
                         {
-                            pathname: '/meals/all',
+                            pathname: '/adminmeals/all',
                             query: {
-                                MinId: this.state.MinId,
-                                MaxId: this.state.MaxId
+                                MinPrice: this.state.MinPrice,
+                                MaxPrice: this.state.MaxPrice
                             }
                         }
                     }
@@ -196,7 +222,7 @@ export class All extends Component {
                     />
                     <LinkContainer to={
                         {
-                            pathname: '/meals/all',
+                            pathname: '/adminmeals/all',
                             query: { Name: this.state.Name }
                         }
                     } >
@@ -206,6 +232,24 @@ export class All extends Component {
                 </BS.Form> <br />
 
                 <br />
+
+                <BS.Form inline>
+                    <BS.FormControl
+                        type="text"
+                        value={this.state.CategoryName}
+                        placeholder="Enter CategoryName"
+                        onChange={this.handleCategoryText}
+                    />
+                    <LinkContainer to={
+                        {
+                            pathname: '/adminmeals/all',
+                            query: { CategoryName: this.state.CategoryName }
+                        }
+                    } >
+                        <BS.Button onClick={this.handleSearchByCategory}>Search By Category Name</BS.Button>
+                    </LinkContainer>
+
+                </BS.Form> <br />
 
 
 
@@ -219,14 +263,14 @@ export class All extends Component {
                             <BS.Button bsStyle='link' onClick={this.handleOrderByName}>Name</BS.Button>
                         </th>
                         <th>
-                            <BS.Button bsStyle='link' onClick={this.handleOrderByName}>Price</BS.Button>
+                            <BS.Button bsStyle='link' onClick={this.handleOrderByPrice}>Price</BS.Button>
                         </th>
 
                         <th>
-                            <BS.Button bsStyle='link' onClick={this.handleOrderByName}>Category</BS.Button>
+                            <BS.Button bsStyle='link' onClick={this.handleOrderByCategory}>Category</BS.Button>
                         </th>
                         <th>
-                            <BS.Button bsStyle='link' onClick={this.handleOrderByOwnerName}>options</BS.Button>
+                            <BS.Button bsStyle='link' onClick={this.handleOrderByPrice}>options</BS.Button>
                         </th>
 
 
