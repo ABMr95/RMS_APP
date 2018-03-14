@@ -279,10 +279,13 @@ export class One extends Component {
 
     db = new DB('http://localhost:63719/api/Orders')
     db2 = new DB('http://localhost:63719/api/OrderItems')
+    db3 = new DB('http://localhost:63719/api/User')
 
     componentDidMount() {
         this.find()
-        this.findOrderItems()
+        // this.findOrderItems()
+        // this.handleSearchByName()
+        this.find2()
     }
 
     find = async (parameters) => {
@@ -292,12 +295,17 @@ export class One extends Component {
         )
     }
 
-    findOrderItems = async (parameters) => {
-        await this.db2.find(
+
+    find2 = (parameters) => {
+        this.db3.find(
             (data) => this.setState({ OrderItems: data }),
-            parameters
+            {
+                query: "orderitems"
+            }
         )
     }
+
+
 
 
 
