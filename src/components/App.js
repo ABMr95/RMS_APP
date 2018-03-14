@@ -5,7 +5,12 @@ import * as RR from 'react-router'
 import * as Meals from './Meals'
 import * as Auth from './Auth'
 import * as AdminMeals from './AdminMeals'
+<<<<<<< HEAD
 import * as Customers from './Customers'
+=======
+import * as Orders from './Orders'
+
+>>>>>>> c2bdab3631426926792a118288bd6c0a5fd6675b
 import '../stylesheet/App.css';
 
 
@@ -22,9 +27,14 @@ export default class App extends React.Component {
           <RR.Route path="adminmeals/create" component={AdminMeals.Create} />
           <RR.Route path="adminmeals/update/:id" component={AdminMeals.Update} />
 
+<<<<<<< HEAD
           <RR.Route path="customers/all" component={Customers.All} />
           <RR.Route path="customers/create" component={Customers.Create} />
           <RR.Route path="customers/update/:id" component={Customers.Update} />
+=======
+          <RR.Route path="orders/all" component={Orders.All} />
+          <RR.Route path="orders/myorder" component={Orders.One} />
+>>>>>>> c2bdab3631426926792a118288bd6c0a5fd6675b
 
 
           {/* <RR.Route path="owners/all" component={Owners.All} />
