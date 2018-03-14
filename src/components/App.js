@@ -31,7 +31,7 @@ export default class App extends React.Component {
           </RR.Route>
           <RR.Route path="register" component={Auth.Register} />
           <RR.Route path="login" component={Auth.Login} />
-          <RR.Route path="logout" component={Auth.Logout} />
+          {/* <RR.Route path="logout" component={Auth.Logout} /> */}
 
           <RR.Route path="*" component={Meals.All} />
         </RR.Route>
