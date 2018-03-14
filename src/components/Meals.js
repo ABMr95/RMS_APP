@@ -183,6 +183,9 @@ export class All extends Component {
                                 <BS.Button bsStyle='link' onClick={this.handleOrderByName}>Price</BS.Button>
                             </th>
                             <th>
+                                <BS.Button bsStyle='link' onClick={this.handleOrderByOwnerName}>Category</BS.Button>
+                            </th>
+                            <th>
                                 <BS.Button bsStyle='link' onClick={this.handleOrderByOwnerName}>options</BS.Button>
                             </th>
                         </tr>
@@ -195,6 +198,7 @@ export class All extends Component {
                                     <td>{meal.MealId}</td>
                                     <td>{meal.Name}</td>
                                     <td>{meal.Price}</td>
+                                    <td>{meal.Category.Name}</td>
                                     {/* <td><BS.Button bsStyle="link" onClick={() => this.handleFindBy(meal.OwnerId)}>{meal.Owner.Name}</BS.Button></td> */}
                                     <td>
                                         {/* <LinkContainer to={'/meals/update/' + meal.Id}><BS.Button>Update</BS.Button></LinkContainer> */}
