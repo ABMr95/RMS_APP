@@ -24,6 +24,7 @@ export default class App extends React.Component {
           <RR.Route path="adminmeals/update/:id" component={AdminMeals.Update} />
 
           <RR.Route path="orders/all" component={Orders.All} />
+          <RR.Route path="orders/myorder" component={Orders.One} />
 
 
           {/* <RR.Route path="owners/all" component={Owners.All} />
