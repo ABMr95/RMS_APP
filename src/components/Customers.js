@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import DB from './DB'
 import * as BS from 'react-bootstrap'
+import { LinkContainer } from 'react-router-bootstrap'
+
 
 export class All extends Component {
 
@@ -21,12 +23,12 @@ export class All extends Component {
         )
     }
 
-    handleDelete = (Id) => {
-        this.db.destroy(Id, this.find)
+    handleDelete = (CustomerId) => {
+        this.db.destroy(CustomerId, this.find)
     }
 
-    handleUpdate = (Id) => {
-        this.props.onSelect(<Update Id={Id} />)
+    handleUpdate = (CustomerId) => {
+        this.props.onSelect(<Update CustomerId={CustomerId} />)
     }
 
     handleFindBy = (CustomerId) => {
@@ -48,13 +50,19 @@ export class All extends Component {
                     <tbody>
                         {this.state.customers.map(
                             (customer) =>
-                                <tr key={customer.Id}>
-                                    <td>{customer.Id}</td>
-                                    <td><BS.Button bsStyle="link" onClick={() => this.handleFindBy(customer.Id)}>{customer.Name}</BS.Button></td>
-                                    {/* <td>
-                                        <BS.Button onClick={() => this.handleUpdate(customer.Id)}>Update</BS.Button>
-                                        <BS.Button onClick={() => this.handleDelete(customer.Id)}>Delete</BS.Button>
-                                    </td> */}
+                                <tr key={customer.CustomerId}>
+                                    <td>{customer.CustomerId}</td>
+                                    <td><BS.Button bsStyle="link" onClick={() => this.handleFindBy(customer.CustomerId)}>{customer.Name}</BS.Button></td>
+                                    <td>
+
+                                        <LinkContainer to={'/customers/update/' + customer.CustomerId}>
+
+                                            <BS.Button >Update</BS.Button>
+
+                                        </LinkContainer>
+                                        {/* <BS.Button onClick={() => this.handleUpdate(customer.CustomerId)}>Update</BS.Button> */}
+                                         <BS.Button onClick={() => this.handleDelete(customer.CustomerId)}>Delete</BS.Button> 
+                                    </td>
                                 </tr>
                         )}
                     </tbody>
@@ -80,7 +88,7 @@ export class One extends Component {
     }
 
     render() {
-        console.log('Owner: ', this.state.customer)
+        console.log('Customer: ', this.state.customer)
         return (
             <div>
                 {this.state.customer
@@ -90,8 +98,10 @@ export class One extends Component {
                             <tr><th>Field</th><th>Value</th></tr>
                         </thead>
                         <tbody>
-                            <tr><td>Id</td><td>{this.state.customer.Id}</td></tr>
+                            <tr><td>CustomerId</td><td>{this.state.customer.CustomerId}</td></tr>
                             <tr><td>Name</td><td>{this.state.customer.Name}</td></tr>
+                            <tr><td>MembershipId</td><td>{this.state.customer.Membership.MembershipId}</td></tr>
+                            <tr><td>AddressId</td><td>{this.state.customer.Address.AddressId}</td></tr>
                         </tbody>
                     </BS.Table>
                     :
@@ -105,8 +115,9 @@ export class One extends Component {
 export class Create extends Component {
 
     state = {
-        Id: '',
-        Name: ''
+        CustomerId: '',
+        Name: '',
+
     }
 
     db = new DB('http://localhost:63719/api/Customers')
@@ -114,14 +125,18 @@ export class Create extends Component {
     handleCreate = () => {
         this.db.create(this.state)
     }
-
-    handleId = (event) => {
-        this.setState({ Id: event.target.value })
+    handleCustomerId = (event) => {
+        this.setState({ CustomerId: event.target.value })
     }
-
     handleName = (event) => {
         this.setState({ Name: event.target.value })
     }
+    // handleMembershipId = (event) => {
+    //     this.setState({ MembershipId: event.target.value })
+    // }
+    // handleAddressId = (event) => {
+    //     this.setState({ AddressId: event.target.value })
+    //}
 
     render() {
         return (
@@ -132,13 +147,13 @@ export class Create extends Component {
                     </thead>
                     <tbody>
                         <tr>
-                            <td>Id</td>
+                            <td>CustomerId</td>
                             <td>
                                 <BS.FormControl
                                     type="text"
-                                    value={this.state.Id}
-                                    placeholder="Enter Id"
-                                    onChange={this.handleId}
+                                    value={this.state.CustomerId}
+                                    placeholder="Enter Customer Id"
+                                    onChange={this.handleCustomerId}
                                 />
                             </td>
                         </tr>
@@ -153,6 +168,32 @@ export class Create extends Component {
                                 />
                             </td>
                         </tr>
+                        {/* <tr>
+                            <td>Membership Id</td>
+                            <td> */}
+                        {/* <BS.FormControl
+                                    type="text"
+                                    value={this.state.Name}
+                                    placeholder="Enter Membership Id"
+                                    onChange={this.handleName}
+                                /> */}
+                        {/* <BS.DropdownButton title='Select Membership Id' id='owners' onSelect={this.handleOwnerId}>
+                                    {
+                                        this.state.owners.map(
+                                            owner =>
+                                                <BS.MenuItem
+                                                    key={owner.Id}
+                                                    eventKey={owner.Id}>
+                                                    {owner.Name}
+                                                </BS.MenuItem>
+                                        )
+                                    }
+                                </BS.DropdownButton>
+                            </td>
+                        </tr> */}
+
+
+
                     </tbody>
                 </BS.Table>
                 <BS.Button onClick={this.handleCreate}>Create</BS.Button>
@@ -164,7 +205,7 @@ export class Create extends Component {
 export class Update extends Component {
 
     state = {
-        Id: '',
+        CustomerId: '',
         Name: ''
     }
 
@@ -172,17 +213,17 @@ export class Update extends Component {
 
     componentDidMount() {
         this.db.findOne(
-            this.props.Id,
+            this.props.CustomerId,
             data => this.setState(data)
         )
     }
 
     handleUpdate = () => {
-        this.db.update(this.state.Id, this.state)
+        this.db.update(this.state.CustomerId, this.state)
     }
 
-    handleId = (event) => {
-        this.setState({ Id: event.target.value })
+    handleCustomerId = (event) => {
+        this.setState({ CustomerId: event.target.value })
     }
 
     handleName = (event) => {
@@ -202,9 +243,9 @@ export class Update extends Component {
                             <td>
                                 <BS.FormControl
                                     type="text"
-                                    value={this.state.Id}
+                                    value={this.state.CustomerId}
                                     placeholder="Enter Id"
-                                    onChange={this.handleId}
+                                    onChange={this.handleCustomerId}
                                 />
                             </td>
                         </tr>
