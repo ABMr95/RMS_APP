@@ -35,14 +35,14 @@ export class All extends Component {
 
     Quary = (parameters) => {
         this.buy.find(
-            (data) => this.setState({ }),
+            (data) => this.setState({}),
             parameters
         )
     }
 
     handleDelete = (Id) => {
         this.db.destroy(Id, this.find)
-        
+
     }
 
     handleUpdate = (MealId) => {
@@ -148,6 +148,12 @@ export class All extends Component {
         console.log('render: ', this.props.location.query)
         return (
             <div>
+
+                <LinkContainer to={{ pathname: '/meals/create' }}>
+                    <BS.Button>Create</BS.Button>
+                </LinkContainer>
+
+
                 <BS.Button onClick={this.handleShowAll}>Show All</BS.Button>
                 <br />
                 <BS.Form inline>
@@ -173,9 +179,8 @@ export class All extends Component {
                             }
                         }
                     }
-
                     >
-                        <BS.Button onClick={this.handleBetween}>Show with ID between Min and Max</BS.Button>
+                        <BS.Button onClick={this.handleBetween}>Show with Price between Min and Max</BS.Button>
                     </LinkContainer>
 
 
@@ -195,12 +200,14 @@ export class All extends Component {
                             query: { Name: this.state.Name }
                         }
                     } >
-                        <BS.Button onClick={this.handleSearchByName}>Search By Pet Name</BS.Button>
+                        <BS.Button onClick={this.handleSearchByName}>Search By Meal  Name</BS.Button>
                     </LinkContainer>
 
                 </BS.Form> <br />
 
                 <br />
+
+
 
 
                 <BS.Table striped bordered condensed hover>
@@ -209,10 +216,14 @@ export class All extends Component {
                             <BS.Button bsStyle='link' onClick={this.handleOrderById}>Id</BS.Button>
                         </th>
                         <th>
-                        <BS.Button bsStyle='link' onClick={this.handleOrderByName}>Name</BS.Button>
+                            <BS.Button bsStyle='link' onClick={this.handleOrderByName}>Name</BS.Button>
                         </th>
                         <th>
-                        <BS.Button bsStyle='link' onClick={this.handleOrderByName}>Price</BS.Button>
+                            <BS.Button bsStyle='link' onClick={this.handleOrderByName}>Price</BS.Button>
+                        </th>
+
+                        <th>
+                            <BS.Button bsStyle='link' onClick={this.handleOrderByName}>Category</BS.Button>
                         </th>
                         <th>
                             <BS.Button bsStyle='link' onClick={this.handleOrderByOwnerName}>options</BS.Button>
@@ -236,6 +247,8 @@ export class All extends Component {
 
                                     <td>{meal.Price}</td>
 
+                                    <td>{meal.Category.Name}</td>
+
                                     {/* <td><BS.Button bsStyle="link" onClick={() => this.handleFindBy(meal.CategoryId)}>{meal.Category.Name}</BS.Button></td> */}
 
                                     <td>
@@ -250,7 +263,7 @@ export class All extends Component {
 
                                         <BS.Button onClick={() => this.handleBuy(meal.MealId)} >Buy</BS.Button>
 
-                                        
+
 
                                     </td>
 
