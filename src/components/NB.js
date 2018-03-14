@@ -7,46 +7,6 @@ import * as RR from 'react-router'
 import '../stylesheet/App.css';
 import { LinkContainer } from 'react-router-bootstrap'
 
-// export default class NB extends Component {
-//     render() {
-//         return (
-//             <BS.Navbar inverse collapseOnSelect onSelect={this.props.onSelect}>
-//                 <BS.Navbar.Header>
-//                     <BS.Navbar.Brand>
-//                         <a href="">RMS</a>
-//                     </BS.Navbar.Brand>
-//                     <BS.Navbar.Toggle />
-//                 </BS.Navbar.Header>
-//                 <BS.Navbar.Collapse>
-//                     <BS.Nav>
-//                         <BS.NavItem eventKey={6} href="#">My Order</BS.NavItem>
-//                         <BS.NavItem eventKey={<Meals.All />} href="#">Meals</BS.NavItem>
-
-//                         <BS.NavDropdown eventKey={3} title="Search Tables" id="basic-nav-dropdown">
-//                             <BS.MenuItem eventKey={<Meals.One />} href="#">Search Meals</BS.MenuItem>
-//                         </BS.NavDropdown>
-
-//                         <BS.NavDropdown eventKey={3} title="Admin" id="basic-nav-dropdown">
-//                             <BS.MenuItem eventKey={1} href="#">Customer</BS.MenuItem>
-//                             <BS.MenuItem eventKey={<AdminMeals.All/>} href="#">Meals</BS.MenuItem>
-
-//                         </BS.NavDropdown>
-//                     </BS.Nav>
-//                     <BS.Nav pullRight>
-//                         <BS.NavItem eventKey={<Auth.Login />} href="#">Log in</BS.NavItem>
-//                         <BS.NavItem eventKey={<Auth.Register />} href="#">Register</BS.NavItem>
-                        // <BS.NavItem eventKey={<Auth.Login />} onClick={() => { sessionStorage.removeItem('token') }} >
-                        //     Logout
-                        // </BS.NavItem>
-
-//                     </BS.Nav>
-//                 </BS.Navbar.Collapse>
-//             </BS.Navbar>
-//         )
-//     }
-// }
-
-
 export default class NB extends Component {
     render() {
         return (
@@ -69,14 +29,11 @@ export default class NB extends Component {
                                 </LinkContainer>
                             </BS.NavDropdown>
 
-                            <BS.NavDropdown title="Orders" id="nav-dropdown">
-                                <LinkContainer to='/orders/all'>
-                                    <BS.NavItem >Orders all</BS.NavItem>
-                                </LinkContainer>
+                         
                                 <LinkContainer to='/orders/myorder'>
-                                    <BS.NavItem >myorder</BS.NavItem>
+                                    <BS.NavItem >My Order</BS.NavItem>
                                 </LinkContainer>
-                            </BS.NavDropdown>
+                         
 
                             <BS.NavDropdown title="Admin" id="nav-dropdown">
                                 <LinkContainer to='/adminmeals/all'>

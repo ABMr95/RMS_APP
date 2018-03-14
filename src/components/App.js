@@ -6,7 +6,7 @@ import * as Meals from './Meals'
 import * as Auth from './Auth'
 import * as AdminMeals from './AdminMeals'
 import * as Customers from './Customers'
-import * as Orders from './Orders'
+import * as MyOrder from './MyOrder'
 
 import '../stylesheet/App.css';
 
@@ -27,8 +27,7 @@ export default class App extends React.Component {
           <RR.Route path="customers/all" component={Customers.All} />
           <RR.Route path="customers/create" component={Customers.Create} />
           <RR.Route path="customers/update/:id" component={Customers.Update} />
-          <RR.Route path="orders/all" component={Orders.All} />
-          <RR.Route path="orders/myorder" component={Orders.One} />
+          <RR.Route path="orders/MyOrder" component={MyOrder.One} />
 
 
           {/* <RR.Route path="owners/all" component={Owners.All} />
