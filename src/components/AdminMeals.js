@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import DB from './DB'
 import * as BS from 'react-bootstrap'
-// import { LinkContainer } from 'react-router-bootstrap'
+import { LinkContainer } from 'react-router-bootstrap'
 
 export class All extends Component {
 
@@ -20,6 +20,7 @@ export class All extends Component {
 
 
     db = new DB('http://localhost:63719/api/Meals')
+    buy = new DB('http://localhost:63719/api/User')
 
     componentDidMount() {
         this.find()
@@ -32,12 +33,20 @@ export class All extends Component {
         )
     }
 
-    handleDelete = (Id) => {
-        this.db.destroy(Id, this.find)
+    Quary = (parameters) => {
+        this.buy.find(
+            (data) => this.setState({ }),
+            parameters
+        )
     }
 
-    handleUpdate = (Id) => {
-        this.props.onSelect(<Update Id={Id} />)
+    handleDelete = (Id) => {
+        this.db.destroy(Id, this.find)
+        
+    }
+
+    handleUpdate = (MealId) => {
+        this.props.onSelect(<Update MealId={MealId} />)
     }
 
 
@@ -71,8 +80,8 @@ export class All extends Component {
         })
     }
 
-    handleFindBy = (OwnerId) => {
-        this.find({ OwnerId: OwnerId })
+    handleFindBy = (CategoryId) => {
+        this.find({ CategoryId: CategoryId })
     }
 
     handleSearchByName = () => {
@@ -126,10 +135,17 @@ export class All extends Component {
         }
     }
 
+    handleBuy = (val) => {
+        console.log("im buying: " + val)
+        this.Quary({
+            query: "buy",
+            id: val
+        })
+    }
 
 
     render() {
-        // console.log('render: ', this.props.location.query)
+        console.log('render: ', this.props.location.query)
         return (
             <div>
                 <BS.Button onClick={this.handleShowAll}>Show All</BS.Button>
@@ -148,7 +164,7 @@ export class All extends Component {
                         onChange={this.handleMaxId}
                     />
 
-                    {/* <LinkContainer to={
+                    <LinkContainer to={
                         {
                             pathname: '/meals/all',
                             query: {
@@ -160,9 +176,8 @@ export class All extends Component {
 
                     >
                         <BS.Button onClick={this.handleBetween}>Show with ID between Min and Max</BS.Button>
-                    </LinkContainer> */}
+                    </LinkContainer>
 
-                    <BS.Button onClick={this.handleBetween}>Show with ID between Min and Max</BS.Button>
 
                 </BS.Form> <br />
 
@@ -174,22 +189,16 @@ export class All extends Component {
                         placeholder="Enter Name"
                         onChange={this.handleMealName}
                     />
-                    {/* <LinkContainer to={
+                    <LinkContainer to={
                         {
                             pathname: '/meals/all',
                             query: { Name: this.state.Name }
                         }
                     } >
                         <BS.Button onClick={this.handleSearchByName}>Search By Pet Name</BS.Button>
-                    </LinkContainer> */}
-
-                    <BS.Button onClick={this.handleSearchByName}>Search By Pet Name</BS.Button>
+                    </LinkContainer>
 
                 </BS.Form> <br />
-
-
-
-
 
                 <br />
 
@@ -227,20 +236,19 @@ export class All extends Component {
 
                                     <td>{meal.Price}</td>
 
-                                    {/* <td><BS.Button bsStyle="link" onClick={() => this.handleFindBy(meal.OwnerId)}>{meal.Owner.Name}</BS.Button></td> */}
+                                    {/* <td><BS.Button bsStyle="link" onClick={() => this.handleFindBy(meal.CategoryId)}>{meal.Category.Name}</BS.Button></td> */}
 
                                     <td>
 
-                                        {/* <LinkContainer to={'/meals/update/' + meal.Id}>
+                                        <LinkContainer to={'/adminmeals/update/' + meal.MealId}>
 
                                             <BS.Button >Update</BS.Button>
 
-                                        </LinkContainer> */}
-                                        <BS.Button  >Update</BS.Button>
+                                        </LinkContainer>
 
-                                        <BS.Button onClick={() => this.handleDelete(meal.Id)}>Delete</BS.Button>
+                                        <BS.Button onClick={() => this.handleDelete(meal.MealId)}>Delete</BS.Button>
 
-                                        <BS.Button >Buy</BS.Button>
+                                        <BS.Button onClick={() => this.handleBuy(meal.MealId)} >Buy</BS.Button>
 
                                         
 
@@ -286,7 +294,7 @@ export class One extends Component {
                         <tbody>
                             <tr><td>Id</td><td>{this.state.meal.Id}</td></tr>
                             <tr><td>Name</td><td>{this.state.meal.Name}</td></tr>
-                            <tr><td>Owner</td><td>{this.state.meal.Owner.Name}</td></tr>
+                            <tr><td>Category</td><td>{this.state.meal.Category.Name}</td></tr>
                         </tbody>
                     </BS.Table>
                     :
@@ -302,16 +310,18 @@ export class Create extends Component {
     state = {
         Id: '',
         Name: '',
-        OwnerId: '',
-        owners: []
+        Price: '',
+        Description: '',
+        CategoryId: '',
+        categories: []
     }
 
     db = new DB('http://localhost:63719/api/Meals')
-    owners = new DB('http://localhost:63719/api/Owners')
+    categories = new DB('http://localhost:63719/api/Categories')
 
     componentDidMount() {
-        this.owners.find(
-            (data) => this.setState({ owners: data }))
+        this.categories.find(
+            (data) => this.setState({ categories: data }))
     }
 
     handleCreate = () => {
@@ -326,8 +336,17 @@ export class Create extends Component {
         this.setState({ Name: event.target.value })
     }
 
-    handleOwnerId = (eventKey) => {
-        this.setState({ OwnerId: eventKey })
+    handlePrice = (event) => {
+        this.setState({ Price: parseInt(event.target.value) })
+    }
+
+    handleDescription = (event) => {
+        this.setState({ Description: event.target.value })
+    }
+
+    handleCategoryId = (eventKey) => {
+        this.setState({ CategoryId: eventKey })
+        console.log("eventkey" + eventKey)
     }
 
     render() {
@@ -360,8 +379,33 @@ export class Create extends Component {
                                 />
                             </td>
                         </tr>
+
                         <tr>
-                            <td>Owner</td>
+                            <td>Price</td>
+                            <td>
+                                <BS.FormControl
+                                    type="text"
+                                    value={this.state.Price}
+                                    placeholder="Enter Price"
+                                    onChange={this.handlePrice}
+                                />
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td>Description</td>
+                            <td>
+                                <BS.FormControl
+                                    type="text"
+                                    value={this.state.Description}
+                                    placeholder="Enter Description"
+                                    onChange={this.handleDescription}
+                                />
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td>Category</td>
                             <td>
                                 {
                                     // <FormControl componentClass="select" placeholder="select">
@@ -369,14 +413,14 @@ export class Create extends Component {
                                     //      <option value="other">...</option>
                                     // </FormControl>
                                 }
-                                <BS.DropdownButton title='Select Owner' id='owners' onSelect={this.handleOwnerId}>
+                                <BS.DropdownButton title='Select Category' id='categories' onSelect={this.handleCategoryId}>
                                     {
-                                        this.state.owners.map(
-                                            owner =>
+                                        this.state.categories.map(
+                                            category =>
                                                 <BS.MenuItem
-                                                    key={owner.Id}
-                                                    eventKey={owner.Id}>
-                                                    {owner.Name}
+                                                    key={category.CategoryId}
+                                                    eventKey={category.CategoryId}>
+                                                    {category.Name}
                                                 </BS.MenuItem>
                                         )
                                     }
@@ -394,14 +438,16 @@ export class Create extends Component {
 export class Update extends Component {
 
     state = {
-        Id: '',
+        MealId: '',
         Name: '',
-        OwnerId: '',
-        owners: []
+        Price: '',
+        Description: '',
+        CategoryId: '',
+        categories: []
     }
 
     db = new DB('http://localhost:63719/api/Meals')
-    owners = new DB('http://localhost:63719/api/Owners')
+    categories = new DB('http://localhost:63719/api/Categories')
 
     componentDidMount() {
         this.db.findOne(
@@ -409,26 +455,35 @@ export class Update extends Component {
             this.props.params.id,
             data => this.setState(data)
         )
-        this.owners.find(
-            data => this.setState({ owners: data })
+        this.categories.find(
+            data => this.setState({ categories: data })
         )
     }
 
 
     handleUpdate = () => {
-        this.db.update(this.state.Id, this.state)
+        this.db.update(this.state.MealId, this.state)
     }
 
     handleId = (event) => {
-        this.setState({ Id: event.target.value })
+        this.setState({ MealId: event.target.value })
     }
 
     handleName = (event) => {
         this.setState({ Name: event.target.value })
     }
 
-    handleOwnerId = (eventKey) => {
-        this.setState({ OwnerId: eventKey })
+    handlePrice = (event) => {
+        this.setState({ Price: parseInt(event.target.value) })
+    }
+
+    handleDescription = (event) => {
+        this.setState({ Description: event.target.value })
+    }
+
+
+    handleCategoryId = (eventKey) => {
+        this.setState({ CategoryId: eventKey })
     }
 
     render() {
@@ -440,12 +495,12 @@ export class Update extends Component {
                     </thead>
                     <tbody>
                         <tr>
-                            <td>Id</td>
+                            <td>MealId</td>
                             <td>
                                 <BS.FormControl
                                     type="text"
-                                    value={this.state.Id}
-                                    placeholder="Enter Id"
+                                    value={this.state.MealId}
+                                    placeholder="Enter MealId"
                                     onChange={this.handleId}
                                 />
                             </td>
@@ -461,17 +516,48 @@ export class Update extends Component {
                                 />
                             </td>
                         </tr>
+
                         <tr>
-                            <td>Owner</td>
+                            <td>Price</td>
                             <td>
-                                <BS.DropdownButton defaultValue={this.state.OwnerId} title='Select Owner' id='owners' onSelect={this.handleOwnerId}>
+                                <BS.FormControl
+                                    type="text"
+                                    value={this.state.Price}
+                                    placeholder="Enter Price"
+                                    onChange={this.handlePrice}
+                                />
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td>Description</td>
+                            <td>
+                                <BS.FormControl
+                                    type="text"
+                                    value={this.state.Description}
+                                    placeholder="Enter Description"
+                                    onChange={this.handleDescription}
+                                />
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td>Category</td>
+                            <td>
+                                {
+                                    // <FormControl componentClass="select" placeholder="select">
+                                    //      <option value="select">select</option>
+                                    //      <option value="other">...</option>
+                                    // </FormControl>
+                                }
+                                <BS.DropdownButton title='Select Category' id='categories' onSelect={this.handleCategoryId}>
                                     {
-                                        this.state.owners.map(
-                                            owner =>
+                                        this.state.categories.map(
+                                            category =>
                                                 <BS.MenuItem
-                                                    key={owner.Id}
-                                                    eventKey={owner.Id}>
-                                                    {owner.Name}
+                                                    key={category.CategoryId}
+                                                    eventKey={category.CategoryId}>
+                                                    {category.Name}
                                                 </BS.MenuItem>
                                         )
                                     }

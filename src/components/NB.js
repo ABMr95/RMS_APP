@@ -1,45 +1,126 @@
 import React, { Component } from 'react';
-import * as Meals from './Products';
-import * as Auths from './Auths'
+import * as Meals from './Meals';
+import * as Auth from './Auth'
 import * as BS from 'react-bootstrap';
 import * as AdminMeals from './AdminMeals'
+import * as RR from 'react-router'
 import '../stylesheet/App.css';
+import { LinkContainer } from 'react-router-bootstrap'
+
+// export default class NB extends Component {
+//     render() {
+//         return (
+//             <BS.Navbar inverse collapseOnSelect onSelect={this.props.onSelect}>
+//                 <BS.Navbar.Header>
+//                     <BS.Navbar.Brand>
+//                         <a href="">RMS</a>
+//                     </BS.Navbar.Brand>
+//                     <BS.Navbar.Toggle />
+//                 </BS.Navbar.Header>
+//                 <BS.Navbar.Collapse>
+//                     <BS.Nav>
+//                         <BS.NavItem eventKey={6} href="#">My Order</BS.NavItem>
+//                         <BS.NavItem eventKey={<Meals.All />} href="#">Meals</BS.NavItem>
+
+//                         <BS.NavDropdown eventKey={3} title="Search Tables" id="basic-nav-dropdown">
+//                             <BS.MenuItem eventKey={<Meals.One />} href="#">Search Meals</BS.MenuItem>
+//                         </BS.NavDropdown>
+
+//                         <BS.NavDropdown eventKey={3} title="Admin" id="basic-nav-dropdown">
+//                             <BS.MenuItem eventKey={1} href="#">Customer</BS.MenuItem>
+//                             <BS.MenuItem eventKey={<AdminMeals.All/>} href="#">Meals</BS.MenuItem>
+
+//                         </BS.NavDropdown>
+//                     </BS.Nav>
+//                     <BS.Nav pullRight>
+//                         <BS.NavItem eventKey={<Auth.Login />} href="#">Log in</BS.NavItem>
+//                         <BS.NavItem eventKey={<Auth.Register />} href="#">Register</BS.NavItem>
+                        // <BS.NavItem eventKey={<Auth.Login />} onClick={() => { sessionStorage.removeItem('token') }} >
+                        //     Logout
+                        // </BS.NavItem>
+
+//                     </BS.Nav>
+//                 </BS.Navbar.Collapse>
+//             </BS.Navbar>
+//         )
+//     }
+// }
+
 
 export default class NB extends Component {
     render() {
         return (
-            <BS.Navbar inverse collapseOnSelect onSelect={this.props.onSelect}>
-                <BS.Navbar.Header>
-                    <BS.Navbar.Brand>
-                        <a href="">RMS</a>
-                    </BS.Navbar.Brand>
-                    <BS.Navbar.Toggle />
-                </BS.Navbar.Header>
-                <BS.Navbar.Collapse>
-                    <BS.Nav>
-                        <BS.NavItem eventKey={6} href="#">My Order</BS.NavItem>
-                        <BS.NavItem eventKey={<Meals.All />} href="#">Meals</BS.NavItem>
+            <div>
+                <BS.Navbar inverse collapseOnSelect onSelect={this.props.onSelect}>
+                    <BS.Navbar.Header>
+                        <BS.Navbar.Brand>
+                            <a href="#">RMS</a>
+                        </BS.Navbar.Brand>
+                        <BS.Navbar.Toggle />
+                    </BS.Navbar.Header>
+                    <BS.Navbar.Collapse>
+                        <BS.Nav>
+                            <BS.NavDropdown title="Meals" id="nav-dropdown">
+                                <LinkContainer to='/meals/all'>
+                                    <BS.NavItem >Meals</BS.NavItem>
+                                </LinkContainer>
+                                <LinkContainer to='/meals/create'>
+                                    <BS.NavItem >Create</BS.NavItem>
+                                </LinkContainer>
+                            </BS.NavDropdown>
 
-                        <BS.NavDropdown eventKey={3} title="Search Tables" id="basic-nav-dropdown">
-                            <BS.MenuItem eventKey={<Meals.One />} href="#">Search Meals</BS.MenuItem>
-                        </BS.NavDropdown>
+                            <BS.NavDropdown title="Orders" id="nav-dropdown">
+                                <LinkContainer to='/orders/all'>
+                                    <BS.NavItem >Orders all</BS.NavItem>
+                                </LinkContainer>
+                                <LinkContainer to='/orders/create'>
+                                    <BS.NavItem >Create</BS.NavItem>
+                                </LinkContainer>
+                            </BS.NavDropdown>
 
-                        <BS.NavDropdown eventKey={3} title="Admin" id="basic-nav-dropdown">
-                            <BS.MenuItem eventKey={1} href="#">Customer</BS.MenuItem>
-                            <BS.MenuItem eventKey={<AdminMeals.All/>} href="#">Meals</BS.MenuItem>
+                            <BS.NavDropdown title="Admin" id="nav-dropdown">
+                                <LinkContainer to='/adminmeals/all'>
+                                    <BS.NavItem >Meals</BS.NavItem>
+                                </LinkContainer>
+                                <LinkContainer to='/adminmeals/create'>
+                                    <BS.NavItem >Create</BS.NavItem>
+                                </LinkContainer>
+                            </BS.NavDropdown>
+                            
+                            {/* <BS.NavDropdown title="Owners" id="nav-dropdown">
+                                <LinkContainer to='/owners/all'>
+                                    <BS.NavItem >Owners</BS.NavItem>
+                                </LinkContainer>
+                                <LinkContainer to='/owners/create'>
+                                    <BS.NavItem >Create</BS.NavItem>
+                                </LinkContainer>
+                            </BS.NavDropdown> */}
 
-                        </BS.NavDropdown>
-                    </BS.Nav>
-                    <BS.Nav pullRight>
-                        <BS.NavItem eventKey={<Auths.Login />} href="#">Log in</BS.NavItem>
-                        <BS.NavItem eventKey={<Auths.Register />} href="#">Register</BS.NavItem>
-                        <BS.NavItem eventKey={<Auths.Login />} onClick={() => { sessionStorage.removeItem('token') }} >
-                            Logout
-                        </BS.NavItem>
 
-                    </BS.Nav>
-                </BS.Navbar.Collapse>
-            </BS.Navbar>
+                        </BS.Nav>
+
+                        <BS.Nav pullRight>
+
+                            <LinkContainer to='/login'>
+                                <BS.NavItem >Login</BS.NavItem>
+                            </LinkContainer>
+                            <BS.NavItem onClick={() => {
+                                sessionStorage.removeItem('token')
+                                RR.browserHistory.push("/login")
+                            }}
+                            >
+                                Logout
+                            </BS.NavItem>
+                            <LinkContainer to='/register'>
+                                <BS.NavItem >Register</BS.NavItem>
+                            </LinkContainer>
+                        </BS.Nav>
+
+
+                    </BS.Navbar.Collapse>
+                </BS.Navbar>
+                {this.props.children}
+            </div>
         )
     }
 }

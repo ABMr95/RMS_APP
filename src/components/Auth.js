@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
+import * as Meals from './Meals'
+// import * as Owners from './Owners'
 import * as BS from 'react-bootstrap'
-// import * as RR from 'react-router'
+import { LinkContainer } from 'react-router-bootstrap'
+import * as RR from 'react-router'
 
 export class Register extends Component {
     state = {
@@ -43,7 +46,7 @@ export class Register extends Component {
     handleRegister = () => {
         this.register(
             this.state,
-            console.log("account has been registred")
+            ()=> RR.browserHistory.push("/login")
         )
     }
 
@@ -140,7 +143,7 @@ export class Login extends Component {
             (data) => {
                 sessionStorage.setItem('token', data.access_token)
                 console.log(sessionStorage.getItem('token'))
-                // RR.browserHistory.push("/pets/all")
+                RR.browserHistory.push("/meals/all")
             }
         )
     }
