@@ -152,116 +152,62 @@ export class All extends Component {
                 <BS.Button onClick={this.handleShowAll}>Show All</BS.Button>
                 <br />
                 <BS.Form inline>
-                    <BS.FormControl
-                        type="text"
-                        value={this.state.MinId}
-                        placeholder="Enter Min Id"
-                        onChange={this.handleMinId}
-                    />
-                    <BS.FormControl
-                        type="text"
-                        value={this.state.MaxId}
-                        placeholder="Enter Max Id"
-                        onChange={this.handleMaxId}
-                    />
+                    <BS.FormControl type="text" value={this.state.MinId} placeholder="Enter Min Id" onChange={this.handleMinId}/>
+                    <BS.FormControl type="text" value={this.state.MaxId} placeholder="Enter Max Id" onChange={this.handleMaxId}/>
 
-                    <LinkContainer to={
-                        {
-                            pathname: '/meals/all',
-                            query: {
-                                MinId: this.state.MinId,
-                                MaxId: this.state.MaxId
-                            }
-                        }
-                    }
-
-                    >
+                    <LinkContainer to={{ pathname: '/meals/all', query: { MinId: this.state.MinId, MaxId: this.state.MaxId } }}>
                         <BS.Button onClick={this.handleBetween}>Show with ID between Min and Max</BS.Button>
                     </LinkContainer>
-
-
-                </BS.Form> <br />
-
-
-                <BS.Form inline>
-                    <BS.FormControl
-                        type="text"
-                        value={this.state.Name}
-                        placeholder="Enter Name"
-                        onChange={this.handleMealName}
-                    />
-                    <LinkContainer to={
-                        {
-                            pathname: '/meals/all',
-                            query: { Name: this.state.Name }
-                        }
-                    } >
-                        <BS.Button onClick={this.handleSearchByName}>Search By Pet Name</BS.Button>
-                    </LinkContainer>
-
-
-                </BS.Form> <br />
-
+                </BS.Form>
                 <br />
 
+                <BS.Form inline>
+                    <BS.FormControl type="text" value={this.state.Name} placeholder="Enter Name" onChange={this.handleMealName}/>
+                    <LinkContainer to={ { pathname: '/meals/all', query: { Name: this.state.Name } }}>
+                        <BS.Button onClick={this.handleSearchByName}>Search By Pet Name</BS.Button>
+                    </LinkContainer>
+                </BS.Form>
+                <br />
+                <br />
 
                 <BS.Table striped bordered condensed hover>
-                    <thead> <tr>
-                        <th>
-                            <BS.Button bsStyle='link' onClick={this.handleOrderById}>Id</BS.Button>
-                        </th>
-                        <th>
-                        <BS.Button bsStyle='link' onClick={this.handleOrderByName}>Name</BS.Button>
-                        </th>
-                        <th>
-                        <BS.Button bsStyle='link' onClick={this.handleOrderByName}>Price</BS.Button>
-                        </th>
-                        <th>
-                            <BS.Button bsStyle='link' onClick={this.handleOrderByOwnerName}>options</BS.Button>
-                        </th>
-
-
-                    </tr>
+                    <thead>
+                        <tr>
+                            <th>
+                                <BS.Button bsStyle='link' onClick={this.handleOrderById}>Id</BS.Button>
+                            </th>
+                            <th>
+                                <BS.Button bsStyle='link' onClick={this.handleOrderByName}>Name</BS.Button>
+                            </th>
+                            <th>
+                                <BS.Button bsStyle='link' onClick={this.handleOrderByName}>Price</BS.Button>
+                            </th>
+                            <th>
+                                <BS.Button bsStyle='link' onClick={this.handleOrderByOwnerName}>Category</BS.Button>
+                            </th>
+                            <th>
+                                <BS.Button bsStyle='link' onClick={this.handleOrderByOwnerName}>options</BS.Button>
+                            </th>
+                        </tr>
                     </thead>
 
                     <tbody>
-
                         {this.state.meals.map(
-
                             (meal) =>
-
                                 <tr key={meal.MealId}>
-
                                     <td>{meal.MealId}</td>
-
                                     <td>{meal.Name}</td>
-
                                     <td>{meal.Price}</td>
-
+                                    <td>{meal.Category.Name}</td>
                                     {/* <td><BS.Button bsStyle="link" onClick={() => this.handleFindBy(meal.OwnerId)}>{meal.Owner.Name}</BS.Button></td> */}
-
                                     <td>
-
-                                        {/* <LinkContainer to={'/meals/update/' + meal.Id}>
-
-                                            <BS.Button >Update</BS.Button>
-
-                                        </LinkContainer> */}
-
+                                        {/* <LinkContainer to={'/meals/update/' + meal.Id}><BS.Button>Update</BS.Button></LinkContainer> */}
                                         {/* <BS.Button onClick={() => this.handleDelete(meal.Id)}>Delete</BS.Button> */}
-
-                                        <BS.Button onClick={() => this.handleBuy(meal.MealId)} >Buy</BS.Button>
-
-                                        
-
+                                        <BS.Button onClick={() => this.handleBuy(meal.MealId)}>Buy</BS.Button>
                                     </td>
-
                                 </tr>
-
                         )}
-
                     </tbody>
-
                 </BS.Table>
             </div>
         )
