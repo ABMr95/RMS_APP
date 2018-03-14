@@ -73,8 +73,8 @@ export default class NB extends Component {
                                 <LinkContainer to='/orders/all'>
                                     <BS.NavItem >Orders all</BS.NavItem>
                                 </LinkContainer>
-                                <LinkContainer to='/orders/create'>
-                                    <BS.NavItem >Create</BS.NavItem>
+                                <LinkContainer to='/orders/myorder'>
+                                    <BS.NavItem >myorder</BS.NavItem>
                                 </LinkContainer>
                             </BS.NavDropdown>
 
@@ -86,7 +86,7 @@ export default class NB extends Component {
                                     <BS.NavItem >Create</BS.NavItem>
                                 </LinkContainer>
                             </BS.NavDropdown>
-                            
+
                             {/* <BS.NavDropdown title="Owners" id="nav-dropdown">
                                 <LinkContainer to='/owners/all'>
                                     <BS.NavItem >Owners</BS.NavItem>
