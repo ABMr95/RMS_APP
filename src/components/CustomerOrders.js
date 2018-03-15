@@ -25,7 +25,7 @@ export class All extends Component {
 
     componentDidMount() {
         this.findCurrentUser()
-        this.find()
+        
         
         
     }
@@ -46,9 +46,19 @@ export class All extends Component {
 
     findCurrentUser = async (parameters) => {
         await this.dbUser.find(
-            (data) => this.setState({ user: data }),
+            (data) => this.findOrder(data.CustomerId),
             {
                 query: "customer"
+            }
+        )
+        
+    }
+
+    findOrder = async (val) => {
+        await this.db.find(
+            (data) => this.setState({ orders: data }),
+            {
+                CustomerID: val
             }
         )
         
