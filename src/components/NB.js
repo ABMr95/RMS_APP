@@ -72,12 +72,12 @@ export default class NB extends Component {
 
                         <BS.NavDropdown title="My Account" id="nav-dropdown">
 
-                                <LinkContainer to='/customerorders/myorder'>
-                                    <BS.NavItem >My Orders</BS.NavItem>
+                                <LinkContainer to='customerorders/all'>
+                                    <BS.NavItem >My Orders List</BS.NavItem>
                                 </LinkContainer>
 
                                 <LinkContainer to='/orders/myorder'>
-                                    <BS.NavItem >My Order</BS.NavItem>
+                                    <BS.NavItem >My cart</BS.NavItem>
                                 </LinkContainer>
 
                                 <LinkContainer to='customerinfo/update/1'>
