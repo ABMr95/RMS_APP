@@ -24,7 +24,6 @@ export class All extends Component {
 
     componentDidMount() {
         this.find()
-
     }
 
     find = (parameters) => {
@@ -433,6 +432,3 @@ export class One extends Component {
         )
     }
 }
-
-
-
