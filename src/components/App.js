@@ -10,9 +10,13 @@ import * as AdminOrderItems from './AdminOrderItems'
 import * as AdminCustomers from './AdminCustomer'
 import * as AdminCategory from './AdminCategory'
 
+import * as CustomerInfo from './CustomerInfo'
+import * as CustomerOrders from './CustomerOrders'
+import * as MyOrder from './MyOrder'
+
 
 import * as Customers from './Customers'
-import * as MyOrder from './MyOrder'
+
 
 import '../stylesheet/App.css';
 
@@ -31,6 +35,13 @@ export default class App extends React.Component {
           <RR.Route path="customers/create" component={Customers.Create} />
           <RR.Route path="customers/update/:id" component={Customers.Update} />
           <RR.Route path="orders/MyOrder" component={MyOrder.One} />
+
+
+          <RR.Route path="customerorders/all" component={CustomerOrders.All} />
+          <RR.Route path="customerinfo/update/:id" component={CustomerInfo.Update} />
+
+
+
 
           {/* ADMIN USER */}
 
