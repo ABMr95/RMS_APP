@@ -57,12 +57,7 @@ export default class App extends React.Component {
           <RR.Route path="admincategory/update/:id" component={AdminCategory.Update} />
 
          
-
-
-          {/* <RR.Route path="owners/all" component={Owners.All} />
-          <RR.Route path="owners/create" component={Owners.Create} />
-          <RR.Route path="owners/update/:id" component={Owners.Update} /> */}
-
+          {/* Utils */}
           
           <RR.Route path="users" component={Meals.All}>
             <RR.Route path="/user/:userId" component={Meals.All} />
