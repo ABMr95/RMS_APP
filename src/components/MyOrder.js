@@ -270,23 +270,33 @@ export class One extends Component {
 
     state = {
         order: null,
-        OrderItems: [],
-        customerId: 1
+        OrderItems: []
     }
 
     db = new DB('http://localhost:63719/api/Orders')
-    // db2 = new DB('http://localhost:63719/api/OrderItems')
     dbUser = new DB('http://localhost:63719/api/User')
 
     componentDidMount() {
-        this.find()
+        this.findCurrentUser()
         this.findOrderItem()
     }
 
-    find = async (parameters) => {
-        await this.db.findOne(
-            2,
-            (data) => this.setState({ order: data })
+    // find = async (parameters) => {
+    //     await this.db.findOne(
+    //         2,
+    //         (data) => this.setState({ order: data })
+    //     )
+    // }
+
+    findCurrentUser = async (parameters) => {
+        await this.dbUser.find(
+            (data) => this.db.findOne(
+                data.CustomerId,
+                data => this.setState({ order: data })
+            ),
+            {
+                query: "customer"
+            }
         )
     }
 
@@ -324,23 +334,6 @@ export class One extends Component {
 
     }
 
-    // find3 = async () =>{
-    //     return await fetch('http://localhost:63719/api/User?query=orderitems')
-    //         .then((response) => response.json())
-    //         .then((responseJson) => {
-    //             console.log(responseJson)
-
-    //             this.setState({
-    //                 OrderItems: responseJson
-    //             }, function () {
-
-    //             });
-
-    //         })
-    //         .catch((error) => {
-    //             console.error(error);
-    //         });
-    // }
 
 
 
