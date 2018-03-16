@@ -37,8 +37,8 @@ export default class NB extends Component {
                                     <BS.NavItem >Meals</BS.NavItem>
                                 </LinkContainer>
 
-                                <LinkContainer to='/customers/all'>
-                                    <BS.NavItem >customers</BS.NavItem>
+                                <LinkContainer to='/admincustomers/all'>
+                                    <BS.NavItem >Customers</BS.NavItem>
                                 </LinkContainer>
 
 
