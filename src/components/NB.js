@@ -80,7 +80,7 @@ export default class NB extends Component {
                                     <BS.NavItem >My cart</BS.NavItem>
                                 </LinkContainer>
 
-                                <LinkContainer to='customerinfo/update/1'>
+                                <LinkContainer to='customerinfo/one'>
                                     <BS.NavItem >Info setting</BS.NavItem>
                                 </LinkContainer>
 

@@ -38,7 +38,8 @@ export default class App extends React.Component {
 
 
           <RR.Route path="customerorders/all" component={CustomerOrders.All} />
-          <RR.Route path="customerinfo/update/:id" component={CustomerInfo.Update} />
+          <RR.Route path="customerinfo/update" component={CustomerInfo.Update} />
+          <RR.Route path="customerinfo/one" component={CustomerInfo.One} />
 
 
 
