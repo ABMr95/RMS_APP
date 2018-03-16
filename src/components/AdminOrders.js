@@ -4,7 +4,6 @@ import * as BS from 'react-bootstrap'
 import { LinkContainer } from 'react-router-bootstrap'
 
 export class All extends Component {
-
     state = {
         orders: [],
         OrderId: '',
@@ -14,18 +13,10 @@ export class All extends Component {
         OrderReady: '',
         OrderDelivered: '',
         OrderType: '',
-        //CategoryName: '',
-        Column: '',
-        Order: '',
-        //ToggleCustomerID: false,
-        //ToggleName: false,
-        //TogglePrice: false,
-        //ToggleCategory: false
+        CustomerName: '',
     }
 
-    // small bug in the order
-    db = new DB('http://localhost:63719/api/Meals')
-    buy = new DB('http://localhost:63719/api/User')
+    db = new DB('http://localhost:63719/api/Orders')
 
     componentDidMount() {
         this.find()
@@ -38,281 +29,61 @@ export class All extends Component {
         )
     }
 
-    Quary = (parameters) => {
-        this.buy.find(
-            (data) => this.setState({}),
-            parameters
-        )
-    }
-
     handleDelete = (OrderId) => {
         this.db.destroy(OrderId, this.find)
 
     }
 
-    handleUpdate = (MealId) => {
-        this.props.onSelect(<Update MealId={MealId} />)
+    handleUpdate = (OrderId) => {
+        this.props.onSelect(<Update OrderId={OrderId} />)
     }
 
-
-    // handleMinPrice = (event) => {
-    //     this.setState({ MinPrice: event.target.value })
-    // }
-
-    // handleMaxPrice = (event) => {
-    //     this.setState({ MaxPrice: event.target.value })
-    // }
-
-    handleMealName = (event) => {
-        this.setState({ Name: event.target.value })
+    handleCustomerText = (event) => {
+        this.setState({ CustomerName: event.target.value })
     }
-
-    handleCategoryText = (event) => {
-        this.setState({ CategoryName: event.target.value })
-    }
-
-    handleColumn = (event) => {
-        this.setState({ Column: event.target.value })
-    }
-
-    handleOrder = (event) => {
-        this.setState({ Order: event.target.value })
-    }
-
-    handleShowAll = () => {
-        this.find()
-    }
-
-    handleBetween = () => {
-        this.find({
-            MinPrice: this.state.MinPrice, MaxPrice: this.state.MaxPrice,
-        })
-    }
-
-    handleFindBy = (CategoryId) => {
-        this.find({ CategoryId: CategoryId })
-    }
-
-    handleSearchByName = () => {
-        this.find({
-            Name: this.state.Name
-        })
-    }
-
-    handleSearchByCategory = () => {
-        this.find({
-            Category: this.state.CategoryName
-        })
-    }
-
-    handleOrderById = () => {
-        if (this.state.ToggleId) {
-            this.find({
-                Column: "Id", Order: "ASC",
-            })
-            this.setState({ ToggleId: !this.state.ToggleId, Order: "ASC" })
-        }
-        else {
-            this.find({
-                Column: "Id", Order: "DSC",
-            })
-            this.setState({ ToggleId: !this.state.ToggleId, Order: "DESC" })
-        }
-    }
-
-    handleOrderByName = () => {
-        if (this.state.ToggleName) {
-            this.find({
-                Column: "Name", Order: "ASC",
-            })
-            this.setState({ ToggleName: !this.state.ToggleName, Order: "ASC" })
-        }
-        else {
-            this.find({
-                Column: "Name", Order: "DSC",
-            })
-            this.setState({ ToggleName: !this.state.ToggleName, Order: "DESC" })
-        }
-    }
-
-    handleOrderByPrice = () => {
-        if (this.state.TogglePrice) {
-            this.find({
-                Column: "Price", Order: "ASC",
-            })
-            this.setState({ TogglePrice: !this.state.TogglePrice, Order: "ASC" })
-        }
-        else {
-            this.find({
-                Column: "Price", Order: "DSC",
-            })
-            this.setState({ TogglePrice: !this.state.TogglePrice, Order: "DESC" })
-        }
-    }
-
-    handleOrderByCategory = () => {
-        if (this.state.ToggleCategory) {
-            this.find({
-                Column: "Category", Order: "ASC",
-            })
-            this.setState({ ToggleCategory: !this.state.ToggleCategory, Order: "ASC" })
-        }
-        else {
-            this.find({
-                Column: "Category", Order: "DSC",
-            })
-            this.setState({ ToggleCategory: !this.state.ToggleCategory, Order: "DESC" })
-        }
-    }
-
-    handleBuy = (val) => {
-        console.log("im buying: " + val)
-        this.Quary({
-            query: "buy",
-            id: val
-        })
-    }
-
 
     render() {
         console.log('render: ', this.props.location.query)
         return (
             <div>
-                <h1>Admin Meals</h1>
+                <h1>Admin Orders</h1>
 
-                <LinkContainer to={{ pathname: '/adminmeals/create' }}>
+                <LinkContainer to={{ pathname: '/adminorders/create' }}>
                     <BS.Button>Create</BS.Button>
                 </LinkContainer>
 
-
-                <BS.Button onClick={this.handleShowAll}>Show All</BS.Button>
-                <br />
-                <BS.Form inline>
-                    <BS.FormControl
-                        type="text"
-                        value={this.state.MinPrice}
-                        placeholder="Enter Min Id"
-                        onChange={this.handleMinPrice}
-                    />
-                    <BS.FormControl
-                        type="text"
-                        value={this.state.MaxPrice}
-                        placeholder="Enter Max Id"
-                        onChange={this.handleMaxPrice}
-                    />
-
-                    <LinkContainer to={
-                        {
-                            pathname: '/adminmeals/all',
-                            query: {
-                                MinPrice: this.state.MinPrice,
-                                MaxPrice: this.state.MaxPrice
-                            }
-                        }
-                    }
-                    >
-                        <BS.Button onClick={this.handleBetween}>Show with Price between Min and Max</BS.Button>
-                    </LinkContainer>
-
-
-                </BS.Form> <br />
-
-
-                <BS.Form inline>
-                    <BS.FormControl
-                        type="text"
-                        value={this.state.Name}
-                        placeholder="Enter Name"
-                        onChange={this.handleMealName}
-                    />
-                    <LinkContainer to={
-                        {
-                            pathname: '/adminmeals/all',
-                            query: { Name: this.state.Name }
-                        }
-                    } >
-                        <BS.Button onClick={this.handleSearchByName}>Search By Meal  Name</BS.Button>
-                    </LinkContainer>
-
-                </BS.Form> <br />
-
-                <br />
-
-                <BS.Form inline>
-                    <BS.FormControl
-                        type="text"
-                        value={this.state.CategoryName}
-                        placeholder="Enter CategoryName"
-                        onChange={this.handleCategoryText}
-                    />
-                    <LinkContainer to={
-                        {
-                            pathname: '/adminmeals/all',
-                            query: { CategoryName: this.state.CategoryName }
-                        }
-                    } >
-                        <BS.Button onClick={this.handleSearchByCategory}>Search By Category Name</BS.Button>
-                    </LinkContainer>
-
-                </BS.Form> <br />
-
-
-
-
+                
                 <BS.Table striped bordered condensed hover>
                     <thead> <tr>
-                        <th>
-                            <BS.Button bsStyle='link' onClick={this.handleOrderById}>Id</BS.Button>
-                        </th>
-                        <th>
-                            <BS.Button bsStyle='link' onClick={this.handleOrderByName}>Name</BS.Button>
-                        </th>
-                        <th>
-                            <BS.Button bsStyle='link' onClick={this.handleOrderByPrice}>Price</BS.Button>
-                        </th>
-
-                        <th>
-                            <BS.Button bsStyle='link' onClick={this.handleOrderByCategory}>Category</BS.Button>
-                        </th>
-                        <th>
-                            <BS.Button bsStyle='link' onClick={this.handleOrderByPrice}>options</BS.Button>
-                        </th>
-
-
+                        <th>Id</th><th>Status</th><th>OrderDate</th><th>OrderReady</th><th>OrderDelivered</th><th>OrderType</th><th>Customer</th>
                     </tr>
                     </thead>
-
                     <tbody>
 
                         {this.state.orders.map(
 
-                            (meal) =>
+                            (order) =>
 
-                                <tr key={meal.MealId}>
-
-                                    <td>{meal.MealId}</td>
-
-                                    <td>{meal.Name}</td>
-
-                                    <td>{meal.Price}</td>
-
-                                    <td>{meal.Category.Name}</td>
+                                <tr key={order.OrderId}>
+                                    <td>{order.OrderId}</td>
+                                    <td>{order.Status}</td>
+                                    <td>{order.OrderDate}</td>
+                                    <td>{order.OrderReady}</td>
+                                    <td>{order.OrderDelivered}</td>
+                                    <td>{order.OrderType}</td>
+                                    <td>{order.Customer.Name}</td>
 
                                     {/* <td><BS.Button bsStyle="link" onClick={() => this.handleFindBy(meal.CategoryId)}>{meal.Category.Name}</BS.Button></td> */}
 
                                     <td>
 
-                                        <LinkContainer to={'/adminmeals/update/' + meal.MealId}>
+                                        <LinkContainer to={'/adminorders/update/' + order.OrderId}>
 
                                             <BS.Button >Update</BS.Button>
 
                                         </LinkContainer>
 
-                                        <BS.Button onClick={() => this.handleDelete(meal.MealId)}>Delete</BS.Button>
-
-                                        <BS.Button onClick={() => this.handleBuy(meal.MealId)} >Buy</BS.Button>
-
-
+                                        <BS.Button onClick={() => this.handleDelete(order.OrderId)}>Delete</BS.Button>
 
                                     </td>
 
@@ -331,7 +102,7 @@ export class All extends Component {
 export class One extends Component {
 
     state = {
-        meal: null
+        order: null
     }
 
     db = new DB('http://localhost:63719/api/Orders')
@@ -339,24 +110,28 @@ export class One extends Component {
     componentDidMount() {
         this.db.findOne(
             this.props.OrderId,
-            (data) => this.setState({ meal: data })
+            (data) => this.setState({ order: data })
         )
     }
 
     render() {
-        console.log('Pet: ', this.state.meal)
+        console.log('Order: ', this.state.order)
         return (
             <div>
-                {this.state.meal
+                {this.state.order
                     ?
                     <BS.Table striped bordered condensed hover>
                         <thead>
                             <tr><th>Field</th><th>Value</th></tr>
                         </thead>
                         <tbody>
-                            <tr><td>Id</td><td>{this.state.meal.OrderId}</td></tr>
-                            <tr><td>Name</td><td>{this.state.meal.Name}</td></tr>
-                            <tr><td>Category</td><td>{this.state.meal.Category.Name}</td></tr>
+                            <tr><td>Id</td><td>{this.state.order.OrderId}</td></tr>
+                            <tr><td>Status</td><td>{this.state.order.Status}</td></tr>
+                            <tr><td>OrderDate</td><td>{this.state.order.OrderDate}</td></tr>
+                            <tr><td>OrderReady</td><td>{this.state.order.OrderReady}</td></tr>
+                            <tr><td>OrderDelivered</td><td>{this.state.order.OrderDelivered}</td></tr>
+                            <tr><td>OrderType</td><td>{this.state.order.OrderType}</td></tr>
+                            <tr><td>Customer</td><td>{this.state.order.Customer.Name}</td></tr>
                         </tbody>
                     </BS.Table>
                     :
@@ -371,19 +146,21 @@ export class Create extends Component {
 
     state = {
         OrderId: '',
-        Name: '',
-        Price: '',
-        Description: '',
-        CategoryId: '',
-        categories: []
+        CustomerID: '',
+        Status: '',
+        OrderDate: '',
+        OrderReady: '',
+        OrderDelivered: '',
+        OrderType: '',
+        customers: []
     }
 
     db = new DB('http://localhost:63719/api/Orders')
-    //categories = new DB('http://localhost:63719/api/Categories')
+    customers = new DB('http://localhost:63719/api/Customers')
 
     componentDidMount() {
-        this.categories.find(
-            (data) => this.setState({ categories: data }))
+        this.customers.find(
+            (data) => this.setState({ customers: data }))
     }
 
     handleCreate = () => {
@@ -394,20 +171,24 @@ export class Create extends Component {
         this.setState({ OrderId: event.target.value })
     }
 
-    handleName = (event) => {
-        this.setState({ Name: event.target.value })
+    handleStatus = (event) => {
+        this.setState({ Status: event.target.value })
     }
 
-    handlePrice = (event) => {
-        this.setState({ Price: parseInt(event.target.value) })
+    handleOrderDate = (event) => {
+        this.setState({ OrderDate: event.target.value })
     }
 
-    handleDescription = (event) => {
-        this.setState({ Description: event.target.value })
+    handleOrderReady = (event) => {
+        this.setState({ OrderReady: event.target.value })
     }
 
-    handleCategoryId = (eventKey) => {
-        this.setState({ CategoryId: eventKey })
+    handleOrderType = (event) => {
+        this.setState({ OrderType: event.target.value })
+    }
+
+    handleCustomerID = (eventKey) => {
+        this.setState({ CustomerID: eventKey })
         console.log("eventkey" + eventKey)
     }
 
@@ -425,64 +206,59 @@ export class Create extends Component {
                                 <BS.FormControl
                                     type="text"
                                     value={this.state.OrderId}
-                                    placeholder="Enter Id"
+                                    placeholder="Enter OrderId"
                                     onChange={this.handleId}
                                 />
                             </td>
                         </tr>
                         <tr>
-                            <td>Name</td>
+                            <td>Status</td>
                             <td>
                                 <BS.FormControl
                                     type="text"
-                                    value={this.state.Name}
-                                    placeholder="Enter Name"
-                                    onChange={this.handleName}
+                                    value={this.state.Status}
+                                    placeholder="Enter Status"
+                                    onChange={this.handleStatus}
                                 />
                             </td>
                         </tr>
 
                         <tr>
-                            <td>Price</td>
+                            <td>Order Date</td>
                             <td>
                                 <BS.FormControl
                                     type="text"
-                                    value={this.state.Price}
-                                    placeholder="Enter Price"
-                                    onChange={this.handlePrice}
+                                    //type="date"
+                                    value={this.state.OrderDate}
+                                    placeholder="Enter Order Date"
+                                    onChange={this.handleOrderDate}
                                 />
                             </td>
                         </tr>
 
                         <tr>
-                            <td>Description</td>
+                            <td>Order Ready</td>
                             <td>
                                 <BS.FormControl
                                     type="text"
-                                    value={this.state.Description}
-                                    placeholder="Enter Description"
-                                    onChange={this.handleDescription}
+                                    value={this.state.OrderReady}
+                                    placeholder="Enter Order Ready"
+                                    onChange={this.handleOrderReady}
                                 />
                             </td>
                         </tr>
 
                         <tr>
-                            <td>Category</td>
-                            <td>
-                                {
-                                    // <FormControl componentClass="select" placeholder="select">
-                                    //      <option value="select">select</option>
-                                    //      <option value="other">...</option>
-                                    // </FormControl>
-                                }
-                                <BS.DropdownButton title='Select Category' id='categories' onSelect={this.handleCategoryId}>
+                            <td>Customer ID</td>
+                            <td>                                
+                                <BS.DropdownButton title='Select Customer' id='customers' onSelect={this.handleCustomerID}>
                                     {
-                                        this.state.categories.map(
-                                            category =>
+                                        this.state.customers.map(
+                                            customer =>
                                                 <BS.MenuItem
-                                                    key={category.CategoryId}
-                                                    eventKey={category.CategoryId}>
-                                                    {category.Name}
+                                                    key={customer.CustomerID}
+                                                    eventKey={customer.CustomerID}>
+                                                    {customer.Name}
                                                 </BS.MenuItem>
                                         )
                                     }
@@ -538,7 +314,7 @@ export class Update extends Component {
     }
 
     handleStatus = (event) => {
-        this.setState({ Status: parseInt(event.target.value) })
+        this.setState({ Status: event.target.value })
     }
 
     handleOrderDate = (event) => {
@@ -568,7 +344,7 @@ export class Update extends Component {
                     </thead>
                     <tbody>
                         <tr>
-                            <td>OrderId</td>
+                            <td>Order Id</td>
                             <td>
                                 <BS.FormControl
                                     type="text"
@@ -591,11 +367,11 @@ export class Update extends Component {
                         </tr>
 
                         <tr>
-                            <td>OrderDate</td>
+                            <td>Order Date</td>
                             <td>
                                 <BS.FormControl
-                                    type="date"
-                                    //type="text"
+                                    //type="date"
+                                    type="text"
                                     value={this.state.OrderDate}
                                     placeholder="Enter Order Date"
                                     onChange={this.handleOrderDate}
@@ -604,7 +380,7 @@ export class Update extends Component {
                         </tr>
 
                         <tr>
-                            <td>OrderReady</td>
+                            <td>Order Ready</td>
                             <td>
                                 <BS.FormControl
                                     type="text"
@@ -616,7 +392,7 @@ export class Update extends Component {
                         </tr>
 
                         <tr>
-                            <td>OrderDelivered</td>
+                            <td>Order Delivered</td>
                             <td>
                                 <BS.FormControl
                                     type="text"
@@ -628,22 +404,16 @@ export class Update extends Component {
                         </tr>
 
                         <tr>
-                            <td>Category</td>
+                            <td>Customer ID</td>
                             <td>
-                                {
-                                    // <FormControl componentClass="select" placeholder="select">
-                                    //      <option value="select">select</option>
-                                    //      <option value="other">...</option>
-                                    // </FormControl>
-                                }
-                                <BS.DropdownButton title='Select Category' id='categories' onSelect={this.handleCategoryId}>
+                                <BS.DropdownButton title='Select Customer' id='customers' onSelect={this.handleCustomerID}>
                                     {
-                                        this.state.categories.map(
-                                            category =>
+                                        this.state.customers.map(
+                                            customer =>
                                                 <BS.MenuItem
-                                                    key={category.CategoryId}
-                                                    eventKey={category.CategoryId}>
-                                                    {category.Name}
+                                                    key={customer.CustomerID}
+                                                    eventKey={customer.CustomerID}>
+                                                    {customer.Name}
                                                 </BS.MenuItem>
                                         )
                                     }

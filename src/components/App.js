@@ -34,7 +34,7 @@ export default class App extends React.Component {
           <RR.Route path="customers/all" component={Customers.All} />
           <RR.Route path="customers/create" component={Customers.Create} />
           <RR.Route path="customers/update/:id" component={Customers.Update} />
-          <RR.Route path="orders/MyOrder" component={MyOrder.One} />
+          
 
 
           <RR.Route path="customerorders/all" component={CustomerOrders.All} />
@@ -70,6 +70,8 @@ export default class App extends React.Component {
 
          
           {/* Utils */}
+
+          <RR.Route path="orders/MyOrder" component={MyOrder.One} />
           
           <RR.Route path="users" component={Meals.All}>
             <RR.Route path="/user/:userId" component={Meals.All} />
