@@ -8,18 +8,18 @@ export class All extends Component {
 
     state = {
         meals: [],
-        MinId: '',
-        MaxId: '',
+        MinPrice: '',
+        MaxPrice: '',
         Name: '',
+        CategoryName: '',
         Column: '',
         Order: '',
         ToggleId: false,
         ToggleName: false,
-        ToggleOwnerName: false
+        TogglePrice: false,
+        ToggleCategory: false
     }
     // small bug in the order
-
-
     db = new DB('http://localhost:63719/api/Meals')
     buy = new DB('http://localhost:63719/api/User')
 
@@ -36,30 +36,35 @@ export class All extends Component {
 
     Quary = (parameters) => {
         this.buy.find(
-            (data) => this.setState({ }),
+            (data) => this.setState({}),
             parameters
         )
     }
 
     handleDelete = (Id) => {
         this.db.destroy(Id, this.find)
+
     }
 
-    handleUpdate = (Id) => {
-        this.props.onSelect(<Update Id={Id} />)
+    handleUpdate = (MealId) => {
+        this.props.onSelect(<Update MealId={MealId} />)
     }
 
 
-    handleMinId = (event) => {
-        this.setState({ MinId: event.target.value })
+    handleMinPrice = (event) => {
+        this.setState({ MinPrice: event.target.value })
     }
 
-    handleMaxId = (event) => {
-        this.setState({ MaxId: event.target.value })
+    handleMaxPrice = (event) => {
+        this.setState({ MaxPrice: event.target.value })
     }
 
     handleMealName = (event) => {
         this.setState({ Name: event.target.value })
+    }
+
+    handleCategoryText = (event) => {
+        this.setState({ CategoryName: event.target.value })
     }
 
     handleColumn = (event) => {
@@ -76,17 +81,23 @@ export class All extends Component {
 
     handleBetween = () => {
         this.find({
-            MinId: this.state.MinId, MaxId: this.state.MaxId,
+            MinPrice: this.state.MinPrice, MaxPrice: this.state.MaxPrice,
         })
     }
 
-    handleFindBy = (OwnerId) => {
-        this.find({ OwnerId: OwnerId })
+    handleFindBy = (CategoryId) => {
+        this.find({ CategoryId: CategoryId })
     }
 
     handleSearchByName = () => {
         this.find({
             Name: this.state.Name
+        })
+    }
+
+    handleSearchByCategory = () => {
+        this.find({
+            Category: this.state.CategoryName
         })
     }
 
@@ -120,18 +131,33 @@ export class All extends Component {
         }
     }
 
-    handleOrderByOwnerName = () => {
-        if (this.state.ToggleOwnerName) {
+    handleOrderByPrice = () => {
+        if (this.state.TogglePrice) {
             this.find({
-                Column: "OwnerName", Order: "ASC",
+                Column: "Price", Order: "ASC",
             })
-            this.setState({ ToggleOwnerName: !this.state.ToggleOwnerName, Order: "ASC" })
+            this.setState({ TogglePrice: !this.state.TogglePrice, Order: "ASC" })
         }
         else {
             this.find({
-                Column: "OwnerName", Order: "DSC",
+                Column: "Price", Order: "DSC",
             })
-            this.setState({ ToggleOwnerName: !this.state.ToggleOwnerName, Order: "DESC" })
+            this.setState({ TogglePrice: !this.state.TogglePrice, Order: "DESC" })
+        }
+    }
+
+    handleOrderByCategory = () => {
+        if (this.state.ToggleCategory) {
+            this.find({
+                Column: "Category", Order: "ASC",
+            })
+            this.setState({ ToggleCategory: !this.state.ToggleCategory, Order: "ASC" })
+        }
+        else {
+            this.find({
+                Column: "Category", Order: "DSC",
+            })
+            this.setState({ ToggleCategory: !this.state.ToggleCategory, Order: "DESC" })
         }
     }
 
@@ -152,27 +178,36 @@ export class All extends Component {
         console.log('render: ', this.props.location.query)
         return (
             <div>
+                <h1>Meals</h1>
+
+    
+
+
                 <BS.Button onClick={this.handleShowAll}>Show All</BS.Button>
                 <br />
-                <BS.Form inline>
-                    <BS.FormControl type="text" value={this.state.MinId} placeholder="Enter Min Id" onChange={this.handleMinId}/>
-                    <BS.FormControl type="text" value={this.state.MaxId} placeholder="Enter Max Id" onChange={this.handleMaxId}/>
+                
 
-                    <LinkContainer to={{ pathname: '/meals/all', query: { MinId: this.state.MinId, MaxId: this.state.MaxId } }}>
-                        <BS.Button onClick={this.handleBetween}>Show with ID between Min and Max</BS.Button>
-                    </LinkContainer>
-                </BS.Form>
+
+
                 <br />
 
                 <BS.Form inline>
-                    <BS.FormControl type="text" value={this.state.Name} placeholder="Enter Name" onChange={this.handleMealName}/>
-                    <LinkContainer to={ { pathname: '/meals/all', query: { Name: this.state.Name } }}>
-                        <BS.Button onClick={this.handleSearchByName}>Search By Pet Name</BS.Button>
+                    <BS.FormControl
+                        type="text"
+                        value={this.state.CategoryName}
+                        placeholder="Enter CategoryName"
+                        onChange={this.handleCategoryText}
+                    />
+                    <LinkContainer to={
+                        {
+                            pathname: '/meals/all',
+                            query: { CategoryName: this.state.CategoryName }
+                        }
+                    } >
+                        <BS.Button onClick={this.handleSearchByCategory}>Search By Category Name</BS.Button>
                     </LinkContainer>
-                </BS.Form>
-                <br />
-                <br />
 
+                </BS.Form> <br />
                 <BS.Table striped bordered condensed hover>
                     <thead>
                         <tr>
@@ -183,13 +218,13 @@ export class All extends Component {
                                 <BS.Button bsStyle='link' onClick={this.handleOrderByName}>Name</BS.Button>
                             </th>
                             <th>
-                                <BS.Button bsStyle='link' onClick={this.handleOrderByName}>Price</BS.Button>
+                                <BS.Button bsStyle='link' onClick={this.handleOrderByPrice}>Price</BS.Button>
                             </th>
                             <th>
-                                <BS.Button bsStyle='link' onClick={this.handleOrderByOwnerName}>Category</BS.Button>
+                                <BS.Button bsStyle='link' onClick={this.handleOrderByCategory}>Category</BS.Button>
                             </th>
                             <th>
-                                <BS.Button bsStyle='link' onClick={this.handleOrderByOwnerName}>options</BS.Button>
+                                <BS.Button bsStyle='link' >options</BS.Button>
                             </th>
                         </tr>
                     </thead>
