@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import DB from './DB'
 import * as BS from 'react-bootstrap'
 import { LinkContainer } from 'react-router-bootstrap'
+import * as RR from 'react-router'
 
 export class All extends Component {
     state = {
@@ -143,6 +144,8 @@ export class Create extends Component {
     componentDidMount() {
         this.orders.find(
             (data) => this.setState({ orders: data }))
+            RR.browserHistory.push("adminorderitems/all")
+
     }
 
     componentDidMount() {
@@ -270,6 +273,7 @@ export class Update extends Component {
 
     handleUpdate = () => {
         this.db.update(this.state.ItemId, this.state)
+        RR.browserHistory.push("adminorderitems/all")
     }
 
     handleId = (event) => {

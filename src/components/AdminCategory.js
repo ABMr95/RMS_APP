@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import DB from './DB'
 import * as BS from 'react-bootstrap'
 import { LinkContainer } from 'react-router-bootstrap'
+import * as RR from 'react-router'
 
 export class All extends Component {
     state = {
@@ -140,6 +141,7 @@ export class Create extends Component {
 
     handleCreate = () => {
         this.db.create(this.state)
+        RR.browserHistory.push("admincategory/all")
     }
 
     handleId = (event) => {
@@ -214,6 +216,7 @@ export class Update extends Component {
 
     handleUpdate = () => {
         this.db.update(this.state.CategoryId, this.state)
+        RR.browserHistory.push("admincategory/all")
     }
 
     handleId = (event) => {
