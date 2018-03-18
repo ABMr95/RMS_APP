@@ -48,7 +48,7 @@ export class All extends Component {
                 
                 <BS.Table striped bordered condensed hover>
                     <thead> <tr>
-                        <th>ItemId</th><th>OrderId</th><th>MealID</th><th>Quantity</th>
+                        <th>ItemId</th><th>OrderId</th><th>Customer Name</th><th>Meal Name</th><th>Quantity</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -60,7 +60,8 @@ export class All extends Component {
                                 <tr key={orderitem.ItemId}>
                                     <td>{orderitem.ItemId}</td>
                                     <td>{orderitem.OrderId}</td>
-                                    <td>{orderitem.MealID}</td>
+                                    <td>{orderitem.Order.Customer.Name}</td>
+                                    <td>{orderitem.Meal.Name}</td>
                                     <td>{orderitem.Quantity}</td>
                                     <td>
 
@@ -131,7 +132,7 @@ export class Create extends Component {
     state = {
         ItemId: '',
         OrderId: '',
-        MealID: '',
+        MealId: '',
         Quantity: '',
         orders: [],
         meals: [],
@@ -144,17 +145,17 @@ export class Create extends Component {
     componentDidMount() {
         this.orders.find(
             (data) => this.setState({ orders: data }))
-            RR.browserHistory.push("adminorderitems/all")
+            this.meals.find(
+                (data) => this.setState({ meals: data }))
+            
 
     }
 
-    componentDidMount() {
-        this.meals.find(
-            (data) => this.setState({ meals: data }))
-    }
+
 
     handleCreate = () => {
         this.db.create(this.state)
+        //RR.browserHistory.push("adminorderitems/all")
     }
 
     handleId = (event) => {
@@ -165,8 +166,8 @@ export class Create extends Component {
         this.setState({ OrderId: event.target.value })
     }
 
-    handleMealID = (event) => {
-        this.setState({ MealID: event.target.value })
+    handleMealId = (event) => {
+        this.setState({ MealId: event.target.value })
     }
 
     handleQuantity = (event) => {
@@ -205,15 +206,15 @@ export class Create extends Component {
                         </tr>
 
                          <tr>
-                            <td>MealID</td>
+                            <td>MealId</td>
                             <td>
                                 <BS.DropdownButton title='Select Meal' id='meals' onSelect={this.handleMealID}>
                                     {
                                         this.state.meals.map(
                                             meal =>
                                                 <BS.MenuItem
-                                                    key={meal.MealID}
-                                                    eventKey={meal.MealID}>
+                                                    key={meal.MealId}
+                                                    eventKey={meal.MealId}>
                                                     {meal.Name}
                                                 </BS.MenuItem>
                                         )
@@ -331,8 +332,8 @@ export class Update extends Component {
                                         this.state.meals.map(
                                             meal =>
                                                 <BS.MenuItem
-                                                    key={meal.MealID}
-                                                    eventKey={meal.MealID}>
+                                                    key={meal.MealId}
+                                                    eventKey={meal.MealId}>
                                                     {meal.Name}
                                                 </BS.MenuItem>
                                         )
