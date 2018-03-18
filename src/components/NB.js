@@ -43,15 +43,19 @@ export default class NB extends Component {
 
 
                                 <LinkContainer to='/adminorders/all'>
-                                    <BS.NavItem >adminorders</BS.NavItem>
+                                    <BS.NavItem >Admin Orders</BS.NavItem>
                                 </LinkContainer>
 
                                 <LinkContainer to='/adminorderitems/all'>
-                                    <BS.NavItem >adminorderitems</BS.NavItem>
+                                    <BS.NavItem >Admin Orderitems</BS.NavItem>
                                 </LinkContainer>
 
                                 <LinkContainer to='/admincategory/all'>
-                                    <BS.NavItem >admincategory</BS.NavItem>
+                                    <BS.NavItem >Admin Category</BS.NavItem>
+                                </LinkContainer>
+
+                                <LinkContainer to='/adminaddress/all'>
+                                    <BS.NavItem >Admin Address</BS.NavItem>
                                 </LinkContainer>
                            
                             </BS.NavDropdown>

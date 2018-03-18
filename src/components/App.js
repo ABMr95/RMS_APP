@@ -9,6 +9,7 @@ import * as AdminOrders from './AdminOrders'
 import * as AdminOrderItems from './AdminOrderItems'
 import * as AdminCustomers from './AdminCustomer'
 import * as AdminCategory from './AdminCategory'
+import * as AdminAddress from './AdminAddress'
 
 import * as CustomerInfo from './CustomerInfo'
 import * as CustomerOrders from './CustomerOrders'
@@ -67,6 +68,10 @@ export default class App extends React.Component {
           <RR.Route path="admincategory/all" component={AdminCategory.All} />
           <RR.Route path="admincategory/create" component={AdminCategory.Create} />
           <RR.Route path="admincategory/update/:id" component={AdminCategory.Update} />
+
+          <RR.Route path="adminaddress/all" component={AdminAddress.All} />
+          <RR.Route path="adminaddress/create" component={AdminAddress.Create} />
+          <RR.Route path="adminaddress/update/:id" component={AdminAddress.Update} />
 
          
           {/* Utils */}
