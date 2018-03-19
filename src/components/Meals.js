@@ -162,13 +162,15 @@ export class All extends Component {
     }
 
     handleBuy = (val) => {
-        console.log("im buying: " + val)
-        this.Quary({
-            query: "buy",
-            id: val
-        })
 
-        RR.browserHistory.push("/orders/MyOrder")
+        sessionStorage.getItem('token') 
+        ?
+        this.db.findOne(
+            val,
+            RR.browserHistory.push("/orders/MyOrder")
+        )
+        :
+        RR.browserHistory.push("/login")
 
     }
 
@@ -180,12 +182,12 @@ export class All extends Component {
             <div>
                 <h1>Meals</h1>
 
-    
+
 
 
                 <BS.Button onClick={this.handleShowAll}>Show All</BS.Button>
                 <br />
-                
+
 
 
 

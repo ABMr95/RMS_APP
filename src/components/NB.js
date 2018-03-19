@@ -26,35 +26,53 @@ export default class NB extends Component {
                                 </LinkContainer>
                             </BS.NavDropdown>
 
-                         
-                                <LinkContainer to='/orders/myorder'>
-                                    <BS.NavItem >My Order</BS.NavItem>
-                                </LinkContainer>
-                         
-
-                            <BS.NavDropdown title="Admin" id="nav-dropdown">
-                                <LinkContainer to='/adminmeals/all'>
-                                    <BS.NavItem >Meals</BS.NavItem>
-                                </LinkContainer>
-
-                                <LinkContainer to='/admincustomers/all'>
-                                    <BS.NavItem >Customers</BS.NavItem>
-                                </LinkContainer>
 
 
-                                <LinkContainer to='/adminorders/all'>
-                                    <BS.NavItem >adminorders</BS.NavItem>
-                                </LinkContainer>
 
-                                <LinkContainer to='/adminorderitems/all'>
-                                    <BS.NavItem >adminorderitems</BS.NavItem>
-                                </LinkContainer>
+                            {
+                                sessionStorage.getItem('token')
+                                    ?
+                                    <LinkContainer to='/orders/myorder'>
+                                        <BS.NavItem >My Order</BS.NavItem>
+                                    </LinkContainer>
+                                    :
 
-                                <LinkContainer to='/admincategory/all'>
-                                    <BS.NavItem >admincategory</BS.NavItem>
-                                </LinkContainer>
-                           
-                            </BS.NavDropdown>
+                                    console.log()
+                            }
+
+                            {
+                                sessionStorage.getItem('token')
+                                    ?
+                                    <BS.NavDropdown title="Admin" id="nav-dropdown">
+                                        <LinkContainer to='/adminmeals/all'>
+                                            <BS.NavItem >Meals</BS.NavItem>
+                                        </LinkContainer>
+
+                                        <LinkContainer to='/admincustomers/all'>
+                                            <BS.NavItem >Customers</BS.NavItem>
+                                        </LinkContainer>
+
+
+                                        <LinkContainer to='/adminorders/all'>
+                                            <BS.NavItem >adminorders</BS.NavItem>
+                                        </LinkContainer>
+
+                                        <LinkContainer to='/adminorderitems/all'>
+                                            <BS.NavItem >adminorderitems</BS.NavItem>
+                                        </LinkContainer>
+
+                                        <LinkContainer to='/admincategory/all'>
+                                            <BS.NavItem >admincategory</BS.NavItem>
+                                        </LinkContainer>
+
+                                    </BS.NavDropdown>
+                                    :
+
+                                    console.log()
+                            }
+
+
+
 
                             {/* <BS.NavDropdown title="Owners" id="nav-dropdown">
                                 <LinkContainer to='/owners/all'>
@@ -68,40 +86,59 @@ export default class NB extends Component {
 
                         </BS.Nav>
 
-                        <BS.Nav pullRight>
 
-                        <BS.NavDropdown title="My Account" id="nav-dropdown">
+                        {
+                            sessionStorage.getItem('token')
+                                ?
+                                <BS.Nav pullRight>
 
-                                <LinkContainer to='customerorders/all'>
-                                    <BS.NavItem >My Orders List</BS.NavItem>
-                                </LinkContainer>
+                                    <BS.NavDropdown title="My Account" id="nav-dropdown">
 
-                                <LinkContainer to='/orders/myorder'>
-                                    <BS.NavItem >My cart</BS.NavItem>
-                                </LinkContainer>
+                                        <LinkContainer to='customerorders/all'>
+                                            <BS.NavItem >My Orders List</BS.NavItem>
+                                        </LinkContainer>
 
-                                <LinkContainer to='customerinfo/one'>
-                                    <BS.NavItem >Info setting</BS.NavItem>
-                                </LinkContainer>
+                                        <LinkContainer to='/orders/myorder'>
+                                            <BS.NavItem >My cart</BS.NavItem>
+                                        </LinkContainer>
 
-                           
-                            </BS.NavDropdown>
+                                        <LinkContainer to='customerinfo/one'>
+                                            <BS.NavItem >Info setting</BS.NavItem>
+                                        </LinkContainer>
 
-                            <LinkContainer to='/login'>
-                                <BS.NavItem >Login</BS.NavItem>
-                            </LinkContainer>
-                            <BS.NavItem onClick={() => {
-                                sessionStorage.removeItem('token')
-                                alert("you have logged out successfully");
-                                RR.browserHistory.push("/login")
-                            }}
-                            >
-                                Logout
+
+                                    </BS.NavDropdown>
+
+                                    <BS.NavItem onClick={() => {
+                                        sessionStorage.removeItem('token')
+                                        alert("you have logged out successfully");
+                                        RR.browserHistory.push("/login")
+                                    }}
+                                    >
+                                        Logout
                             </BS.NavItem>
-                            <LinkContainer to='/register'>
-                                <BS.NavItem >Register</BS.NavItem>
-                            </LinkContainer>
-                        </BS.Nav>
+
+
+                                </BS.Nav>
+                                :
+
+                                <BS.Nav pullRight>
+
+                                    <LinkContainer to='/login'>
+                                        <BS.NavItem >Login</BS.NavItem>
+                                    </LinkContainer>
+
+                                    <LinkContainer to='/register'>
+                                        <BS.NavItem >Register</BS.NavItem>
+                                    </LinkContainer>
+
+                                </BS.Nav>
+                        }
+
+
+
+
+
 
 
                     </BS.Navbar.Collapse>
