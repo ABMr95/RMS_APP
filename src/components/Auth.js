@@ -53,7 +53,9 @@ export class Register extends Component {
     render() {
         return (
             <div>
+                <center>
                 <h2>Register</h2>
+                <br />
                 <BS.Table striped bordered condensed hover>
                     <thead>
                         <tr><th>Field</th><th>Value</th></tr>
@@ -95,6 +97,7 @@ export class Register extends Component {
                     </tbody>
                 </BS.Table>
                 <BS.Button onClick={this.handleRegister}>Register</BS.Button>
+                </center>
             </div>
         )
     }
@@ -151,7 +154,9 @@ export class Login extends Component {
     render() {
         return (
             <div>
+                <center>
                 <h2>Login</h2>
+                <br />
                 <BS.Table striped bordered condensed hover>
                     <thead>
                         <tr><th>Field</th><th>Value</th></tr>
@@ -182,6 +187,7 @@ export class Login extends Component {
                     </tbody>
                 </BS.Table>
                 <BS.Button onClick={this.handleLogin}>Login</BS.Button>
+                </center>
             </div>
         )
     }

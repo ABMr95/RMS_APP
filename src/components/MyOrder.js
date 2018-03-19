@@ -45,9 +45,6 @@ export class All extends Component {
         this.db.destroy(Id, this.find)
     }
 
-    
-
-
     handleMinId = (event) => {
         this.setState({ MinId: event.target.value })
     }
