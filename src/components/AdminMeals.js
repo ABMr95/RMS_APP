@@ -162,13 +162,14 @@ export class All extends Component {
         }
     }
 
+
+
     handleBuy = (val) => {
         console.log("im buying: " + val)
-        this.Quary({
-            query: "buy",
-            id: val
-        })
-        RR.browserHistory.push("/orders/MyOrder")
+        this.db.buy(
+            val,
+            RR.browserHistory.push("/orders/MyOrder")
+        )
     }
 
 

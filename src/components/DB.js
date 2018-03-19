@@ -110,6 +110,25 @@ export default class DB {
         request = request || {}
         request.headers = request.headers || {}
         request.headers.Authorization =  'Bearer ' + sessionStorage.getItem('token')
+        console.log("request = " + request)
         return request
     }
+
+    
+
+
+
+    buy = async (id, action) => {
+        try {
+            var response = await fetch(this.url + '/api/User?query=buy&id=' + id , this.addToken());
+            var data = await response.json();
+            console.log(data);
+            action(data);
+        }
+        catch (e) {
+            console.log("Error", e);
+        }
+    }
+
+    
 }
