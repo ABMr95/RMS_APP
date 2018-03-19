@@ -163,17 +163,33 @@ export class All extends Component {
     }
 
     handleBuy = (val) => {
+        console.log("im buying: " + val)
+        this.Quary({
+            query: "buy",
+            id: val
+        })
 
         sessionStorage.getItem('token') 
         ?
-        this.db.findOne(
-            val,
-            RR.browserHistory.push("/orders/MyOrder")
-        )
+        RR.browserHistory.push("/orders/MyOrder")
         :
         RR.browserHistory.push("/login")
 
+        
     }
+
+    // handleBuy = (val) => {
+
+    //     sessionStorage.getItem('token') 
+    //     ?
+    //     this.db.findOne(
+    //         val,
+    //         RR.browserHistory.push("/orders/MyOrder")
+    //     )
+    //     :
+    //     RR.browserHistory.push("/login")
+
+    // }
 
 
 

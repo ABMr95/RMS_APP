@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import DB from './DB'
 import * as BS from 'react-bootstrap'
+import * as RR from 'react-router'
 import { LinkContainer } from 'react-router-bootstrap'
 
 export class All extends Component {
@@ -320,6 +321,7 @@ export class One extends Component {
             query: "checkout"
 
         })
+  
     }
 
     handleEmptyCart= () =>{
