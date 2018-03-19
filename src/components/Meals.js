@@ -183,17 +183,8 @@ export class All extends Component {
             <BS.Jumbotron>
                 <center><h1 style={{ justifyContent: 'center' }}>Meals</h1>
 
-               
-
-
-
-
                 <BS.Button onClick={this.handleShowAll}>Show All</BS.Button>
                 <br />
-
-
-
-
                 <br />
 
                 <BS.Form inline>
@@ -245,7 +236,7 @@ export class All extends Component {
                             (meal) =>
                                 <tr key={meal.MealId}>
                                     <td>{meal.MealId}</td>
-                                    <center><td><img src={require('../images/' + meal.Name + '.jpg')}  width="100" height="80" /></td></center>
+                                    <center><td><img src={require('../images/' + meal.Name + '.jpg')}  width="100" height="80" style={{ padding: 5, borderRadius: 10 }} /></td></center>
                                     <td>{meal.Name}</td>
                                     <td>{meal.Price}</td>
                                     <td>{meal.Category.Name}</td>
