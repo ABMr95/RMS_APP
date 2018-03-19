@@ -321,7 +321,7 @@ export class One extends Component {
             query: "checkout"
 
         })
-        RR.browserHistory.push("/orders/MyOrder")
+  
     }
 
     handleEmptyCart= () =>{
@@ -330,7 +330,6 @@ export class One extends Component {
             query: "emptycart"
 
         })
-        RR.browserHistory.push("/orders/MyOrder")
 
     }
 

@@ -163,17 +163,33 @@ export class All extends Component {
     }
 
     handleBuy = (val) => {
+        console.log("im buying: " + val)
+        this.Quary({
+            query: "buy",
+            id: val
+        })
 
         sessionStorage.getItem('token') 
         ?
-        this.db.findOne(
-            val,
-            RR.browserHistory.push("/orders/MyOrder")
-        )
+        RR.browserHistory.push("/orders/MyOrder")
         :
         RR.browserHistory.push("/login")
 
+        
     }
+
+    // handleBuy = (val) => {
+
+    //     sessionStorage.getItem('token') 
+    //     ?
+    //     this.db.findOne(
+    //         val,
+    //         RR.browserHistory.push("/orders/MyOrder")
+    //     )
+    //     :
+    //     RR.browserHistory.push("/login")
+
+    // }
 
 
 
@@ -245,7 +261,7 @@ export class All extends Component {
                             (meal) =>
                                 <tr key={meal.MealId}>
                                     <td>{meal.MealId}</td>
-                                    <center><td><img src={require('../images/' + meal.Name + '.jpg')}  width="100" height="80" /></td></center>
+                                    <center><td><img src={require('../images/' + meal.Name + '.jpg')}  width="100" height="80" style={{padding: 5}} /></td></center>
                                     <td>{meal.Name}</td>
                                     <td>{meal.Price}</td>
                                     <td>{meal.Category.Name}</td>

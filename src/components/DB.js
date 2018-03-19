@@ -108,7 +108,6 @@ export default class DB {
         request = request || {}
         request.headers = request.headers || {}
         request.headers.Authorization =  'Bearer ' + sessionStorage.getItem('token')
-        console.log("request = " + request)
         return request
     }
     buy = async (id, action) => {
