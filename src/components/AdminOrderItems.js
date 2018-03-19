@@ -39,7 +39,7 @@ export class All extends Component {
         console.log('render: ', this.props.location.query)
         return (
             <div>
-                <h1>Admin OrderItems</h1>
+                <center><h1>Admin Order Items</h1></center>
 
                 <LinkContainer to={{ pathname: '/adminorderitems/create' }}>
                     <BS.Button>Create</BS.Button>
@@ -48,7 +48,7 @@ export class All extends Component {
                 
                 <BS.Table striped bordered condensed hover>
                     <thead> <tr>
-                        <th>ItemId</th><th>OrderId</th><th>MealID</th><th>Quantity</th>
+                        <th>Item Id</th><th>Order Id</th><th>Meal ID</th><th>Quantity</th>
                     </tr>
                     </thead>
                     <tbody>

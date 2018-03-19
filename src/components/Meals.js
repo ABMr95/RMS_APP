@@ -12,12 +12,13 @@ export class All extends Component {
         MaxPrice: '',
         Name: '',
         CategoryName: '',
+        categoryName: 'Select Category',
         Column: '',
         Order: '',
         ToggleId: false,
         ToggleName: false,
         TogglePrice: false,
-        ToggleCategory: false
+        ToggleCategory: false,
     }
     // small bug in the order
     db = new DB('http://localhost:63719/api/Meals')
@@ -177,8 +178,10 @@ export class All extends Component {
     render() {
         console.log('render: ', this.props.location.query)
         return (
-            <div>
-                <h1>Meals</h1>
+            <BS.Jumbotron>
+                <center><h1 style={{ justifyContent: 'center' }}>Meals</h1>
+
+               
 
     
 
@@ -207,12 +210,18 @@ export class All extends Component {
                         <BS.Button onClick={this.handleSearchByCategory}>Search By Category Name</BS.Button>
                     </LinkContainer>
 
-                </BS.Form> <br />
+                </BS.Form>
+                </center>
+                 <br />
+
                 <BS.Table striped bordered condensed hover>
                     <thead>
                         <tr>
                             <th>
                                 <BS.Button bsStyle='link' onClick={this.handleOrderById}>Id</BS.Button>
+                            </th>
+                            <th>
+                                Product Image
                             </th>
                             <th>
                                 <BS.Button bsStyle='link' onClick={this.handleOrderByName}>Name</BS.Button>
@@ -234,6 +243,7 @@ export class All extends Component {
                             (meal) =>
                                 <tr key={meal.MealId}>
                                     <td>{meal.MealId}</td>
+                                    <center><td><img src={require('../images/' + meal.Name + '.jpg')}  width="100" height="80" /></td></center>
                                     <td>{meal.Name}</td>
                                     <td>{meal.Price}</td>
                                     <td>{meal.Category.Name}</td>
@@ -247,7 +257,7 @@ export class All extends Component {
                         )}
                     </tbody>
                 </BS.Table>
-            </div>
+            </BS.Jumbotron>
         )
     }
 }

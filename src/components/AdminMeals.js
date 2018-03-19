@@ -176,12 +176,7 @@ export class All extends Component {
         console.log('render: ', this.props.location.query)
         return (
             <div>
-                <h1>Admin Meals</h1>
-
-                <LinkContainer to={{ pathname: '/adminmeals/create' }}>
-                    <BS.Button>Create</BS.Button>
-                </LinkContainer>
-
+                <center><h1>Admin Meals</h1>
 
                 <BS.Button onClick={this.handleShowAll}>Show All</BS.Button>
                 <br />
@@ -229,10 +224,10 @@ export class All extends Component {
                             query: { Name: this.state.Name }
                         }
                     } >
-                        <BS.Button onClick={this.handleSearchByName}>Search By Meal  Name</BS.Button>
+                        <BS.Button onClick={this.handleSearchByName}>Search By Meal Name</BS.Button>
                     </LinkContainer>
 
-                </BS.Form> <br />
+                </BS.Form>
 
                 <br />
 
@@ -252,9 +247,13 @@ export class All extends Component {
                         <BS.Button onClick={this.handleSearchByCategory}>Search By Category Name</BS.Button>
                     </LinkContainer>
 
-                </BS.Form> <br />
+                </BS.Form>
+                <br />
+                </center>
 
-
+                <LinkContainer to={{ pathname: '/adminmeals/create' }}>
+                    <BS.Button>Create</BS.Button>
+                </LinkContainer>
 
 
                 <BS.Table striped bordered condensed hover>

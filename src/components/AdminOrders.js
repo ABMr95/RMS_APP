@@ -48,7 +48,7 @@ export class All extends Component {
         console.log('render: ', this.props.location.query)
         return (
             <div>
-                <h1>Admin Orders</h1>
+                <center><h1>Admin Orders</h1></center>
 
                 <LinkContainer to={{ pathname: '/adminorders/create' }}>
                     <BS.Button>Create</BS.Button>

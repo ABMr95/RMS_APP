@@ -11,7 +11,7 @@ export default class NB extends Component {
     render() {
         return (
             <div>
-                <BS.Navbar inverse collapseOnSelect onSelect={this.props.onSelect}>
+                <BS.Navbar default collapseOnSelect onSelect={this.props.onSelect}>
                     <BS.Navbar.Header>
                         <BS.Navbar.Brand>
                             <a href="#">RMS</a>
@@ -43,28 +43,18 @@ export default class NB extends Component {
 
 
                                 <LinkContainer to='/adminorders/all'>
-                                    <BS.NavItem >adminorders</BS.NavItem>
+                                    <BS.NavItem >Orders</BS.NavItem>
                                 </LinkContainer>
 
                                 <LinkContainer to='/adminorderitems/all'>
-                                    <BS.NavItem >adminorderitems</BS.NavItem>
+                                    <BS.NavItem >Order Items</BS.NavItem>
                                 </LinkContainer>
 
                                 <LinkContainer to='/admincategory/all'>
-                                    <BS.NavItem >admincategory</BS.NavItem>
+                                    <BS.NavItem >Category</BS.NavItem>
                                 </LinkContainer>
                            
                             </BS.NavDropdown>
-
-                            {/* <BS.NavDropdown title="Owners" id="nav-dropdown">
-                                <LinkContainer to='/owners/all'>
-                                    <BS.NavItem >Owners</BS.NavItem>
-                                </LinkContainer>
-                                <LinkContainer to='/owners/create'>
-                                    <BS.NavItem >Create</BS.NavItem>
-                                </LinkContainer>
-                            </BS.NavDropdown> */}
-
 
                         </BS.Nav>
 
@@ -81,7 +71,7 @@ export default class NB extends Component {
                                 </LinkContainer>
 
                                 <LinkContainer to='customerinfo/one'>
-                                    <BS.NavItem >Info setting</BS.NavItem>
+                                    <BS.NavItem >Info settings</BS.NavItem>
                                 </LinkContainer>
 
                            

@@ -42,7 +42,9 @@ export class All extends Component {
     render() {
         return (
             <div>
-                <BS.Button onClick={this.handleShowAll}>Show All</BS.Button>
+                <center><h1>Admin Customers</h1>
+                <BS.Button onClick={this.handleShowAll}>Show All</BS.Button></center>
+                <br />
                 <BS.Table striped bordered condensed hover>
                     <thead>
                         <tr><th>Id</th><th>Name</th></tr>
