@@ -92,6 +92,7 @@ export default class NB extends Component {
                             </LinkContainer>
                             <BS.NavItem onClick={() => {
                                 sessionStorage.removeItem('token')
+                                alert("you have logged out successfully");
                                 RR.browserHistory.push("/login")
                             }}
                             >

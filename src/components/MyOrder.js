@@ -404,7 +404,7 @@ export class One extends Component {
 
                                         {/* <BS.Button onClick={() => this.handleDelete(order.Id)}>Delete</BS.Button> */}
 
-                                        <BS.Button  onClick={() =>  console.log("delete")} >Delete</BS.Button>
+                                        {/* <BS.Button  onClick={() =>  console.log("delete")} >Delete</BS.Button> */}
 
                                     </td>
 
