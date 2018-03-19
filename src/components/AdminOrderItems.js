@@ -48,11 +48,7 @@ export class All extends Component {
                 
                 <BS.Table striped bordered condensed hover>
                     <thead> <tr>
-<<<<<<< HEAD
-                        <th>Item Id</th><th>Order Id</th><th>Meal ID</th><th>Quantity</th>
-=======
                         <th>ItemId</th><th>OrderId</th><th>Customer Name</th><th>Meal Name</th><th>Quantity</th>
->>>>>>> 424de0330a784ae538e955edc443cdbaa1b0bc4a
                     </tr>
                     </thead>
                     <tbody>
