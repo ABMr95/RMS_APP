@@ -11,7 +11,7 @@ export default class NB extends Component {
     render() {
         return (
             <div>
-                <BS.Navbar inverse collapseOnSelect onSelect={this.props.onSelect}>
+                <BS.Navbar default collapseOnSelect onSelect={this.props.onSelect}>
                     <BS.Navbar.Header>
                         <BS.Navbar.Brand>
                             <a href="#">RMS</a>
@@ -72,16 +72,6 @@ export default class NB extends Component {
                             }
 
 
-
-
-                            {/* <BS.NavDropdown title="Owners" id="nav-dropdown">
-                                <LinkContainer to='/owners/all'>
-                                    <BS.NavItem >Owners</BS.NavItem>
-                                </LinkContainer>
-                                <LinkContainer to='/owners/create'>
-                                    <BS.NavItem >Create</BS.NavItem>
-                                </LinkContainer>
-                            </BS.NavDropdown> */}
 
 
                         </BS.Nav>

@@ -48,7 +48,7 @@ export class All extends Component {
         console.log('render: ', this.props.location.query)
         return (
             <div>
-                <h1>Admin Orders</h1>
+                <center><h1>Admin Orders</h1></center>
 
                 <LinkContainer to={{ pathname: '/adminorders/create' }}>
                     <BS.Button>Create</BS.Button>
@@ -327,17 +327,17 @@ export class Update extends Component {
     }
 
 
-    handleOrderReady = (eventKey) => {
-        this.setState({ OrderReady: eventKey })
+    handleOrderReady = (event) => {
+        this.setState({ OrderReady: event.target.value })
     }
 
     
-    handleOrderDelivered = (eventKey) => {
-        this.setState({ OrderDelivered: eventKey })
+    handleOrderDelivered = (event) => {
+        this.setState({ OrderDelivered: event.target.value })
     }
 
-    handleOrderType = (eventKey) => {
-        this.setState({ OrderType: eventKey })
+    handleOrderType = (event) => {
+        this.setState({ OrderType: event.target.value })
     }
 
     render() {
