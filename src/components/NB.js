@@ -14,20 +14,15 @@ export default class NB extends Component {
                 <BS.Navbar default collapseOnSelect onSelect={this.props.onSelect}>
                     <BS.Navbar.Header>
                         <BS.Navbar.Brand>
-                            <a href="#">RMS</a>
+                            <a href="">RMS</a>
                         </BS.Navbar.Brand>
                         <BS.Navbar.Toggle />
                     </BS.Navbar.Header>
                     <BS.Navbar.Collapse>
                         <BS.Nav>
-                            <BS.NavDropdown title="Meals" id="nav-dropdown">
-                                <LinkContainer to='/meals/all'>
-                                    <BS.NavItem >Meals</BS.NavItem>
-                                </LinkContainer>
-                            </BS.NavDropdown>
-
-
-
+                            <LinkContainer to='/meals/all'>
+                                <BS.NavItem >Meals</BS.NavItem>
+                            </LinkContainer>
 
                             {
                                 sessionStorage.getItem('token')
@@ -36,7 +31,6 @@ export default class NB extends Component {
                                         <BS.NavItem >My Order</BS.NavItem>
                                     </LinkContainer>
                                     :
-
                                     console.log()
                             }
 
@@ -52,30 +46,23 @@ export default class NB extends Component {
                                             <BS.NavItem >Customers</BS.NavItem>
                                         </LinkContainer>
 
-
                                         <LinkContainer to='/adminorders/all'>
-                                            <BS.NavItem >adminorders</BS.NavItem>
+                                            <BS.NavItem >Orders</BS.NavItem>
                                         </LinkContainer>
 
                                         <LinkContainer to='/adminorderitems/all'>
-                                            <BS.NavItem >adminorderitems</BS.NavItem>
+                                            <BS.NavItem >Order Items</BS.NavItem>
                                         </LinkContainer>
 
                                         <LinkContainer to='/admincategory/all'>
-                                            <BS.NavItem >admincategory</BS.NavItem>
+                                            <BS.NavItem >Category</BS.NavItem>
                                         </LinkContainer>
 
                                     </BS.NavDropdown>
                                     :
-
                                     console.log()
                             }
-
-
-
-
                         </BS.Nav>
-
 
                         {
                             sessionStorage.getItem('token')
@@ -96,7 +83,6 @@ export default class NB extends Component {
                                             <BS.NavItem >Info setting</BS.NavItem>
                                         </LinkContainer>
 
-
                                     </BS.NavDropdown>
 
                                     <BS.NavItem onClick={() => {
@@ -106,12 +92,10 @@ export default class NB extends Component {
                                     }}
                                     >
                                         Logout
-                            </BS.NavItem>
-
+                                </BS.NavItem>
 
                                 </BS.Nav>
                                 :
-
                                 <BS.Nav pullRight>
 
                                     <LinkContainer to='/login'>
@@ -124,12 +108,6 @@ export default class NB extends Component {
 
                                 </BS.Nav>
                         }
-
-
-
-
-
-
 
                     </BS.Navbar.Collapse>
                 </BS.Navbar>

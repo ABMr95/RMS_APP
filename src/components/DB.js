@@ -1,9 +1,7 @@
-
 export default class DB {
     constructor(url) {
         this.url = url;
     }
-
     find = async(action,parameters) => {
         let urlParameters = '';
         if (parameters) {
@@ -113,11 +111,6 @@ export default class DB {
         console.log("request = " + request)
         return request
     }
-
-    
-
-
-
     buy = async (id, action) => {
         try {
             var response = await fetch(this.url + '/api/User?query=buy&id=' + id , this.addToken());
@@ -129,6 +122,4 @@ export default class DB {
             console.log("Error", e);
         }
     }
-
-    
 }

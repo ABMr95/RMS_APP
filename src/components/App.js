@@ -10,14 +10,10 @@ import * as AdminOrderItems from './AdminOrderItems'
 import * as AdminCustomers from './AdminCustomer'
 import * as AdminCategory from './AdminCategory'
 import * as AdminAddress from './AdminAddress'
-
 import * as CustomerInfo from './CustomerInfo'
 import * as CustomerOrders from './CustomerOrders'
 import * as MyOrder from './MyOrder'
-
-
 import * as Customers from './Customers'
-
 
 import '../stylesheet/App.css';
 
