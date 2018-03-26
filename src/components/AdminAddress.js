@@ -4,7 +4,6 @@ import * as BS from 'react-bootstrap'
 import { LinkContainer } from 'react-router-bootstrap'
 import * as RR from 'react-router'
 
-
 export class All extends Component {
     state = {
         addresses: [],
@@ -47,6 +46,18 @@ export class All extends Component {
         console.log('render: ', this.props.location.query)
         return (
             <div>
+                <div>
+                    <h3>Admin Dashboard</h3>
+                    <br />
+                    <BS.Nav bsStyle="tabs" onSelect={this.handleSelect}>
+                        <LinkContainer to='/admincustomers/all'><BS.NavItem>Customers</BS.NavItem></LinkContainer>
+                        <LinkContainer to='/adminmeals/all'><BS.NavItem>Meals</BS.NavItem></LinkContainer>
+                        <LinkContainer to='/adminorders/all'><BS.NavItem>Orders</BS.NavItem></LinkContainer>
+                        <LinkContainer to='/adminorderitems/all'><BS.NavItem>Order Items</BS.NavItem></LinkContainer>
+                        <LinkContainer to='/adminaddress/all'><BS.NavItem>Addresses</BS.NavItem></LinkContainer>
+                        <LinkContainer to='/admincategory/all'><BS.NavItem>Categories</BS.NavItem></LinkContainer>
+                    </BS.Nav>
+                </div>
                 <h1>Admin Addresses</h1>
 
                 <LinkContainer to={{ pathname: '/adminaddress/create' }}>
@@ -54,17 +65,16 @@ export class All extends Component {
                 </LinkContainer>
 
 
-                <BS.Table striped bordered condensed hover>
-                    <thead> <tr>
-                        <th>AddressId</th><th>CustomerName</th><th>Address1</th><th>Address2</th><th>City</th><th>Country</th><th>POBox</th>
-                    </tr>
+                <BS.Table striped bordered condensed hover style={{ width: '50%' }}>
+                    <thead>
+                        <tr>
+                            <th>AddressId</th><th>CustomerName</th><th>Address1</th><th>Address2</th><th>City</th><th>Country</th><th>POBox</th>
+                        </tr>
                     </thead>
+
                     <tbody>
-
                         {this.state.addresses.map(
-
                             (address) =>
-
                                 <tr key={address.AddressId}>
                                     <td>{address.AddressId}</td>
                                     <td>{address.CustomerName}</td>
@@ -73,23 +83,15 @@ export class All extends Component {
                                     <td>{address.City}</td>
                                     <td>{address.Country}</td>
                                     <td>{address.POBox}</td>
-
                                     <td>
-
                                         <LinkContainer to={'/adminaddress/update/' + address.AddressId}>
-
                                             <BS.Button >Update</BS.Button>
-
                                         </LinkContainer>
-
                                         <BS.Button onClick={() => this.handleDelete(address.AddressId)}>Delete</BS.Button>
-
                                     </td>
                                 </tr>
                         )}
-
                     </tbody>
-
                 </BS.Table>
             </div>
         )
@@ -117,7 +119,7 @@ export class One extends Component {
             <div>
                 {this.state.address
                     ?
-                    <BS.Table striped bordered condensed hover>
+                    <BS.Table striped bordered condensed hover style={{ width: '50%' }}>
                         <thead>
                             <tr><th>Field</th><th>Value</th></tr>
                         </thead>
@@ -153,7 +155,7 @@ export class Create extends Component {
     }
 
     db = new DB('http://localhost:63719/api/Addresses')
-    //addresses = new DB('http://localhost:63719/api/Addresses')
+    addresses = new DB('http://localhost:63719/api/Addresses')
 
     componentDidMount() {
         this.addresses.find(
@@ -203,7 +205,7 @@ export class Create extends Component {
     render() {
         return (
             <div>
-                <BS.Table striped bordered condensed hover>
+                <BS.Table striped bordered condensed hover style={{ width: '50%' }}>
                     <thead>
                         <tr><th>Field</th><th>Value</th></tr>
                     </thead>
@@ -384,7 +386,7 @@ export class Update extends Component {
     render() {
         return (
             <div>
-                <BS.Table striped bordered condensed hover>
+                <BS.Table striped bordered condensed hover style={{ width: '50%' }}>
                     <thead>
                         <tr><th>Field</th><th>Value</th></tr>
                     </thead>

@@ -5,6 +5,7 @@ import { LinkContainer } from 'react-router-bootstrap'
 import * as RR from 'react-router'
 
 
+
 export class All extends Component {
 
     state = {
@@ -24,7 +25,8 @@ export class All extends Component {
     db = new DB('http://localhost:63719/api/Meals')
     buy = new DB('http://localhost:63719/api/User')
 
-    componentDidMount() {
+
+    componentWillMount() {
         this.find()
     }
 
@@ -173,83 +175,100 @@ export class All extends Component {
     }
 
 
+
+
     render() {
         console.log('render: ', this.props.location.query)
         return (
             <div>
-                <center><h1>Admin Meals</h1>
 
-                <BS.Button onClick={this.handleShowAll}>Show All</BS.Button>
-                <br />
-                <BS.Form inline>
-                    <BS.FormControl
-                        type="text"
-                        value={this.state.MinPrice}
-                        placeholder="Enter Min Id"
-                        onChange={this.handleMinPrice}
-                    />
-                    <BS.FormControl
-                        type="text"
-                        value={this.state.MaxPrice}
-                        placeholder="Enter Max Id"
-                        onChange={this.handleMaxPrice}
-                    />
+                <div>
+                    <h3>Admin Dashboard</h3>
+                    <br />
+                    <BS.Nav bsStyle="tabs" onSelect={this.handleSelect}>
+                        <LinkContainer to='/admincustomers/all'><BS.NavItem>Customers</BS.NavItem></LinkContainer>
+                        <LinkContainer to='/adminmeals/all'><BS.NavItem>Meals</BS.NavItem></LinkContainer>
+                        <LinkContainer to='/adminorders/all'><BS.NavItem>Orders</BS.NavItem></LinkContainer>
+                        <LinkContainer to='/adminorderitems/all'><BS.NavItem>Order Items</BS.NavItem></LinkContainer>
+                        <LinkContainer to='/adminaddress/all'><BS.NavItem>Addresses</BS.NavItem></LinkContainer>
+                        <LinkContainer to='/admincategory/all'><BS.NavItem>Categories</BS.NavItem></LinkContainer>
+                    </BS.Nav>
+                </div>
+                <center>
 
-                    <LinkContainer to={
-                        {
-                            pathname: '/adminmeals/all',
-                            query: {
-                                MinPrice: this.state.MinPrice,
-                                MaxPrice: this.state.MaxPrice
+                    <h1>Admin Meals</h1>
+
+                    <BS.Button onClick={this.handleShowAll}>Show All</BS.Button>
+                    <br />
+                    <BS.Form inline>
+                        <BS.FormControl
+                            type="text"
+                            value={this.state.MinPrice}
+                            placeholder="Enter Min Id"
+                            onChange={this.handleMinPrice}
+                        />
+                        <BS.FormControl
+                            type="text"
+                            value={this.state.MaxPrice}
+                            placeholder="Enter Max Id"
+                            onChange={this.handleMaxPrice}
+                        />
+
+                        <LinkContainer to={
+                            {
+                                pathname: '/adminmeals/all',
+                                query: {
+                                    MinPrice: this.state.MinPrice,
+                                    MaxPrice: this.state.MaxPrice
+                                }
                             }
                         }
-                    }
-                    >
-                        <BS.Button onClick={this.handleBetween}>Show with Price between Min and Max</BS.Button>
-                    </LinkContainer>
+                        >
+                            <BS.Button onClick={this.handleBetween}>Show with Price between Min and Max</BS.Button>
+                        </LinkContainer>
 
 
-                </BS.Form> <br />
+                    </BS.Form>
+                    <br />
 
+                    <BS.Form inline>
+                        <BS.FormControl
+                            type="text"
+                            value={this.state.Name}
+                            placeholder="Enter Name"
+                            onChange={this.handleMealName}
+                        />
+                        <LinkContainer to={
+                            {
+                                pathname: '/adminmeals/all',
+                                query: { Name: this.state.Name }
+                            }
+                        } >
+                            <BS.Button onClick={this.handleSearchByName}>Search By Meal Name</BS.Button>
+                        </LinkContainer>
 
-                <BS.Form inline>
-                    <BS.FormControl
-                        type="text"
-                        value={this.state.Name}
-                        placeholder="Enter Name"
-                        onChange={this.handleMealName}
-                    />
-                    <LinkContainer to={
-                        {
-                            pathname: '/adminmeals/all',
-                            query: { Name: this.state.Name }
-                        }
-                    } >
-                        <BS.Button onClick={this.handleSearchByName}>Search By Meal Name</BS.Button>
-                    </LinkContainer>
+                    </BS.Form>
 
-                </BS.Form>
+                    <br />
 
-                <br />
+                    <BS.Form inline>
+                        <BS.FormControl
+                            type="text"
+                            value={this.state.CategoryName}
+                            placeholder="Enter CategoryName"
+                            onChange={this.handleCategoryText}
+                        />
+                        <LinkContainer to={
+                            {
+                                pathname: '/adminmeals/all',
+                                query: { CategoryName: this.state.CategoryName }
+                            }
+                        } >
+                            <BS.Button onClick={this.handleSearchByCategory}>Search By Category Name</BS.Button>
+                        </LinkContainer>
 
-                <BS.Form inline>
-                    <BS.FormControl
-                        type="text"
-                        value={this.state.CategoryName}
-                        placeholder="Enter CategoryName"
-                        onChange={this.handleCategoryText}
-                    />
-                    <LinkContainer to={
-                        {
-                            pathname: '/adminmeals/all',
-                            query: { CategoryName: this.state.CategoryName }
-                        }
-                    } >
-                        <BS.Button onClick={this.handleSearchByCategory}>Search By Category Name</BS.Button>
-                    </LinkContainer>
-
-                </BS.Form>
-                <br />
+                    </BS.Form>
+                    <br />
                 </center>
 
                 <LinkContainer to={{ pathname: '/adminmeals/create' }}>
@@ -257,7 +276,7 @@ export class All extends Component {
                 </LinkContainer>
 
 
-                <BS.Table striped bordered condensed hover>
+                <BS.Table striped bordered condensed hover style={{ width: '50%' }}>
                     <thead> <tr>
                         <th>
                             <BS.Button bsStyle='link' onClick={this.handleOrderById}>Id</BS.Button>
@@ -276,50 +295,27 @@ export class All extends Component {
                             <BS.Button bsStyle='link' onClick={this.handleOrderByPrice}>options</BS.Button>
                         </th>
 
-
                     </tr>
                     </thead>
 
                     <tbody>
-
                         {this.state.meals.map(
-
                             (meal) =>
-
                                 <tr key={meal.MealId}>
-
                                     <td>{meal.MealId}</td>
-
                                     <td>{meal.Name}</td>
-
                                     <td>{meal.Price}</td>
-
                                     <td>{meal.Category.Name}</td>
-
-                                    {/* <td><BS.Button bsStyle="link" onClick={() => this.handleFindBy(meal.CategoryId)}>{meal.Category.Name}</BS.Button></td> */}
-
                                     <td>
-
                                         <LinkContainer to={'/adminmeals/update/' + meal.MealId}>
-
                                             <BS.Button >Update</BS.Button>
-
                                         </LinkContainer>
-
                                         <BS.Button onClick={() => this.handleDelete(meal.MealId)}>Delete</BS.Button>
-
                                         <BS.Button onClick={() => this.handleBuy(meal.MealId)} >Buy</BS.Button>
-
-
-
                                     </td>
-
                                 </tr>
-
                         )}
-
                     </tbody>
-
                 </BS.Table>
             </div>
         )
@@ -386,7 +382,7 @@ export class Create extends Component {
 
     handleCreate = () => {
         this.db.create(this.state)
-        RR.browserHistory.push("adminmeals/all")
+        // RR.browserHistory.push("adminmeals/all")
     }
 
     handleId = (event) => {
@@ -468,21 +464,11 @@ export class Create extends Component {
                         <tr>
                             <td>Category</td>
                             <td>
-                                {
-                                    // <FormControl componentClass="select" placeholder="select">
-                                    //      <option value="select">select</option>
-                                    //      <option value="other">...</option>
-                                    // </FormControl>
-                                }
                                 <BS.DropdownButton title='Select Category' id='categories' onSelect={this.handleCategoryId}>
                                     {
                                         this.state.categories.map(
                                             category =>
-                                                <BS.MenuItem
-                                                    key={category.CategoryId}
-                                                    eventKey={category.CategoryId}>
-                                                    {category.Name}
-                                                </BS.MenuItem>
+                                                <BS.MenuItem key={category.CategoryId} eventKey={category.CategoryId}> {category.Name} </BS.MenuItem>
                                         )
                                     }
                                 </BS.DropdownButton>
@@ -491,6 +477,10 @@ export class Create extends Component {
                     </tbody>
                 </BS.Table>
                 <BS.Button onClick={this.handleCreate}>Create</BS.Button>
+
+                <LinkContainer to='adminmeals/all'>
+                    <BS.Button >Back to list</BS.Button>
+                </LinkContainer>
             </div>
         )
     }
@@ -508,7 +498,7 @@ export class Update extends Component {
     }
 
     db = new DB('http://localhost:63719/api/Meals')
-    categories = new DB('http://localhost:63719/api/Categories')
+    db2 = new DB('http://localhost:63719/api/Categories')
 
     componentDidMount() {
         this.db.findOne(
@@ -516,15 +506,25 @@ export class Update extends Component {
             this.props.params.id,
             data => this.setState(data)
         )
-        this.categories.find(
+        this.db2.find(
             data => this.setState({ categories: data })
         )
     }
 
 
     handleUpdate = () => {
-        this.db.update(this.state.MealId, this.state)
-        RR.browserHistory.push("/adminmeals/all")
+        let tempMeal = {
+            MealId: this.state.MealId,
+            Name: this.state.Name,
+            Price: this.state.Price,
+            Description: this.state.Description,
+            CategoryId: this.state.CategoryId,
+            Category: null
+        }
+        console.log(tempMeal)
+        this.db.update(this.state.MealId, tempMeal)
+        // RR.browserHistory.push("/adminmeals/all")
+        alert("the meal has been updated")
     }
 
     handleId = (event) => {
@@ -546,11 +546,13 @@ export class Update extends Component {
 
     handleCategoryId = (eventKey) => {
         this.setState({ CategoryId: eventKey })
+        console.log("eventkey" + eventKey)
     }
 
     render() {
         return (
             <div>
+
                 <BS.Table striped bordered condensed hover>
                     <thead>
                         <tr><th>Field</th><th>Value</th></tr>
@@ -606,21 +608,11 @@ export class Update extends Component {
                         <tr>
                             <td>Category</td>
                             <td>
-                                {
-                                    // <FormControl componentClass="select" placeholder="select">
-                                    //      <option value="select">select</option>
-                                    //      <option value="other">...</option>
-                                    // </FormControl>
-                                }
                                 <BS.DropdownButton title='Select Category' id='categories' onSelect={this.handleCategoryId}>
                                     {
                                         this.state.categories.map(
                                             category =>
-                                                <BS.MenuItem
-                                                    key={category.CategoryId}
-                                                    eventKey={category.CategoryId}>
-                                                    {category.Name}
-                                                </BS.MenuItem>
+                                                <BS.MenuItem key={category.CategoryId} eventKey={category.CategoryId}> {category.Name} </BS.MenuItem>
                                         )
                                     }
                                 </BS.DropdownButton>
@@ -629,6 +621,11 @@ export class Update extends Component {
                     </tbody>
                 </BS.Table>
                 <BS.Button onClick={this.handleUpdate}>Update</BS.Button>
+
+
+                <LinkContainer to='adminmeals/all'>
+                    <BS.Button >Back to list</BS.Button>
+                </LinkContainer>
             </div>
         )
     }

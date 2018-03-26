@@ -14,13 +14,16 @@ import * as CustomerInfo from './CustomerInfo'
 import * as CustomerOrders from './CustomerOrders'
 import * as MyOrder from './MyOrder'
 import * as Customers from './Customers'
+import AdminDashboard from './AdminDashboard'
 
 import '../stylesheet/App.css';
 
 
 export default class App extends React.Component {
   render() {
+    const Background = require(`../images/MainBackground.jpg`)
     return (
+      // <div style={{ backgroundImage: "url(" + Background + ")" }}>
       <RR.Router history={RR.browserHistory}>
         <RR.Route path="/" component={NB}>
         {/* Public USER */}
@@ -32,13 +35,9 @@ export default class App extends React.Component {
           <RR.Route path="customers/create" component={Customers.Create} />
           <RR.Route path="customers/update/:id" component={Customers.Update} />
           
-
-
           <RR.Route path="customerorders/all" component={CustomerOrders.All} />
           <RR.Route path="customerinfo/update" component={CustomerInfo.Update} />
           <RR.Route path="customerinfo/one" component={CustomerInfo.One} />
-
-
 
 
           {/* ADMIN USER */}
@@ -46,7 +45,6 @@ export default class App extends React.Component {
           <RR.Route path="adminmeals/all" component={AdminMeals.All} />
           <RR.Route path="adminmeals/create" component={AdminMeals.Create} />
           <RR.Route path="adminmeals/update/:id" component={AdminMeals.Update} />
-
 
           <RR.Route path="admincustomers/all" component={AdminCustomers.All} />
           <RR.Route path="admincustomers/create" component={AdminCustomers.Create} />
@@ -60,7 +58,6 @@ export default class App extends React.Component {
           <RR.Route path="adminorderitems/create" component={AdminOrderItems.Create} />
           <RR.Route path="adminorderitems/update/:id" component={AdminOrderItems.Update} />
 
-
           <RR.Route path="admincategory/all" component={AdminCategory.All} />
           <RR.Route path="admincategory/create" component={AdminCategory.Create} />
           <RR.Route path="admincategory/update/:id" component={AdminCategory.Update} />
@@ -73,9 +70,9 @@ export default class App extends React.Component {
           {/* Utils */}
 
           <RR.Route path="orders/MyOrder" component={MyOrder.One} />
-          
+          <RR.Route path="admindashbaord" component={AdminDashboard} />
           <RR.Route path="users" component={Meals.All}>
-            <RR.Route path="/user/:userId" component={Meals.All} />
+          <RR.Route path="/user/:userId" component={Meals.All} />
           </RR.Route>
           <RR.Route path="register" component={Auth.Register} />
           <RR.Route path="login" component={Auth.Login} />
@@ -84,6 +81,7 @@ export default class App extends React.Component {
           <RR.Route path="*" component={Meals.All} />
         </RR.Route>
       </RR.Router>
+      // </div>
     )
   }
 }

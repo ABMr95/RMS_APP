@@ -24,7 +24,11 @@ export class All extends Component {
     buy = new DB('http://localhost:63719/api/User')
 
     componentDidMount() {
-        this.find()
+        this.find(
+            
+        )
+
+
     }
 
     find = (parameters) => {
@@ -33,6 +37,15 @@ export class All extends Component {
             parameters
         )
     }
+
+    QuaryGetOrder = (parameters) => {
+        this.buy.find(
+            (data) => this.setState({ orders: data}),
+            parameters
+        )
+    }
+
+    
 
     Quary = (parameters) => {
         this.buy.find(
@@ -115,20 +128,20 @@ export class All extends Component {
         }
     }
 
-    handleOrderByOwnerName = () => {
-        if (this.state.ToggleOwnerName) {
-            this.find({
-                Column: "OwnerName", Order: "ASC",
-            })
-            this.setState({ ToggleOwnerName: !this.state.ToggleOwnerName, Order: "ASC" })
-        }
-        else {
-            this.find({
-                Column: "OwnerName", Order: "DSC",
-            })
-            this.setState({ ToggleOwnerName: !this.state.ToggleOwnerName, Order: "DESC" })
-        }
-    }
+    // handleOrderByOwnerName = () => {
+    //     if (this.state.ToggleOwnerName) {
+    //         this.find({
+    //             Column: "OwnerName", Order: "ASC",
+    //         })
+    //         this.setState({ ToggleOwnerName: !this.state.ToggleOwnerName, Order: "ASC" })
+    //     }
+    //     else {
+    //         this.find({
+    //             Column: "OwnerName", Order: "DSC",
+    //         })
+    //         this.setState({ ToggleOwnerName: !this.state.ToggleOwnerName, Order: "DESC" })
+    //     }
+    // }
 
     handleBuy = (val) => {
         console.log("im buying: " + val)
@@ -192,7 +205,7 @@ export class All extends Component {
                             query: { Name: this.state.Name }
                         }
                     } >
-                        <BS.Button onClick={this.handleSearchByName}>Search By Pet Name</BS.Button>
+                        <BS.Button onClick={this.handleSearchByName}>Search By Name</BS.Button>
                     </LinkContainer>
 
 
@@ -210,10 +223,10 @@ export class All extends Component {
                             <BS.Button bsStyle='link' onClick={this.handleOrderByName}>Name</BS.Button>
                         </th>
                         <th>
-                            <BS.Button bsStyle='link' onClick={this.handleOrderByName}>Status</BS.Button>
+                            <BS.Button bsStyle='link'>Status</BS.Button>
                         </th>
                         <th>
-                            <BS.Button bsStyle='link' onClick={this.handleOrderByOwnerName}>options</BS.Button>
+                            <BS.Button bsStyle='link'>options</BS.Button>
                         </th>
 
 
@@ -359,18 +372,18 @@ export class One extends Component {
                 }
 
                 <BS.Table striped bordered condensed hover>
-                    <thead> <tr>
+                    <thead> <tr>{/* onClick={this.handleOrderById} */}
                         <th>
-                            <BS.Button bsStyle='link' onClick={this.handleOrderById}>Meal Name</BS.Button>
+                            <BS.Button bsStyle='link' >Meal Name</BS.Button>
                         </th>
                         <th>
-                            <BS.Button bsStyle='link' onClick={this.handleOrderByName}>Price</BS.Button>
+                            <BS.Button bsStyle='link'>Price</BS.Button>
                         </th>
                         <th>
-                            <BS.Button bsStyle='link' onClick={this.handleOrderByName}>Quantity</BS.Button>
+                            <BS.Button bsStyle='link'>Quantity</BS.Button>
                         </th>
                         <th>
-                            <BS.Button bsStyle='link' onClick={this.handleOrderByOwnerName}>option</BS.Button>
+                            <BS.Button bsStyle='link'>option</BS.Button>
                         </th>
 
 
@@ -408,7 +421,6 @@ export class One extends Component {
                                     </td>
 
                                 </tr>
-
                         )}
 
                     </tbody>

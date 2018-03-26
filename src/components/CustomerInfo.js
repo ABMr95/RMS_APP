@@ -83,23 +83,14 @@ export class One extends Component {
     }
 
 
-
-
-
-
-
-
-
-
-
-
     render() {
         return (
             <div>
+                <center>
                 <h1>My Info</h1>
                 {this.state.customer
                     ?
-                    <BS.Table striped bordered condensed hover>
+                    <BS.Table striped bordered condensed hover style={{ width: '50%' }}>
                         <thead>
                             <tr><th>Field</th><th>Value</th></tr>
                         </thead>
@@ -108,6 +99,7 @@ export class One extends Component {
                             <tr><td>Name</td><td>{this.state.customer.Name}</td></tr>
                         </tbody>
                     </BS.Table>
+                    
                     :
                     <p>Loading...</p>
                 }
@@ -115,9 +107,7 @@ export class One extends Component {
                 <LinkContainer to='customerinfo/update'>
                     <BS.Button  >Update</BS.Button>
                 </LinkContainer>
-
-
-
+            </center>
             </div>
         )
     }
@@ -167,7 +157,7 @@ export class Update extends Component {
     render() {
         return (
             <div>
-                <BS.Table striped bordered condensed hover>
+                <BS.Table striped bordered condensed hover style={{ width: '50%' }}>
                     <thead>
                         <tr><th>Field</th><th>Value</th></tr>
                     </thead>

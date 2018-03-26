@@ -145,7 +145,10 @@ export class Login extends Component {
             this.state,
             (data) => {
                 sessionStorage.setItem('token', data.access_token)
+                sessionStorage.setItem('userName', data.userName)
                 console.log(sessionStorage.getItem('token'))
+                console.log(sessionStorage.getItem('userName'))
+                alert("welcome " + sessionStorage.getItem('userName'))
                 RR.browserHistory.push("/meals/all")
             }
         )
@@ -192,3 +195,18 @@ export class Login extends Component {
         )
     }
 }
+
+// export const isUser = () => {
+//     return sessionStorage.getItem('token') && sessionStorage.getItem('username') !== "Admin@admin.com";
+// }
+
+// export const isAdmin = () => {
+//     return sessionStorage.getItem('token') && sessionStorage.getItem('username') === "Admin@admin.com";
+// }
+
+// // Remove token and then restart page to update view.
+// export const Logout = () => {
+//     sessionStorage.removeItem('token');
+//     sessionStorage.removeItem('username');
+//     RR.browserHistory.push("/");
+// }

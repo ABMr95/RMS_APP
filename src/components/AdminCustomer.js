@@ -7,7 +7,8 @@ import * as RR from 'react-router'
 export class All extends Component {
 
     state = {
-        customers: []
+        customers: [],
+        SelectedNav: 1
     }
 
     db = new DB('http://localhost:63719/api/Customers')
@@ -42,6 +43,18 @@ export class All extends Component {
     render() {
         return (
             <div>
+                <div>
+                    <h3>Admin Dashboard</h3>
+                    <br />
+                    <BS.Nav bsStyle="tabs" onSelect={this.handleSelect}>
+                        <LinkContainer to='/admincustomers/all'><BS.NavItem>Customers</BS.NavItem></LinkContainer>
+                        <LinkContainer to='/adminmeals/all'><BS.NavItem>Meals</BS.NavItem></LinkContainer>
+                        <LinkContainer to='/adminorders/all'><BS.NavItem>Orders</BS.NavItem></LinkContainer>
+                        <LinkContainer to='/adminorderitems/all'><BS.NavItem>Order Items</BS.NavItem></LinkContainer>
+                        <LinkContainer to='/adminaddress/all'><BS.NavItem>Addresses</BS.NavItem></LinkContainer>
+                        <LinkContainer to='/admincategory/all'><BS.NavItem>Categories</BS.NavItem></LinkContainer>
+                    </BS.Nav>
+                </div>
                 <center><h1>Admin Customers</h1>
                 <BS.Button onClick={this.handleShowAll}>Show All</BS.Button></center>
                 <br />
@@ -56,14 +69,9 @@ export class All extends Component {
                                     <td>{customer.CustomerId}</td>
                                     <td><BS.Button bsStyle="link" onClick={() => this.handleFindBy(customer.CustomerId)}>{customer.Name}</BS.Button></td>
                                     <td>
-
                                         <LinkContainer to={'/admincustomers/update/' + customer.CustomerId}>
-
                                             <BS.Button >Update</BS.Button>
-
                                         </LinkContainer>
-                                        {/* <BS.Button onClick={() => this.handleUpdate(customer.CustomerId)}>Update</BS.Button> */}
-                                         <BS.Button onClick={() => this.handleDelete(customer.CustomerId)}>Delete</BS.Button> 
                                     </td>
                                 </tr>
                         )}

@@ -35,37 +35,41 @@ export default class NB extends Component {
                             }
 
                             {
-                                sessionStorage.getItem('token')
+                                sessionStorage.getItem('token') && sessionStorage.getItem("userName") === "Admin@admin.com"
                                     ?
-                                    <BS.NavDropdown title="Admin" id="nav-dropdown">
-                                        <LinkContainer to='/adminmeals/all'>
-                                            <BS.NavItem >Meals</BS.NavItem>
-                                        </LinkContainer>
+                                    // <BS.NavDropdown title="Admin" id="nav-dropdown">
+                                    //     <LinkContainer to='/adminmeals/all'>
+                                    //         <BS.NavItem >Meals</BS.NavItem>
+                                    //     </LinkContainer>
 
-                                        <LinkContainer to='/admincustomers/all'>
-                                            <BS.NavItem >Customers</BS.NavItem>
-                                        </LinkContainer>
+                                    //     <LinkContainer to='/admincustomers/all'>
+                                    //         <BS.NavItem >Customers</BS.NavItem>
+                                    //     </LinkContainer>
 
-                                        <LinkContainer to='/adminorders/all'>
-                                            <BS.NavItem >Orders</BS.NavItem>
-                                        </LinkContainer>
+                                    //     <LinkContainer to='/adminorders/all'>
+                                    //         <BS.NavItem >Orders</BS.NavItem>
+                                    //     </LinkContainer>
 
-                                        <LinkContainer to='/adminorderitems/all'>
-                                            <BS.NavItem >Order Items</BS.NavItem>
-                                        </LinkContainer>
+                                    //     <LinkContainer to='/adminorderitems/all'>
+                                    //         <BS.NavItem >Order Items</BS.NavItem>
+                                    //     </LinkContainer>
 
-                                        <LinkContainer to='/admincategory/all'>
-                                            <BS.NavItem >Category</BS.NavItem>
-                                        </LinkContainer>
+                                    //     <LinkContainer to='/admincategory/all'>
+                                    //         <BS.NavItem >Category</BS.NavItem>
+                                    //     </LinkContainer>
 
-                                    </BS.NavDropdown>
+                                    // </BS.NavDropdown>
+
+                                    <LinkContainer to='/admindashbaord'>
+                                        <BS.NavItem >Admin Dashboard</BS.NavItem>
+                                    </LinkContainer>
                                     :
                                     console.log()
                             }
                         </BS.Nav>
 
                         {
-                            sessionStorage.getItem('token')
+                            sessionStorage.getItem('token') 
                                 ?
                                 <BS.Nav pullRight>
 
