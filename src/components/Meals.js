@@ -19,18 +19,29 @@ export class All extends Component {
         ToggleName: false,
         TogglePrice: false,
         ToggleCategory: false,
+        select: 'F',
+        category: []
     }
     // small bug in the order
     db = new DB('http://localhost:51064/api/Meals')
+    categoryDB = new DB('http://localhost:51064/api/Categories')
     buy = new DB('http://localhost:51064/api/User')
 
     componentDidMount() {
         this.find()
+        this.getCategory()
     }
 
     find = (parameters) => {
         this.db.find(
             (data) => this.setState({ meals: data }),
+            parameters
+        )
+    }
+
+    getCategory = (parameters) => {
+        this.categoryDB.find(
+            (data) => this.setState({ category: data }),
             parameters
         )
     }
@@ -98,7 +109,7 @@ export class All extends Component {
 
     handleSearchByCategory = () => {
         this.find({
-            Category: this.state.CategoryName
+            Category: this.state.select
         })
     }
 
@@ -169,26 +180,24 @@ export class All extends Component {
             id: val
         })
 
-        sessionStorage.getItem('token') 
-        ?
-        // My cart
-        RR.browserHistory.push("/orders/MyOrder")
-        :
-        RR.browserHistory.push("/login")
+        sessionStorage.getItem('token')
+            ?
+            // My cart
+            RR.browserHistory.push("/orders/MyOrder")
+            :
+            RR.browserHistory.push("/login")
     }
 
-    // handleBuy = (val) => {
+    handleSelect = (event) => {
+        this.state.select = event.target.value
 
-    //     sessionStorage.getItem('token') 
-    //     ?
-    //     this.db.findOne(
-    //         val,
-    //         RR.browserHistory.push("/orders/MyOrder")
-    //     )
-    //     :
-    //     RR.browserHistory.push("/login")
+        this.state.select === ''
+            ?
+            this.find()
+            :
+            this.handleSearchByCategory()
+    }
 
-    // }
 
 
 
@@ -204,43 +213,48 @@ export class All extends Component {
             else
                 throw e;
         }
-        
+
         return (
             <div>
                 <center>
                     <BS.Jumbotron style={{ width: '85%', borderRadius: 50, opacity: 0.95 }}>
                         <center>
                             <div>
-                            
+
                                 <h1 style={{ justifyContent: 'center' }}>Our Menu</h1>
 
                                 <BS.Button onClick={this.handleShowAll}>Show All</BS.Button>
                                 <br />
                                 <br />
 
-                                <BS.Form inline>
-                                    <BS.FormControl
-                                        type="text"
-                                        value={this.state.CategoryName}
-                                        placeholder="Enter CategoryName"
-                                        onChange={this.handleCategoryText}
-                                    />
-                                    <LinkContainer to={
-                                        {
-                                            pathname: '/meals/all',
-                                            query: { CategoryName: this.state.CategoryName }
-                                        }
-                                    } >
-                                        <BS.Button onClick={this.handleSearchByCategory}>
-                                            <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
-                                            Search By Category Name
-                                        </BS.Button>
-                                    </LinkContainer>
+                                
 
-                                </BS.Form>
+
+
                             </div>
                         </center>
                         <br />
+
+                        <BS.FormGroup controlId="formControlsSelect">
+                            <BS.ControlLabel>Select</BS.ControlLabel>
+                            <BS.FormControl
+                                onChange={this.handleSelect}
+                                inputRef={el => this.inputEl = el}
+                                componentClass="select" placeholder="select">
+                                <option value="">select</option>
+                                
+                                {this.state.category.map(
+                                    (item) =>
+                                    <option value={item.Name}>{item.Name}</option>
+                                            
+                                )
+                                }
+                            </BS.FormControl>
+                        </BS.FormGroup>
+
+
+
+
 
                         <center>
                             <BS.Table responsive hover striped style={{ width: '80%' }}>
@@ -253,21 +267,21 @@ export class All extends Component {
                                             <center><BS.Button bsStyle='link' onClick={this.handleOrderByName}><h3><BS.Label bsStyle="info">Name</BS.Label></h3></BS.Button></center>
                                         </th>
                                         <th>
-                                        <center><BS.Button bsStyle='link'><h3><BS.Label bsStyle="info">Image</BS.Label></h3></BS.Button></center>
+                                            <center><BS.Button bsStyle='link'><h3><BS.Label bsStyle="info">Image</BS.Label></h3></BS.Button></center>
                                         </th>
                                         <th>
-                                        <center><BS.Button bsStyle='link' onClick={this.handleOrderByCategory}><h3><BS.Label bsStyle="info">Category</BS.Label></h3></BS.Button></center>
+                                            <center><BS.Button bsStyle='link' onClick={this.handleOrderByCategory}><h3><BS.Label bsStyle="info">Category</BS.Label></h3></BS.Button></center>
                                         </th>
                                         <th>
-                                        <center><BS.Button bsStyle='link'><h3><BS.Label bsStyle="info">Description</BS.Label></h3></BS.Button></center>
+                                            <center><BS.Button bsStyle='link'><h3><BS.Label bsStyle="info">Description</BS.Label></h3></BS.Button></center>
                                         </th>
                                         <th>
-                                        <center><BS.Button bsStyle='link' onClick={this.handleOrderByPrice}><h3><BS.Label bsStyle="info">Price</BS.Label></h3></BS.Button></center>
+                                            <center><BS.Button bsStyle='link' onClick={this.handleOrderByPrice}><h3><BS.Label bsStyle="info">Price</BS.Label></h3></BS.Button></center>
                                         </th>
                                     </tr>
                                 </thead>
 
-                                
+
 
                                 <tbody>
                                     {this.state.meals.map(
@@ -276,26 +290,26 @@ export class All extends Component {
                                                 {/* <td>{meal.MealId}</td> */}
                                                 <td><center><p style={{ paddingTop: 35 }}>{meal.Name}</p></center></td>
 
-                                                
+
                                                 <td><center>
 
 
-                                                 
 
-                                                 {
-                                                     meal.ImageName
-                                                     ?
-                                                     <img   src={require('../images/' + meal.ImageName + '.jpg')} width="160" height="100" style={{ padding: 5, borderRadius: 10 }} />
-                                                     :
-                                                     <img   src={require('../images/default-thumbnail.jpg')} width="160" height="100" style={{ padding: 5, borderRadius: 10 }} />
 
-                                                 }
+                                                    {
+                                                        meal.ImageName
+                                                            ?
+                                                            <img src={require('../images/' + meal.ImageName + '.jpg')} width="160" height="100" style={{ padding: 5, borderRadius: 10 }} />
+                                                            :
+                                                            <img src={require('../images/default-thumbnail.jpg')} width="160" height="100" style={{ padding: 5, borderRadius: 10 }} />
 
-                                                
+                                                    }
 
-                                                
-                                                
-                                                
+
+
+
+
+
                                                 </center></td>
                                                 <td><center><p style={{ paddingTop: 35 }}>{meal.Category.Name}</p></center></td>
                                                 <td><center><p style={{ paddingTop: 35 }}>{meal.Description}</p></center></td>
@@ -305,11 +319,11 @@ export class All extends Component {
                                                     {/* <LinkContainer to={'/meals/update/' + meal.Id}><BS.Button>Update</BS.Button></LinkContainer> */}
                                                     {/* <BS.Button onClick={() => this.handleDelete(meal.Id)}>Delete</BS.Button> */}
                                                     <div style={{ paddingTop: 25 }}>
-                                                    <BS.Button bsStyle="default" bsSize="large" onClick={() => this.handleBuy(meal.MealId)}>Buy</BS.Button>
+                                                        <BS.Button bsStyle="default" bsSize="large" onClick={() => this.handleBuy(meal.MealId)}>Buy</BS.Button>
                                                     </div>
-                                                    </center></td>
+                                                </center></td>
                                             </tr>
-                                        )
+                                    )
                                     }
                                 </tbody>
                             </BS.Table>
