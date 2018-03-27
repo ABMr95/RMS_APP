@@ -97,6 +97,11 @@ export class One extends Component {
                         <tbody>
                             <tr><td>Id</td><td>{this.state.customer.CustomerId}</td></tr>
                             <tr><td>Name</td><td>{this.state.customer.Name}</td></tr>
+                            <tr><td>Address Address1</td><td>{this.state.customer.Address.Address1}</td></tr>
+                            <tr><td>Address Address2</td><td>{this.state.customer.Address.Address2}</td></tr>
+                            <tr><td>Address City</td><td>{this.state.customer.Address.City}</td></tr>
+                            <tr><td>Address Country</td><td>{this.state.customer.Address.Country}</td></tr>
+                            <tr><td>Address POBox</td><td>{this.state.customer.Address.POBox}</td></tr>
                         </tbody>
                     </BS.Table>
                     
@@ -105,7 +110,7 @@ export class One extends Component {
                 }
 
                 <LinkContainer to='customerinfo/update'>
-                    <BS.Button  >Update</BS.Button>
+                    <BS.Button  >Update Address</BS.Button>
                 </LinkContainer>
             </center>
             </div>
