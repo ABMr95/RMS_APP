@@ -27,7 +27,7 @@ export class Register extends Component {
     register = async(json, action) => {
         try {
             var response = await fetch(
-                'http://localhost:63719/api/Account/Register', {
+                'http://localhost:51064/api/Account/Register', {
                     method: 'POST',
                     body: JSON.stringify(json),
                     headers: {
@@ -121,7 +121,7 @@ export class Login extends Component {
     login = async(json, action) => {
         try {
             var response = await fetch(
-                'http://localhost:63719/Token', 
+                'http://localhost:51064/Token', 
                 {
                     headers: {
                         'Content-Type': 'application/x-www-form-urlencoded'

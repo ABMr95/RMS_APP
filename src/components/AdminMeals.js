@@ -22,8 +22,8 @@ export class All extends Component {
         ToggleCategory: false
     }
     // small bug in the order
-    db = new DB('http://localhost:63719/api/Meals')
-    buy = new DB('http://localhost:63719/api/User')
+    db = new DB('http://localhost:51064/api/Meals')
+    buy = new DB('http://localhost:51064/api/User')
 
 
     componentWillMount() {
@@ -328,7 +328,7 @@ export class One extends Component {
         meal: null
     }
 
-    db = new DB('http://localhost:63719/api/Meals')
+    db = new DB('http://localhost:51064/api/Meals')
 
     componentDidMount() {
         this.db.findOne(
@@ -372,8 +372,8 @@ export class Create extends Component {
         categories: []
     }
 
-    db = new DB('http://localhost:63719/api/Meals')
-    categories = new DB('http://localhost:63719/api/Categories')
+    db = new DB('http://localhost:51064/api/Meals')
+    categories = new DB('http://localhost:51064/api/Categories')
 
     componentDidMount() {
         this.categories.find(
@@ -497,8 +497,8 @@ export class Update extends Component {
         categories: []
     }
 
-    db = new DB('http://localhost:63719/api/Meals')
-    db2 = new DB('http://localhost:63719/api/Categories')
+    db = new DB('http://localhost:51064/api/Meals')
+    db2 = new DB('http://localhost:51064/api/Categories')
 
     componentDidMount() {
         this.db.findOne(

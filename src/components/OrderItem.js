@@ -8,7 +8,7 @@ export class All extends Component {
         orderitems: []
     }
 
-    db = new DB('http://localhost:63719/api/OrderItems')
+    db = new DB('http://localhost:51064/api/OrderItems')
 
     componentDidMount() {
         this.find()
@@ -70,7 +70,7 @@ export class One extends Component {
         orderitem: null
     }
 
-    db = new DB('http://localhost:63719/api/OrderItems')
+    db = new DB('http://localhost:51064/api/OrderItems')
 
     componentDidMount() {
         this.db.findOne(
@@ -109,7 +109,7 @@ export class Create extends Component {
         Name: ''
     }
 
-    db = new DB('http://localhost:63719/api/OrderItems')
+    db = new DB('http://localhost:51064/api/OrderItems')
 
     handleCreate = () => {
         this.db.create(this.state)
@@ -168,7 +168,7 @@ export class Update extends Component {
         Name: ''
     }
 
-    db = new DB('http://localhost:63719/api/OrderItems')
+    db = new DB('http://localhost:51064/api/OrderItems')
 
     componentDidMount() {
         this.db.findOne(

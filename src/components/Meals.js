@@ -21,8 +21,8 @@ export class All extends Component {
         ToggleCategory: false,
     }
     // small bug in the order
-    db = new DB('http://localhost:63719/api/Meals')
-    buy = new DB('http://localhost:63719/api/User')
+    db = new DB('http://localhost:51064/api/Meals')
+    buy = new DB('http://localhost:51064/api/User')
 
     componentDidMount() {
         this.find()
@@ -318,7 +318,7 @@ export class All extends Component {
 //         meal: null
 //     }
 
-//     db = new DB('http://localhost:63719/api/Meals')
+//     db = new DB('http://localhost:51064/api/Meals')
 
 //     componentDidMount() {
 //         this.db.findOne(
@@ -360,8 +360,8 @@ export class All extends Component {
 //         owners: []
 //     }
 
-//     db = new DB('http://localhost:63719/api/Meals')
-//     owners = new DB('http://localhost:63719/api/Owners')
+//     db = new DB('http://localhost:51064/api/Meals')
+//     owners = new DB('http://localhost:51064/api/Owners')
 
 //     componentDidMount() {
 //         this.owners.find(
@@ -454,8 +454,8 @@ export class All extends Component {
 //         owners: []
 //     }
 
-//     db = new DB('http://localhost:63719/api/Meals')
-//     owners = new DB('http://localhost:63719/api/Owners')
+//     db = new DB('http://localhost:51064/api/Meals')
+//     owners = new DB('http://localhost:51064/api/Owners')
 
 //     componentDidMount() {
 //         this.db.findOne(

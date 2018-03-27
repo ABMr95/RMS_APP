@@ -20,8 +20,8 @@ export class All extends Component {
         ToggleCategory: false
     }
     // small bug in the order
-    db = new DB('http://localhost:63719/api/Orders')
-    dbUser = new DB('http://localhost:63719/api/User')
+    db = new DB('http://localhost:51064/api/Orders')
+    dbUser = new DB('http://localhost:51064/api/User')
 
     componentDidMount() {
         this.findCurrentUser()
@@ -330,7 +330,7 @@ export class One extends Component {
         order: null
     }
 
-    db = new DB('http://localhost:63719/api/Orders')
+    db = new DB('http://localhost:51064/api/Orders')
 
     componentDidMount() {
         this.db.findOne(
@@ -374,8 +374,8 @@ export class Create extends Component {
         categories: []
     }
 
-    db = new DB('http://localhost:63719/api/Orders')
-    categories = new DB('http://localhost:63719/api/Categories')
+    db = new DB('http://localhost:51064/api/Orders')
+    categories = new DB('http://localhost:51064/api/Categories')
 
     componentDidMount() {
         this.categories.find(
@@ -504,8 +504,8 @@ export class Update extends Component {
         categories: []
     }
 
-    db = new DB('http://localhost:63719/api/Orders')
-    categories = new DB('http://localhost:63719/api/Categories')
+    db = new DB('http://localhost:51064/api/Orders')
+    categories = new DB('http://localhost:51064/api/Categories')
 
     componentDidMount() {
         this.db.findOne(

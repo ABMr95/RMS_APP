@@ -20,8 +20,8 @@ export class All extends Component {
     // small bug in the order
 
 
-    db = new DB('http://localhost:63719/api/Orders')
-    buy = new DB('http://localhost:63719/api/User')
+    db = new DB('http://localhost:51064/api/Orders')
+    buy = new DB('http://localhost:51064/api/User')
 
     componentDidMount() {
         this.find(
@@ -284,8 +284,8 @@ export class One extends Component {
         OrderItems: []
     }
 
-    db = new DB('http://localhost:63719/api/Orders')
-    dbUser = new DB('http://localhost:63719/api/User')
+    db = new DB('http://localhost:51064/api/Orders')
+    dbUser = new DB('http://localhost:51064/api/User')
 
     componentDidMount() {
         this.findCurrentUser()

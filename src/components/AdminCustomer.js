@@ -11,7 +11,7 @@ export class All extends Component {
         SelectedNav: 1
     }
 
-    db = new DB('http://localhost:63719/api/Customers')
+    db = new DB('http://localhost:51064/api/Customers')
 
     componentDidMount() {
         this.find()
@@ -88,7 +88,7 @@ export class One extends Component {
         customer: null
     }
 
-    db = new DB('http://localhost:63719/api/Customers')
+    db = new DB('http://localhost:51064/api/Customers')
 
     componentDidMount() {
         this.db.findOne(
@@ -130,7 +130,7 @@ export class Create extends Component {
 
     }
 
-    db = new DB('http://localhost:63719/api/Customers')
+    db = new DB('http://localhost:51064/api/Customers')
 
     handleCreate = () => {
         this.db.create(this.state)
@@ -220,7 +220,7 @@ export class Update extends Component {
         Name: '',
     }
 
-    db = new DB('http://localhost:63719/api/Customers')
+    db = new DB('http://localhost:51064/api/Customers')
 
     componentDidMount() {
         this.db.findOne(

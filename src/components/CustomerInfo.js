@@ -12,8 +12,8 @@ export class One extends Component {
         customerId: 1
     }
 
-    db = new DB('http://localhost:63719/api/Orders')
-    dbUser = new DB('http://localhost:63719/api/User')
+    db = new DB('http://localhost:51064/api/Orders')
+    dbUser = new DB('http://localhost:51064/api/User')
 
     componentDidMount() {
         // this.find()
@@ -120,8 +120,8 @@ export class Update extends Component {
         Name: '',
     }
 
-    db = new DB('http://localhost:63719/api/Customers')
-    dbUser = new DB('http://localhost:63719/api/User')
+    db = new DB('http://localhost:51064/api/Customers')
+    dbUser = new DB('http://localhost:51064/api/User')
 
 
     findCurrentUser = async (parameters) => {

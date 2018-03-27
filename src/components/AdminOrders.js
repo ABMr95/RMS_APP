@@ -18,7 +18,7 @@ export class All extends Component {
         CustomerName: '',
     }
 
-    db = new DB('http://localhost:63719/api/Orders')
+    db = new DB('http://localhost:51064/api/Orders')
 
     componentDidMount() {
         this.find()
@@ -119,7 +119,7 @@ export class One extends Component {
         order: null
     }
 
-    db = new DB('http://localhost:63719/api/Orders')
+    db = new DB('http://localhost:51064/api/Orders')
 
     componentDidMount() {
         this.db.findOne(
@@ -169,8 +169,8 @@ export class Create extends Component {
         customers: []
     }
 
-    db = new DB('http://localhost:63719/api/Orders')
-    customers = new DB('http://localhost:63719/api/Customers')
+    db = new DB('http://localhost:51064/api/Orders')
+    customers = new DB('http://localhost:51064/api/Customers')
 
     componentDidMount() {
         this.customers.find(
@@ -302,8 +302,8 @@ export class Update extends Component {
         customers: []
     }
 
-    db = new DB('http://localhost:63719/api/Orders')
-    customers = new DB('http://localhost:63719/api/Customers')
+    db = new DB('http://localhost:51064/api/Orders')
+    customers = new DB('http://localhost:51064/api/Customers')
 
     componentDidMount() {
         this.db.findOne(

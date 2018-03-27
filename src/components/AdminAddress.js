@@ -16,7 +16,7 @@ export class All extends Component {
         POBox: ''
     }
 
-    db = new DB('http://localhost:63719/api/Addresses')
+    db = new DB('http://localhost:51064/api/Addresses')
 
     componentDidMount() {
         this.find()
@@ -104,7 +104,7 @@ export class One extends Component {
         address: null
     }
 
-    db = new DB('http://localhost:63719/api/Addresses')
+    db = new DB('http://localhost:51064/api/Addresses')
 
     componentDidMount() {
         this.db.findOne(
@@ -154,8 +154,8 @@ export class Create extends Component {
         POBox: ''
     }
 
-    db = new DB('http://localhost:63719/api/Addresses')
-    addresses = new DB('http://localhost:63719/api/Addresses')
+    db = new DB('http://localhost:51064/api/Addresses')
+    addresses = new DB('http://localhost:51064/api/Addresses')
 
     componentDidMount() {
         this.addresses.find(
@@ -333,8 +333,8 @@ export class Update extends Component {
         POBox: ''
     }
 
-    db = new DB('http://localhost:63719/api/Addresses')
-    //addresses = new DB('http://localhost:63719/api/Addresses')
+    db = new DB('http://localhost:51064/api/Addresses')
+    //addresses = new DB('http://localhost:51064/api/Addresses')
 
     componentDidMount() {
         this.db.findOne(
