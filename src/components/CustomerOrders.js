@@ -59,6 +59,7 @@ export class All extends Component {
             (data) => this.setState({ orders: data }),
             {
                 CustomerID: val
+
             }
         )
         
