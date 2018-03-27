@@ -25,7 +25,7 @@ export class All extends Component {
 
     componentDidMount() {
         this.find(
-            
+
         )
 
 
@@ -40,12 +40,12 @@ export class All extends Component {
 
     QuaryGetOrder = (parameters) => {
         this.buy.find(
-            (data) => this.setState({ orders: data}),
+            (data) => this.setState({ orders: data }),
             parameters
         )
     }
 
-    
+
 
     Quary = (parameters) => {
         this.buy.find(
@@ -299,21 +299,30 @@ export class One extends Component {
     //     )
     // }
 
+    // findCurrentUser = async (parameters) => {
+    //     await this.dbUser.find(
+    //         (data) => this.db.findOne(
+    //             data.CustomerId,
+    //             data => this.setState({ order: data })
+    //         ),
+    //         {
+    //             query: "customer"
+    //         }
+    //     )
+    // }
+
     findCurrentUser = async (parameters) => {
         await this.dbUser.find(
-            (data) => this.db.findOne(
-                data.CustomerId,
-                data => this.setState({ order: data })
-            ),
+            (data) => this.setState({ order: data }),
             {
-                query: "customer"
+                query: "order"
             }
         )
     }
 
     Quary = (parameters) => {
         this.dbUser.find(
-            (data) => this.setState({ }),
+            (data) => this.setState({}),
             parameters
         )
     }
@@ -328,17 +337,17 @@ export class One extends Component {
         )
     }
 
-    handleCheckout = () =>{
-        console.log("im checking out " )
+    handleCheckout = () => {
+        console.log("im checking out ")
         this.Quary({
             query: "checkout"
 
         })
-  
+
     }
 
-    handleEmptyCart= () =>{
-        console.log("im emypying cart " )
+    handleEmptyCart = () => {
+        console.log("im emypying cart ")
         this.Quary({
             query: "emptycart"
 
@@ -429,7 +438,7 @@ export class One extends Component {
 
                 <BS.Button onClick={() => this.handleCheckout()} >Checkout</BS.Button>
 
-                <BS.Button onClick={() =>  this.handleEmptyCart()} >Empty cart</BS.Button>
+                <BS.Button onClick={() => this.handleEmptyCart()} >Empty cart</BS.Button>
 
 
             </div>
