@@ -79,9 +79,9 @@ export default class NB extends Component {
                                             <BS.NavItem >My Orders List</BS.NavItem>
                                         </LinkContainer>
 
-                                        <LinkContainer to='/orders/myorder'>
+                                        {/* <LinkContainer to='/orders/myorder'>
                                             <BS.NavItem >My cart</BS.NavItem>
-                                        </LinkContainer>
+                                        </LinkContainer> */}
 
                                         <LinkContainer to='customerinfo/one'>
                                             <BS.NavItem >Info setting</BS.NavItem>

@@ -44,10 +44,18 @@ export class Register extends Component {
     }
 
     handleRegister = () => {
-        this.register(
-            this.state,
-            ()=> RR.browserHistory.push("/login")
-        )
+
+        if(this.state.Password !=  this.state.ConfirmPassword){
+            alert("the password doesnt match")
+        }
+        else{
+            this.register(
+                this.state,
+                ()=> RR.browserHistory.push("/login")
+            )
+
+        }
+        
     }
 
     render() {
