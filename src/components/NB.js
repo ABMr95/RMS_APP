@@ -35,7 +35,7 @@ export default class NB extends Component {
                             }
 
                             {
-                                sessionStorage.getItem('token') && sessionStorage.getItem("userName") === "Admin@admin.com"
+                                sessionStorage.getItem('token') && sessionStorage.getItem("userName") === "admin@admin.com"
                                     ?
                                     // <BS.NavDropdown title="Admin" id="nav-dropdown">
                                     //     <LinkContainer to='/adminmeals/all'>

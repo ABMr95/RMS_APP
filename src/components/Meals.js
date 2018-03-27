@@ -280,7 +280,16 @@ export class All extends Component {
                                                 <td><center>
 
 
-                                                 <img   src={require('../images/' + meal.Name + '.jpg')} width="160" height="100" style={{ padding: 5, borderRadius: 10 }} />
+                                                 
+
+                                                 {
+                                                     meal.ImageName
+                                                     ?
+                                                     <img   src={require('../images/' + meal.ImageName + '.jpg')} width="160" height="100" style={{ padding: 5, borderRadius: 10 }} />
+                                                     :
+                                                     <img   src={require('../images/default-thumbnail.jpg')} width="160" height="100" style={{ padding: 5, borderRadius: 10 }} />
+
+                                                 }
 
                                                 
 
