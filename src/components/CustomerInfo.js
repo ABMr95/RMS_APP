@@ -236,9 +236,6 @@ export class Update extends Component {
                                         <option value="">select</option>
                                         <option value="Male">Male</option>
                                         <option value="Female">Female</option>
-
-                                        
-
                                     </BS.FormControl>
                                 </BS.FormGroup>
                             </td>
