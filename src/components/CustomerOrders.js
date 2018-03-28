@@ -186,101 +186,24 @@ export class All extends Component {
         console.log('render: ', this.props.location.query)
         return (
             <div>
-                <h1>My Orders</h1>
-
-                <BS.Button onClick={this.findCurrentUser}>Show user</BS.Button>
+                <h1>My History Orders</h1>
 
 
-
-                <BS.Button onClick={this.handleShowAll}>Show All</BS.Button>
-                <br />
-                {/* <BS.Form inline>
-                    <BS.FormControl
-                        type="text"
-                        value={this.state.MinPrice}
-                        placeholder="Enter Min Id"
-                        onChange={this.handleMinPrice}
-                    />
-                    <BS.FormControl
-                        type="text"
-                        value={this.state.MaxPrice}
-                        placeholder="Enter Max Id"
-                        onChange={this.handleMaxPrice}
-                    />
-
-                    <LinkContainer to={
-                        {
-                            pathname: '/adminmeals/all',
-                            query: {
-                                MinPrice: this.state.MinPrice,
-                                MaxPrice: this.state.MaxPrice
-                            }
-                        }
-                    }
-                    >
-                        <BS.Button onClick={this.handleBetween}>Show with Price between Min and Max</BS.Button>
-                    </LinkContainer>
-
-
-                </BS.Form> <br /> */}
-
-
-                <BS.Form inline>
-                    <BS.FormControl
-                        type="text"
-                        value={this.state.Name}
-                        placeholder="Enter Name"
-                        onChange={this.handleMealName}
-                    />
-                    <LinkContainer to={
-                        {
-                            pathname: '/adminmeals/all',
-                            query: { Name: this.state.Name }
-                        }
-                    } >
-                        <BS.Button onClick={this.handleSearchByName}>Search By Meal  Name</BS.Button>
-                    </LinkContainer>
-
-                </BS.Form> <br />
-
-                <br />
-
-                <BS.Form inline>
-                    <BS.FormControl
-                        type="text"
-                        value={this.state.CategoryName}
-                        placeholder="Enter CategoryName"
-                        onChange={this.handleCategoryText}
-                    />
-                    <LinkContainer to={
-                        {
-                            pathname: '/adminmeals/all',
-                            query: { CategoryName: this.state.CategoryName }
-                        }
-                    } >
-                        <BS.Button onClick={this.handleSearchByCategory}>Search By Category Name</BS.Button>
-                    </LinkContainer>
-
-                </BS.Form> <br />
-
-
-
+              
 
                 <BS.Table striped bordered condensed hover>
                     <thead> <tr>
                         <th>
-                            <BS.Button bsStyle='link' onClick={this.handleOrderById}>Id</BS.Button>
+                            Id
                         </th>
                         <th>
-                            <BS.Button bsStyle='link' onClick={this.handleOrderByName}>Status</BS.Button>
+                            Status
                         </th>
 
                         <th>
-                            <BS.Button bsStyle='link' onClick={this.handleOrderByCategory}>Customer</BS.Button>
+                            Customer
                         </th>
-                        <th>
-                            <BS.Button bsStyle='link' onClick={this.handleOrderByPrice}>options</BS.Button>
-                        </th>
+                       
 
 
                     </tr>
