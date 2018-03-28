@@ -17,7 +17,6 @@ export class All extends Component {
     }
 
     db = new DB('http://localhost:51064/api/Addresses')
-
     componentDidMount() {
         this.find()
     }
@@ -31,7 +30,6 @@ export class All extends Component {
 
     handleDelete = (AddressId) => {
         this.db.destroy(AddressId, this.find)
-
     }
 
     handleUpdate = (AddressId) => {
@@ -77,7 +75,14 @@ export class All extends Component {
                             (address) =>
                                 <tr key={address.AddressId}>
                                     <td>{address.AddressId}</td>
-                                    <td>{address.CustomerName}</td>
+                                    {
+                                        address.Customer.CustomerName == null
+                                            ?
+                                            <td>unamed customer</td>
+                                            :
+                                            <td>{address.Customer.CustomerName}</td>
+                                    }
+                                    <td>{address.Customer.CustomerName}</td>
                                     <td>{address.Address1}</td>
                                     <td>{address.Address2}</td>
                                     <td>{address.City}</td>
@@ -144,22 +149,25 @@ export class One extends Component {
 export class Create extends Component {
 
     state = {
-        addresses: [],
         AddressId: '',
-        CustomerName: '',
+        CustomerId: 0,
         Address1: '',
         Address2: '',
         City: '',
         Country: '',
-        POBox: ''
+        POBox: '',
+        Customers: []
     }
 
     db = new DB('http://localhost:51064/api/Addresses')
-    addresses = new DB('http://localhost:51064/api/Addresses')
+    db2 = new DB('http://localhost:51064/api/Customers')
 
     componentDidMount() {
         this.addresses.find(
             (data) => this.setState({ addresses: data }))
+        this.db2.find(
+            data => this.setState({ Customers: data })
+        )
     }
 
     handleCreate = () => {
@@ -172,193 +180,8 @@ export class Create extends Component {
         this.setState({ AddressId: event.target.value })
     }
 
-    handleCustomerName = (event) => {
-        this.setState({ CustomerName: event.target.value })
-    }
-
-    handleAddress1 = (event) => {
-        this.setState({ Address1: event.target.value })
-    }
-
-    handleAddress2 = (event) => {
-        this.setState({ Address2: event.target.value })
-    }
-
-    handleCity = (event) => {
-        this.setState({ City: event.target.value })
-    }
-
-    // handleCustomerID = (eventKey) => {
-    //     this.setState({ CustomerID: eventKey })
-    //     console.log("eventkey" + eventKey)
-    // }
-
-
-    handleCountry = (event) => {
-        this.setState({ Country: event.target.value })
-    }
-
-    handlePOBox = (event) => {
-        this.setState({ POBox: event.target.value })
-    }
-
-    render() {
-        return (
-            <div>
-                <BS.Table striped bordered condensed hover style={{ width: '50%' }}>
-                    <thead>
-                        <tr><th>Field</th><th>Value</th></tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>Id</td>
-                            <td>
-                                <BS.FormControl
-                                    type="text"
-                                    value={this.state.AddressId}
-                                    placeholder="Enter AddressId"
-                                    onChange={this.handleId}
-                                />
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>CustomerName</td>
-                            <td>
-                                <BS.FormControl
-                                    type="text"
-                                    value={this.state.CustomerName}
-                                    placeholder="Enter Customer Name"
-                                    onChange={this.handleCustomerName}
-                                />
-                            </td>
-                        </tr>
-
-                        <tr>
-                            <td>Address 1</td>
-                            <td>
-                                <BS.FormControl
-                                    type="text"
-                                    value={this.state.Address1}
-                                    placeholder="Enter First Address"
-                                    onChange={this.handleAddress1}
-                                />
-                            </td>
-                        </tr>
-
-                        <tr>
-                            <td>Address 2 </td>
-                            <td>
-                                <BS.FormControl
-                                    type="text"
-                                    value={this.state.Address2}
-                                    placeholder="Enter second Address"
-                                    onChange={this.handleAddress2}
-                                />
-                            </td>
-                        </tr>
-
-                        {/* <tr>
-                            <td>Customer ID</td>
-                            <td>                                
-                                <BS.DropdownButton title='Select Customer' id='customers' onSelect={this.handleCustomerID}>
-                                    {
-                                        this.state.customers.map(
-                                            customer =>
-                                                <BS.MenuItem
-                                                    key={customer.CustomerID}
-                                                    eventKey={customer.CustomerID}>
-                                                    {customer.Name}
-                                                </BS.MenuItem>
-                                        )
-                                    }
-                                </BS.DropdownButton>
-                            </td>
-                        </tr> */}
-
-                        <tr>
-                            <td>City</td>
-                            <td>
-                                <BS.FormControl
-                                    type="text"
-                                    value={this.state.City}
-                                    placeholder="Enter City"
-                                    onChange={this.handleCity}
-                                />
-                            </td>
-                        </tr>
-
-                        <tr>
-                            <td>Country</td>
-                            <td>
-                                <BS.FormControl
-                                    type="text"
-                                    value={this.state.Country}
-                                    placeholder="Enter Country"
-                                    onChange={this.handleCountry}
-                                />
-                            </td>
-                        </tr>
-
-                        <tr>
-                            <td>POBox</td>
-                            <td>
-                                <BS.FormControl
-                                    type="text"
-                                    value={this.state.POBox}
-                                    placeholder="Enter POBox"
-                                    onChange={this.handlePOBox}
-                                />
-                            </td>
-                        </tr>
-
-
-                    </tbody>
-                </BS.Table>
-                <BS.Button onClick={this.handleCreate}>Create</BS.Button>
-            </div>
-        )
-    }
-}
-
-export class Update extends Component {
-
-    state = {
-        // addresses: [],
-        AddressId: '',
-        CustomerName: '',
-        Address1: '',
-        Address2: '',
-        City: '',
-        Country: '',
-        POBox: ''
-    }
-
-    db = new DB('http://localhost:51064/api/Addresses')
-    //addresses = new DB('http://localhost:51064/api/Addresses')
-
-    componentDidMount() {
-        this.db.findOne(
-            //this.props.AddressId,
-            this.props.params.id,
-            data => this.setState(data)
-        )
-        // this.addresses.find(
-        //     data => this.setState({ addresses: data })
-        // )
-    }
-
-
-    handleUpdate = () => {
-        this.db.update(this.state.AddressId, this.state)
-        RR.browserHistory.push("adminaddress/all")
-    }
-
-    handleId = (event) => {
-        this.setState({ AddressId: event.target.value })
-    }
-
-    handleCustomerName = (event) => {
-        this.setState({ CustomerName: event.target.value })
+    handleCustomerId = (event) => {
+        this.setState({ CustomerId: event.target.value })
     }
 
     handleAddress1 = (event) => {
@@ -403,16 +226,197 @@ export class Update extends Component {
                             </td>
                         </tr>
                         <tr>
-                            <td>Customer Name</td>
+                            <td>Customer Id</td>
                             <td>
                                 <BS.FormControl
                                     type="text"
-                                    value={this.state.CustomerName}
-                                    placeholder="Enter Customer Name"
-                                    onChange={this.handleCustomerName}
+                                    value={this.state.CustomerId}
+                                    placeholder="Enter CustomerId"
+                                    onChange={this.CustomerId}
+                                    disabled={true}
                                 />
                             </td>
                         </tr>
+
+                        {/* <td>Customer Id</td>
+                        <td>
+                            <BS.DropdownButton title='Select Customers' id='Customers' onSelect={this.handleCategoryId}>
+                                {
+                                    this.state.Customers.map(
+                                        customer =>
+                                            <BS.MenuItem key={customer.CustomerId} eventKey={customer.CustomerId}> {customer.CustomerName}
+                                            </BS.MenuItem>
+                                    )
+                                }
+                            </BS.DropdownButton>
+                        </td> */}
+
+                        <tr>
+                            <td>Address 1</td>
+                            <td>
+                                <BS.FormControl
+                                    type="text"
+                                    value={this.state.Address1}
+                                    placeholder="Enter First Address"
+                                    onChange={this.handleAddress1}
+                                />
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td>Address 2</td>
+                            <td>
+                                <BS.FormControl
+                                    type="text"
+                                    value={this.state.Address2}
+                                    placeholder="Enter Second Address"
+                                    onChange={this.handleAddress2}
+                                />
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td>City</td>
+                            <td>
+                                <BS.FormControl
+                                    type="text"
+                                    value={this.state.City}
+                                    placeholder="Enter City"
+                                    onChange={this.handleCity}
+                                />
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td>Country</td>
+                            <td>
+                                <BS.FormControl
+                                    type="text"
+                                    value={this.state.Country}
+                                    placeholder="Enter Country"
+                                    onChange={this.handleCountry}
+                                />
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td>POBox</td>
+                            <td>
+                                <BS.FormControl
+                                    type="text"
+                                    value={this.state.POBox}
+                                    placeholder="Enter POBox"
+                                    onChange={this.handlePOBox}
+                                />
+                            </td>
+                        </tr>
+
+                    </tbody>
+                </BS.Table>
+                <BS.Button onClick={this.handleCreate}>create</BS.Button>
+            </div>
+        )
+    }
+}
+
+export class Update extends Component {
+
+    state = {
+        AddressId: '',
+        CustomerId: '',
+        Address1: '',
+        Address2: '',
+        City: '',
+        Country: '',
+        POBox: '',
+        Customers: []
+    }
+
+    db = new DB('http://localhost:51064/api/Addresses')
+    db2 = new DB('http://localhost:51064/api/Customers')
+
+    componentDidMount() {
+        this.db.findOne(
+            this.props.params.id,
+            data => this.setState(data)
+        )
+        this.db2.find(
+            data => this.setState({ Customers: data })
+        )
+    }
+
+
+    handleUpdate = () => {
+        this.db.update(this.state.AddressId, this.state)
+        RR.browserHistory.push("adminaddress/all")
+    }
+
+    handleId = (event) => {
+        this.setState({ AddressId: event.target.value })
+    }
+
+
+
+    handleAddress1 = (event) => {
+        this.setState({ Address1: event.target.value })
+    }
+
+    handleAddress2 = (event) => {
+        this.setState({ Address2: event.target.value })
+    }
+
+
+    handleCity = (event) => {
+        this.setState({ City: event.target.value })
+    }
+
+
+    handleCountry = (event) => {
+        this.setState({ Country: event.target.value })
+    }
+
+    handlePOBox = (event) => {
+        this.setState({ POBox: event.target.value })
+    }
+
+    handleCustomerId = (eventKey) => {
+        this.setState({ CustomerId: eventKey })
+        console.log("eventkey" + eventKey)
+    }
+
+    render() {
+        return (
+            <div>
+                <BS.Table striped bordered condensed hover style={{ width: '50%' }}>
+                    <thead>
+                        <tr><th>Field</th><th>Value</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Address Id</td>
+                            <td>
+                                <BS.FormControl
+                                    type="text"
+                                    value={this.state.AddressId}
+                                    placeholder="Enter AddressId"
+                                    onChange={this.handleId}
+                                />
+                            </td>
+                        </tr>
+                        
+
+                        {/* <td>Customer Id</td>
+                        <td>
+                            <BS.DropdownButton title='Select Customers' id='Customers' onSelect={this.handleCustomerId} disable={true}>
+                                {
+                                    this.state.Customers.map(
+                                        customer =>
+                                            <BS.MenuItem key={customer.CustomerId} eventKey={customer.CustomerId}> {customer.CustomerName}
+                                            </BS.MenuItem>
+                                    )
+                                }
+                            </BS.DropdownButton>
+                        </td> */}
 
                         <tr>
                             <td>Address 1</td>
