@@ -26,8 +26,6 @@ export class All extends Component {
     componentDidMount() {
         this.findCurrentUser()
         
-        
-        
     }
 
     find = (parameters) => {
@@ -66,120 +64,6 @@ export class All extends Component {
     }
 
     
-
-
-
-    handleMinPrice = (event) => {
-        this.setState({ MinPrice: event.target.value })
-    }
-
-    handleMaxPrice = (event) => {
-        this.setState({ MaxPrice: event.target.value })
-    }
-
-    handleMealName = (event) => {
-        this.setState({ Name: event.target.value })
-    }
-
-    handleCategoryText = (event) => {
-        this.setState({ CategoryName: event.target.value })
-    }
-
-    handleColumn = (event) => {
-        this.setState({ Column: event.target.value })
-    }
-
-    handleOrder = (event) => {
-        this.setState({ Order: event.target.value })
-    }
-
-    handleShowAll = () => {
-        this.find()
-    }
-
-    handleBetween = () => {
-        this.find({
-            MinPrice: this.state.MinPrice, MaxPrice: this.state.MaxPrice,
-        })
-    }
-
-    handleFindBy = (CategoryId) => {
-        this.find({ CategoryId: CategoryId })
-    }
-
-    handleSearchByName = () => {
-        this.find({
-            Name: this.state.Name
-        })
-    }
-
-    handleSearchByCategory = () => {
-        this.find({
-            Category: this.state.CategoryName
-        })
-    }
-
-    handleOrderById = () => {
-        if (this.state.ToggleId) {
-            this.find({
-                Column: "Id", Order: "ASC",
-            })
-            this.setState({ ToggleId: !this.state.ToggleId, Order: "ASC" })
-        }
-        else {
-            this.find({
-                Column: "Id", Order: "DSC",
-            })
-            this.setState({ ToggleId: !this.state.ToggleId, Order: "DESC" })
-        }
-    }
-
-    handleOrderByName = () => {
-        if (this.state.ToggleName) {
-            this.find({
-                Column: "Name", Order: "ASC",
-            })
-            this.setState({ ToggleName: !this.state.ToggleName, Order: "ASC" })
-        }
-        else {
-            this.find({
-                Column: "Name", Order: "DSC",
-            })
-            this.setState({ ToggleName: !this.state.ToggleName, Order: "DESC" })
-        }
-    }
-
-    handleOrderByPrice = () => {
-        if (this.state.TogglePrice) {
-            this.find({
-                Column: "Price", Order: "ASC",
-            })
-            this.setState({ TogglePrice: !this.state.TogglePrice, Order: "ASC" })
-        }
-        else {
-            this.find({
-                Column: "Price", Order: "DSC",
-            })
-            this.setState({ TogglePrice: !this.state.TogglePrice, Order: "DESC" })
-        }
-    }
-
-    handleOrderByCategory = () => {
-        if (this.state.ToggleCategory) {
-            this.find({
-                Column: "Category", Order: "ASC",
-            })
-            this.setState({ ToggleCategory: !this.state.ToggleCategory, Order: "ASC" })
-        }
-        else {
-            this.find({
-                Column: "Category", Order: "DSC",
-            })
-            this.setState({ ToggleCategory: !this.state.ToggleCategory, Order: "DESC" })
-        }
-    }
-
-
 
 
     render() {
