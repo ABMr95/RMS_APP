@@ -4,8 +4,6 @@ import * as BS from 'react-bootstrap'
 import { LinkContainer } from 'react-router-bootstrap'
 import * as RR from 'react-router'
 
-
-
 export class All extends Component {
 
     state = {
@@ -46,7 +44,6 @@ export class All extends Component {
 
     handleDelete = (Id) => {
         this.db.destroy(Id, this.find)
-
     }
 
     handleUpdate = (MealId) => {
@@ -164,8 +161,6 @@ export class All extends Component {
         }
     }
 
-
-
     handleBuy = (val) => {
         console.log("im buying: " + val)
         this.db.buy(
@@ -175,13 +170,10 @@ export class All extends Component {
     }
 
 
-
-
     render() {
         console.log('render: ', this.props.location.query)
         return (
             <div>
-
                 <div>
                     <h3>Admin Dashboard</h3>
                     <br />
@@ -271,52 +263,56 @@ export class All extends Component {
                     <br />
                 </center>
 
-                <LinkContainer to={{ pathname: '/adminmeals/create' }}>
-                    <BS.Button>Create</BS.Button>
-                </LinkContainer>
+                <center>
+                    
 
 
-                <BS.Table striped bordered condensed hover style={{ width: '50%' }}>
-                    <thead> <tr>
-                        <th>
-                            <BS.Button bsStyle='link' onClick={this.handleOrderById}>Id</BS.Button>
-                        </th>
-                        <th>
-                            <BS.Button bsStyle='link' onClick={this.handleOrderByName}>Name</BS.Button>
-                        </th>
-                        <th>
-                            <BS.Button bsStyle='link' onClick={this.handleOrderByPrice}>Price</BS.Button>
-                        </th>
+                    <BS.Table striped bordered condensed hover style={{ width: '50%' }}>
+                        <thead> <tr>
+                            <th>
+                                <BS.Button bsStyle='link' onClick={this.handleOrderById}>Id</BS.Button>
+                            </th>
+                            <th>
+                                <BS.Button bsStyle='link' onClick={this.handleOrderByName}>Name</BS.Button>
+                            </th>
+                            <th>
+                                <BS.Button bsStyle='link' onClick={this.handleOrderByPrice}>Price</BS.Button>
+                            </th>
 
-                        <th>
-                            <BS.Button bsStyle='link' onClick={this.handleOrderByCategory}>Category</BS.Button>
-                        </th>
-                        <th>
-                            <BS.Button bsStyle='link' onClick={this.handleOrderByPrice}>options</BS.Button>
-                        </th>
+                            <th>
+                                <BS.Button bsStyle='link' onClick={this.handleOrderByCategory}>Category</BS.Button>
+                            </th>
+                            <th>
+                                <BS.Button bsStyle='link' onClick={this.handleOrderByPrice}>options</BS.Button>
+                            </th>
+                            <th>
+                                <LinkContainer to={{ pathname: '/adminmeals/create' }}>
+                                    <BS.Button>Create a Meal</BS.Button>
+                                </LinkContainer>
+                            </th>
+                        </tr>
+                        </thead>
 
-                    </tr>
-                    </thead>
-
-                    <tbody>
-                        {this.state.meals.map(
-                            (meal) =>
-                                <tr key={meal.MealId}>
-                                    <td>{meal.MealId}</td>
-                                    <td>{meal.Name}</td>
-                                    <td>{meal.Price}</td>
-                                    <td>{meal.Category.Name}</td>
-                                    <td>
-                                        <LinkContainer to={'/adminmeals/update/' + meal.MealId}>
-                                            <BS.Button >Update</BS.Button>
-                                        </LinkContainer>
-                                        <BS.Button onClick={() => this.handleDelete(meal.MealId)}>Delete</BS.Button>
-                                        <BS.Button onClick={() => this.handleBuy(meal.MealId)} >Buy</BS.Button>
-                                    </td>
-                                </tr>
-                        )}
-                    </tbody>
-                </BS.Table>
+                        <tbody>
+                            {this.state.meals.map(
+                                (meal) =>
+                                    <tr key={meal.MealId}>
+                                        <td>{meal.MealId}</td>
+                                        <td>{meal.Name}</td>
+                                        <td>{meal.Price}</td>
+                                        <td>{meal.Category.Name}</td>
+                                        <td>
+                                            <LinkContainer to={'/adminmeals/update/' + meal.MealId}>
+                                                <BS.Button >Update</BS.Button>
+                                            </LinkContainer>
+                                            <BS.Button onClick={() => this.handleDelete(meal.MealId)}>Delete</BS.Button>
+                                            <BS.Button onClick={() => this.handleBuy(meal.MealId)} >Buy</BS.Button>
+                                        </td>
+                                    </tr>
+                            )}
+                        </tbody>
+                    </BS.Table>
+                </center>
             </div>
         )
     }

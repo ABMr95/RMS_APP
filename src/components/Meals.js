@@ -198,9 +198,6 @@ export class All extends Component {
             this.handleSearchByCategory()
     }
 
-
-
-
     render() {
         console.log('render: ', this.props.location.query)
         try {
@@ -220,17 +217,7 @@ export class All extends Component {
                     <BS.Jumbotron style={{ width: '85%', borderRadius: 50, opacity: 0.95 }}>
                         <center>
                             <div>
-
                                 <h1 style={{ justifyContent: 'center' }}>Our Menu</h1>
-
-                                <BS.Button onClick={this.handleShowAll}>Show All</BS.Button>
-                                <br />
-                                <br />
-
-                                
-
-
-
                             </div>
                         </center>
                         <br />
@@ -238,31 +225,24 @@ export class All extends Component {
                         <BS.FormGroup controlId="formControlsSelect">
                             <BS.ControlLabel>Select</BS.ControlLabel>
                             <BS.FormControl
+                                style={{ width:'20%'}}
                                 onChange={this.handleSelect}
                                 inputRef={el => this.inputEl = el}
                                 componentClass="select" placeholder="select">
-                                <option value="">select</option>
+                                <option value="">All</option>
                                 
                                 {this.state.category.map(
                                     (item) =>
-                                    <option value={item.Name}>{item.Name}</option>
-                                            
+                                    <option value={item.Name}>{item.Name}</option>          
                                 )
                                 }
                             </BS.FormControl>
                         </BS.FormGroup>
 
-
-
-
-
                         <center>
                             <BS.Table responsive hover striped style={{ width: '80%' }}>
                                 <thead>
                                     <tr>
-                                        {/* <th>
-                                            <BS.Button bsStyle='link' onClick={this.handleOrderById}><h4><BS.Label bsStyle="info">ID</BS.Label></h4></BS.Button>
-                                        </th> */}
                                         <th>
                                             <center><BS.Button bsStyle='link' onClick={this.handleOrderByName}><h3><BS.Label bsStyle="info">Name</BS.Label></h3></BS.Button></center>
                                         </th>
@@ -281,30 +261,24 @@ export class All extends Component {
                                     </tr>
                                 </thead>
 
-
-
                                 <tbody>
                                     {this.state.meals.map(
                                         (meal) =>
                                             <tr key={meal.MealId}>
-                                                {/* <td>{meal.MealId}</td> */}
                                                 <td><center><p style={{ paddingTop: 35 }}>{meal.Name}</p></center></td>
                                                 <td><center>
-                                                 {
-                                                     meal.ImageName
-                                                     ?
-                                                     <img   src={require('../images/' + meal.ImageName + '.jpg')} width="160" height="100" style={{ padding: 5, borderRadius: 10 }} />
-                                                     :
-                                                     <img   src={require('../images/default-thumbnail.jpg')} width="160" height="100" style={{ padding: 5, borderRadius: 10 }} />
-                                                 }
+                                                    {
+                                                        meal.ImageName
+                                                            ?
+                                                            <img src={require('../images/' + meal.ImageName + '.jpg')} width="160" height="100" style={{ padding: 5, borderRadius: 10 }} />
+                                                            :
+                                                            <img src={require('../images/default-thumbnail.jpg')} width="160" height="100" style={{ padding: 5, borderRadius: 10 }} />
+                                                    }
                                                 </center></td>
                                                 <td><center><p style={{ paddingTop: 35 }}>{meal.Category.Name}</p></center></td>
                                                 <td><center><p style={{ paddingTop: 35 }}>{meal.Description}</p></center></td>
                                                 <td><center><p style={{ paddingTop: 35 }}>{meal.Price} QR.</p></center></td>
-                                                {/* <td><BS.Button bsStyle="link" onClick={() => this.handleFindBy(meal.OwnerId)}>{meal.Owner.Name}</BS.Button></td> */}
                                                 <td><center>
-                                                    {/* <LinkContainer to={'/meals/update/' + meal.Id}><BS.Button>Update</BS.Button></LinkContainer> */}
-                                                    {/* <BS.Button onClick={() => this.handleDelete(meal.Id)}>Delete</BS.Button> */}
                                                     <div style={{ paddingTop: 25 }}>
                                                         <BS.Button bsStyle="default" bsSize="large" onClick={() => this.handleBuy(meal.MealId)}>Buy</BS.Button>
                                                     </div>
@@ -321,231 +295,3 @@ export class All extends Component {
         )
     }
 }
-
-// export class One extends Component {
-
-//     state = {
-//         meal: null
-//     }
-
-//     db = new DB('http://localhost:51064/api/Meals')
-
-//     componentDidMount() {
-//         this.db.findOne(
-//             this.props.Id,
-//             (data) => this.setState({ meal: data })
-//         )
-//     }
-
-//     render() {
-//         console.log('Pet: ', this.state.meal)
-//         return (
-//             <div>
-//                 {this.state.meal
-//                     ?
-//                     <BS.Table striped bordered condensed hover>
-//                         <thead>
-//                             <tr><th>Field</th><th>Value</th></tr>
-//                         </thead>
-//                         <tbody>
-//                             <tr><td>Id</td><td>{this.state.meal.Id}</td></tr>
-//                             <tr><td>Name</td><td>{this.state.meal.Name}</td></tr>
-//                             <tr><td>Owner</td><td>{this.state.meal.Owner.Name}</td></tr>
-//                         </tbody>
-//                     </BS.Table>
-//                     :
-//                     <p>Loading...</p>
-//                 }
-//             </div>
-//         )
-//     }
-// }
-
-// export class Create extends Component {
-
-//     state = {
-//         Id: '',
-//         Name: '',
-//         OwnerId: '',
-//         owners: []
-//     }
-
-//     db = new DB('http://localhost:51064/api/Meals')
-//     owners = new DB('http://localhost:51064/api/Owners')
-
-//     componentDidMount() {
-//         this.owners.find(
-//             (data) => this.setState({ owners: data }))
-//     }
-
-//     handleCreate = () => {
-//         this.db.create(this.state)
-//     }
-
-//     handleId = (event) => {
-//         this.setState({ Id: event.target.value })
-//     }
-
-//     handleName = (event) => {
-//         this.setState({ Name: event.target.value })
-//     }
-
-//     handleOwnerId = (eventKey) => {
-//         this.setState({ OwnerId: eventKey })
-//     }
-
-//     render() {
-//         return (
-//             <div>
-//                 <BS.Table striped bordered condensed hover>
-//                     <thead>
-//                         <tr><th>Field</th><th>Value</th></tr>
-//                     </thead>
-//                     <tbody>
-//                         <tr>
-//                             <td>Id</td>
-//                             <td>
-//                                 <BS.FormControl
-//                                     type="text"
-//                                     value={this.state.Id}
-//                                     placeholder="Enter Id"
-//                                     onChange={this.handleId}
-//                                 />
-//                             </td>
-//                         </tr>
-//                         <tr>
-//                             <td>Name</td>
-//                             <td>
-//                                 <BS.FormControl
-//                                     type="text"
-//                                     value={this.state.Name}
-//                                     placeholder="Enter Name"
-//                                     onChange={this.handleName}
-//                                 />
-//                             </td>
-//                         </tr>
-//                         <tr>
-//                             <td>Owner</td>
-//                             <td>
-//                                 {
-//                                     // <FormControl componentClass="select" placeholder="select">
-//                                     //      <option value="select">select</option>
-//                                     //      <option value="other">...</option>
-//                                     // </FormControl>
-//                                 }
-//                                 <BS.DropdownButton title='Select Owner' id='owners' onSelect={this.handleOwnerId}>
-//                                     {
-//                                         this.state.owners.map(
-//                                             owner =>
-//                                                 <BS.MenuItem
-//                                                     key={owner.Id}
-//                                                     eventKey={owner.Id}>
-//                                                     {owner.Name}
-//                                                 </BS.MenuItem>
-//                                         )
-//                                     }
-//                                 </BS.DropdownButton>
-//                             </td>
-//                         </tr>
-//                     </tbody>
-//                 </BS.Table>
-//                 <BS.Button onClick={this.handleCreate}>Create</BS.Button>
-//             </div>
-//         )
-//     }
-// }
-
-// export class Update extends Component {
-
-//     state = {
-//         Id: '',
-//         Name: '',
-//         OwnerId: '',
-//         owners: []
-//     }
-
-//     db = new DB('http://localhost:51064/api/Meals')
-//     owners = new DB('http://localhost:51064/api/Owners')
-
-//     componentDidMount() {
-//         this.db.findOne(
-//             //this.props.Id,
-//             this.props.params.id,
-//             data => this.setState(data)
-//         )
-//         this.owners.find(
-//             data => this.setState({ owners: data })
-//         )
-//     }
-
-
-//     handleUpdate = () => {
-//         this.db.update(this.state.Id, this.state)
-//     }
-
-//     handleId = (event) => {
-//         this.setState({ Id: event.target.value })
-//     }
-
-//     handleName = (event) => {
-//         this.setState({ Name: event.target.value })
-//     }
-
-//     handleOwnerId = (eventKey) => {
-//         this.setState({ OwnerId: eventKey })
-//     }
-
-//     render() {
-//         return (
-//             <div>
-//                 <BS.Table striped bordered condensed hover>
-//                     <thead>
-//                         <tr><th>Field</th><th>Value</th></tr>
-//                     </thead>
-//                     <tbody>
-//                         <tr>
-//                             <td>Id</td>
-//                             <td>
-//                                 <BS.FormControl
-//                                     type="text"
-//                                     value={this.state.Id}
-//                                     placeholder="Enter Id"
-//                                     onChange={this.handleId}
-//                                 />
-//                             </td>
-//                         </tr>
-//                         <tr>
-//                             <td>Name</td>
-//                             <td>
-//                                 <BS.FormControl
-//                                     type="text"
-//                                     value={this.state.Name}
-//                                     placeholder="Enter Name"
-//                                     onChange={this.handleName}
-//                                 />
-//                             </td>
-//                         </tr>
-//                         <tr>
-//                             <td>Owner</td>
-//                             <td>
-//                                 <BS.DropdownButton defaultValue={this.state.OwnerId} title='Select Owner' id='owners' onSelect={this.handleOwnerId}>
-//                                     {
-//                                         this.state.owners.map(
-//                                             owner =>
-//                                                 <BS.MenuItem
-//                                                     key={owner.Id}
-//                                                     eventKey={owner.Id}>
-//                                                     {owner.Name}
-//                                                 </BS.MenuItem>
-//                                         )
-//                                     }
-//                                 </BS.DropdownButton>
-//                             </td>
-//                         </tr>
-//                     </tbody>
-//                 </BS.Table>
-//                 <BS.Button onClick={this.handleUpdate}>Update</BS.Button>
-//             </div>
-//         )
-//     }
-// }

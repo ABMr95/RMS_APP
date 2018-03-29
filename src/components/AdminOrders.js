@@ -62,52 +62,41 @@ export class All extends Component {
                 </div>
                 <center><h1>Admin Orders</h1></center>
 
-                <LinkContainer to={{ pathname: '/adminorders/create' }}>
-                    <BS.Button>Create</BS.Button>
-                </LinkContainer>
 
-                
-                <BS.Table striped bordered condensed hover>
-                    <thead> <tr>
-                        <th>Id</th><th>Status</th><th>OrderDate</th><th>OrderReady</th><th>OrderDelivered</th><th>OrderType</th><th>Customer</th>
-                    </tr>
-                    </thead>
-                    <tbody>
 
-                        {this.state.orders.map(
+                <center>
+                    <BS.Table striped bordered condensed hover style={{ width: '70%' }}>
+                        <thead> <tr>
+                            <th>Id</th><th>Status</th><th>OrderDate</th><th>OrderReady</th><th>OrderDelivered</th><th>OrderType</th><th>Customer</th><th>Actions</th>
+                            <th> <LinkContainer to={{ pathname: '/adminorders/create' }}>
+                                <BS.Button>Create</BS.Button>
+                            </LinkContainer></th>
+                        </tr>
+                        </thead>
+                        <tbody>
 
-                            (order) =>
-
-                                <tr key={order.OrderId}>
-                                    <td>{order.OrderId}</td>
-                                    <td>{order.Status}</td>
-                                    <td>{order.OrderDate}</td>
-                                    <td>{order.OrderReady}</td>
-                                    <td>{order.OrderDelivered}</td>
-                                    <td>{order.OrderType}</td>
-                                    <td>{order.Customer.Name}</td>
-
-                                    {/* <td><BS.Button bsStyle="link" onClick={() => this.handleFindBy(meal.CategoryId)}>{meal.Category.Name}</BS.Button></td> */}
-
-                                    <td>
-
-                                        <LinkContainer to={'/adminorders/update/' + order.OrderId}>
-
-                                            <BS.Button >Update</BS.Button>
-
-                                        </LinkContainer>
-
-                                        <BS.Button onClick={() => this.handleDelete(order.OrderId)}>Delete</BS.Button>
-
-                                    </td>
-
-                                </tr>
-
-                        )}
-
-                    </tbody>
-
-                </BS.Table>
+                            {this.state.orders.map(
+                                (order) =>
+                                    <tr key={order.OrderId}>
+                                        <td>{order.OrderId}</td>
+                                        <td>{order.Status}</td>
+                                        <td>{order.OrderDate}</td>
+                                        <td>{order.OrderReady}</td>
+                                        <td>{order.OrderDelivered}</td>
+                                        <td>{order.OrderType}</td>
+                                        <td>{order.Customer.Name}</td>
+                                        {/* <td><BS.Button bsStyle="link" onClick={() => this.handleFindBy(meal.CategoryId)}>{meal.Category.Name}</BS.Button></td> */}
+                                        <td>
+                                            <LinkContainer to={'/adminorders/update/' + order.OrderId}>
+                                                <BS.Button >Update</BS.Button>
+                                            </LinkContainer>
+                                            <BS.Button onClick={() => this.handleDelete(order.OrderId)}>Delete</BS.Button>
+                                        </td>
+                                    </tr>
+                            )}
+                        </tbody>
+                    </BS.Table>
+                </center>
             </div>
         )
     }
@@ -266,7 +255,7 @@ export class Create extends Component {
 
                         <tr>
                             <td>Customer ID</td>
-                            <td>                                
+                            <td>
                                 <BS.DropdownButton title='Select Customer' id='customers' onSelect={this.handleCustomerID}>
                                     {
                                         this.state.customers.map(
@@ -327,7 +316,7 @@ export class Update extends Component {
     }
 
     handleCustomerID = (eventKey) => {
-        this.setState({ CustomerID: eventKey})
+        this.setState({ CustomerID: eventKey })
     }
 
     handleStatus = (event) => {
@@ -343,7 +332,7 @@ export class Update extends Component {
         this.setState({ OrderReady: event.target.value })
     }
 
-    
+
     handleOrderDelivered = (event) => {
         this.setState({ OrderDelivered: event.target.value })
     }

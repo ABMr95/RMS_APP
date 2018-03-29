@@ -53,47 +53,35 @@ export class All extends Component {
                 </div>
                 <center><h1>Admin Order Items</h1></center>
 
-                <LinkContainer to={{ pathname: '/adminorderitems/create' }}>
-                    <BS.Button>Create</BS.Button>
-                </LinkContainer>
-
-                
-                <BS.Table striped bordered condensed hover>
-                    <thead> <tr>
-                        <th>ItemId</th><th>OrderId</th><th>Customer Name</th><th>Meal Name</th><th>Quantity</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-
-                        {this.state.orderitems.map(
-
-                            (orderitem) =>
-
-                                <tr key={orderitem.ItemId}>
-                                    <td>{orderitem.ItemId}</td>
-                                    <td>{orderitem.OrderId}</td>
-                                    <td>{orderitem.Order.Customer.Name}</td>
-                                    <td>{orderitem.Meal.Name}</td>
-                                    <td>{orderitem.Quantity}</td>
-                                    <td>
-
-                                        <LinkContainer to={'/adminorderitems/update/' + orderitem.ItemId}>
-
-                                            <BS.Button >Update</BS.Button>
-
-                                        </LinkContainer>
-
-                                        <BS.Button onClick={() => this.handleDelete(orderitem.ItemId)}>Delete</BS.Button>
-
-                                    </td>
-
-                                </tr>
-
-                        )}
-
-                    </tbody>
-
-                </BS.Table>
+                <center>
+                    <BS.Table striped bordered condensed hover style={{ width: '70%' }}>
+                        <thead> <tr>
+                            <th>ItemId</th><th>OrderId</th><th>Customer Name</th><th>Meal Name</th><th>Quantity</th><th>Actions</th>
+                            <th><LinkContainer to={{ pathname: '/adminorderitems/create' }}>
+                                <BS.Button>Create</BS.Button>
+                            </LinkContainer></th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                            {this.state.orderitems.map(
+                                (orderitem) =>
+                                    <tr key={orderitem.ItemId}>
+                                        <td>{orderitem.ItemId}</td>
+                                        <td>{orderitem.OrderId}</td>
+                                        <td>{orderitem.Order.Customer.Name}</td>
+                                        <td>{orderitem.Meal.Name}</td>
+                                        <td>{orderitem.Quantity}</td>
+                                        <td>
+                                            <LinkContainer to={'/adminorderitems/update/' + orderitem.ItemId}>
+                                                <BS.Button >Update</BS.Button>
+                                            </LinkContainer>
+                                            <BS.Button onClick={() => this.handleDelete(orderitem.ItemId)}>Delete</BS.Button>
+                                        </td>
+                                    </tr>
+                            )}
+                        </tbody>
+                    </BS.Table>
+                </center>
             </div>
         )
     }

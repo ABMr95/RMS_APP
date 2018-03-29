@@ -64,7 +64,7 @@ export class Register extends Component {
                 <center>
                     <h2>Register</h2>
                     <br />
-                    <BS.Table striped bordered condensed hover>
+                    <BS.Table striped bordered condensed hover style={{ width: '60%' }}>
                         <thead>
                             <tr><th>Field</th><th>Value</th></tr>
                         </thead>
@@ -174,7 +174,7 @@ export class Login extends Component {
                 <center>
                     <h2>Login</h2>
                     <br />
-                    <BS.Table striped bordered condensed hover>
+                    <BS.Table striped bordered condensed hover style={{ width: '60%' }}>
                         <thead>
                             <tr><th>Field</th><th>Value</th></tr>
                         </thead>
