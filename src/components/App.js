@@ -12,6 +12,7 @@ import * as AdminCategory from './AdminCategory'
 import * as AdminAddress from './AdminAddress'
 import * as CustomerInfo from './CustomerInfo'
 import * as CustomerOrders from './CustomerOrders'
+import * as Customeraddress from './CustomerAddresses'
 import * as MyOrder from './MyOrder'
 import * as Customers from './Customers'
 import AdminDashboard from './AdminDashboard'
@@ -35,6 +36,7 @@ export default class App extends React.Component {
           <RR.Route path="customers/create" component={Customers.Create} />
           <RR.Route path="customers/update/:id" component={Customers.Update} />
           
+          <RR.Route path="customeraddress/all" component={Customeraddress.All} />
           <RR.Route path="customerorders/all" component={CustomerOrders.All} />
           <RR.Route path="customerinfo/update" component={CustomerInfo.Update} />
           <RR.Route path="customerinfo/one" component={CustomerInfo.One} />
