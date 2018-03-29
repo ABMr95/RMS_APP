@@ -56,18 +56,21 @@ export class All extends Component {
                     </BS.Nav>
                 </div>
                 <center><h1>Admin Customers</h1>
-                <BS.Button onClick={this.handleShowAll}>Show All</BS.Button></center>
+                    <BS.Button onClick={this.handleShowAll}>Show All</BS.Button></center>
                 <br />
                 <BS.Table striped bordered condensed hover>
                     <thead>
-                        <tr><th>Id</th><th>Name</th></tr>
+                        <tr><th>Id</th><th>Username</th><th>name</th><th>age</th><th>gender</th></tr>
                     </thead>
                     <tbody>
                         {this.state.customers.map(
                             (customer) =>
                                 <tr key={customer.CustomerId}>
                                     <td>{customer.CustomerId}</td>
-                                    <td><BS.Button bsStyle="link" onClick={() => this.handleFindBy(customer.CustomerId)}>{customer.Name}</BS.Button></td>
+                                    <td>{customer.Name}</td>
+                                    <td>{customer.CustomerName}</td>
+                                    <td>{customer.Age}</td>
+                                    <td>{customer.Gender}</td>
                                     <td>
                                         <LinkContainer to={'/admincustomers/update/' + customer.CustomerId}>
                                             <BS.Button >Update</BS.Button>
@@ -218,6 +221,9 @@ export class Update extends Component {
     state = {
         CustomerId: '',
         Name: '',
+        CustomerName: '',
+        Age: '',
+        Gender: ''
     }
 
     db = new DB('http://localhost:51064/api/Customers')
@@ -228,22 +234,45 @@ export class Update extends Component {
             this.props.params.id,
             data => this.setState(data)
         )
-        
+
     }
 
 
-    handleUpdate = () => {
-        this.db.update(this.state.CustomerId, this.state)
-        RR.browserHistory.push("admincustomers/all")
-    }
 
-    handleId = (event) => {
-        this.setState({ CustomerId: event.target.value })
-    }
 
     handleName = (event) => {
         this.setState({ Name: event.target.value })
     }
+
+    handleCustomerName = (event) => {
+        this.setState({ CustomerName: event.target.value })
+    }
+
+    handleAge = (event) => {
+        this.setState({ Age: event.target.value })
+    }
+
+    handleGender = (event) => {
+        this.setState({ Gender: event.target.value })
+    }
+
+
+
+    handleUpdate = () => {
+        let r1 = /^[0-9]*$/
+        if (r1.test(this.state.Age)) {
+            this.db.update(this.state.CustomerId, this.state)
+            alert("profile has been updated")
+        } else {
+            alert("please input only numbers")
+        }
+
+    }
+
+    handleSelect = (event) => {
+        this.state.Gender = event.target.value
+    }
+
 
 
 
@@ -263,24 +292,73 @@ export class Update extends Component {
                                     value={this.state.CustomerId}
                                     placeholder="Enter CustomerId"
                                     onChange={this.handleId}
+                                    disabled= {true}
                                 />
                             </td>
                         </tr>
                         <tr>
-                            <td>Name</td>
+                            <td>UserName</td>
                             <td>
                                 <BS.FormControl
                                     type="text"
                                     value={this.state.Name}
                                     placeholder="Enter Name"
                                     onChange={this.handleName}
+                                    disabled= {true}
                                 />
                             </td>
                         </tr>
 
-                        
+                        <tr>
+                            <td> Name</td>
+                            <td>
+                                <BS.FormControl
+                                    type="text"
+                                    value={this.state.CustomerName}
+                                    placeholder="Enter Name"
+                                    onChange={this.handleCustomerName}
+                                />
+                            </td>
+                        </tr>
 
-                        
+                        <tr>
+                            <td> Age</td>
+                            <td>
+                                <BS.FormControl
+                                    type="text"
+                                    value={this.state.Age}
+                                    placeholder="Enter Age"
+                                    onChange={this.handleAge}
+                                />
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td> Gender</td>
+                            <td>
+                                {/* <BS.FormControl
+                                    type="text"
+                                    value={this.state.Gender}
+                                    placeholder="Enter Gender"
+                                    onChange={this.handleGender}
+                                /> */}
+
+                                <BS.FormGroup controlId="formControlsSelect">
+                                    <BS.FormControl
+                                        onChange={this.handleSelect}
+                                        inputRef={el => this.inputEl = el}
+                                        componentClass="select" placeholder="select">
+                                        <option value="">select</option>
+                                        <option value="Male">Male</option>
+                                        <option value="Female">Female</option>
+                                    </BS.FormControl>
+                                </BS.FormGroup>
+                            </td>
+                        </tr>
+
+
+
+
                     </tbody>
                 </BS.Table>
                 <BS.Button onClick={this.handleUpdate}>Update</BS.Button>

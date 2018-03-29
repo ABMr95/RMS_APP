@@ -493,7 +493,7 @@ export class Update extends Component {
         Name: '',
         Price: '',
         Description: '',
-        CategoryId: '',
+        CategoryID: '',
         categories: []
     }
 
@@ -518,7 +518,7 @@ export class Update extends Component {
             Name: this.state.Name,
             Price: this.state.Price,
             Description: this.state.Description,
-            CategoryId: this.state.CategoryId,
+            CategoryID: this.state.CategoryID,
             Category: null
         }
         console.log(tempMeal)
@@ -545,7 +545,7 @@ export class Update extends Component {
 
 
     handleCategoryId = (eventKey) => {
-        this.setState({ CategoryId: eventKey })
+        this.setState({ CategoryID: eventKey })
         console.log("eventkey" + eventKey)
     }
 

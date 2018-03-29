@@ -24,7 +24,7 @@ export class Register extends Component {
         this.setState({ ConfirmPassword: event.target.value })
     }
 
-    register = async(json, action) => {
+    register = async (json, action) => {
         try {
             var response = await fetch(
                 'http://localhost:51064/api/Account/Register', {
@@ -38,65 +38,73 @@ export class Register extends Component {
             console.log("register", response)
             action()
         }
-        catch(e) {
+        catch (e) {
             console.log("Error", e)
         }
     }
 
     handleRegister = () => {
-        this.register(
-            this.state,
-            ()=> RR.browserHistory.push("/login")
-        )
+
+        if (this.state.Password != this.state.ConfirmPassword) {
+            alert("the password doesnt match")
+        }
+        else {
+            this.register(
+                this.state,
+                () => RR.browserHistory.push("/login")
+            )
+
+        }
+
     }
 
     render() {
         return (
             <div>
                 <center>
-                <h2>Register</h2>
-                <br />
-                <BS.Table striped bordered condensed hover>
-                    <thead>
-                        <tr><th>Field</th><th>Value</th></tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>Email</td>
-                            <td>
-                                <BS.FormControl
-                                    type="text"
-                                    value={this.state.Email}
-                                    placeholder="Enter Email"
-                                    onChange={this.handleEmail}
-                                />
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>Password</td>
-                            <td>
-                                <BS.FormControl
-                                    type="password"
-                                    value={this.state.Password}
-                                    placeholder="Enter Password"
-                                    onChange={this.handlePassword}
-                                />
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>ConfirmPassword</td>
-                            <td>
-                                <BS.FormControl
-                                    type="password"
-                                    value={this.state.ConfirmPassword}
-                                    placeholder="Enter ConfirmPassword"
-                                    onChange={this.handleConfirmPassword}
-                                />
-                            </td>
-                        </tr>
-                    </tbody>
-                </BS.Table>
-                <BS.Button onClick={this.handleRegister}>Register</BS.Button>
+                    <h2>Register</h2>
+                    <br />
+                    <BS.Table striped bordered condensed hover>
+                        <thead>
+                            <tr><th>Field</th><th>Value</th></tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Email</td>
+                                <td>
+                                    <BS.FormControl
+                                        type="text"
+                                        value={this.state.Email}
+                                        placeholder="Enter Email"
+                                        onChange={this.handleEmail}
+                                    />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Password</td>
+                                <td>
+                                    <BS.FormControl
+                                        type="password"
+                                        value={this.state.Password}
+                                        placeholder="Enter Password"
+                                        onChange={this.handlePassword}
+                                    />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>ConfirmPassword</td>
+                                <td>
+                                    <BS.FormControl
+                                        type="password"
+                                        value={this.state.ConfirmPassword}
+                                        placeholder="Enter ConfirmPassword"
+                                        onChange={this.handleConfirmPassword}
+                                    />
+                                </td>
+                            </tr>
+                        </tbody>
+                    </BS.Table>
+                    <BS.Button onClick={this.handleRegister}>Register</BS.Button>
                 </center>
             </div>
         )
@@ -118,24 +126,23 @@ export class Login extends Component {
         this.setState({ Password: event.target.value })
     }
 
-    login = async(json, action) => {
+    login = async (json, action) => {
         try {
             var response = await fetch(
-                'http://localhost:51064/Token', 
+                'http://localhost:51064/Token',
                 {
                     headers: {
                         'Content-Type': 'application/x-www-form-urlencoded'
                     },
-                    method: 'POST', 
+                    method: 'POST',
                     body: 'grant_type=password&username=' + json.Username + '&password=' + json.Password
                 }
             )
             console.log("login", response)
             const data = await response.json();
             action(data);
-            //action()
         }
-        catch(e) {
+        catch (e) {
             console.log("Error", e)
         }
     }
@@ -144,12 +151,19 @@ export class Login extends Component {
         this.login(
             this.state,
             (data) => {
-                sessionStorage.setItem('token', data.access_token)
-                sessionStorage.setItem('userName', data.userName)
-                console.log(sessionStorage.getItem('token'))
-                console.log(sessionStorage.getItem('userName'))
-                alert("welcome " + sessionStorage.getItem('userName'))
-                RR.browserHistory.push("/meals/all")
+                if (data.access_token) {
+                    sessionStorage.setItem('token', data.access_token)
+                    sessionStorage.setItem('userName', data.userName)
+                    console.log(sessionStorage.getItem('token'))
+                    console.log(sessionStorage.getItem('userName'))
+                    alert("welcome " + sessionStorage.getItem('userName'))
+                    RR.browserHistory.push("/meals/all")
+
+                }
+                else{
+                    alert("wrong user/password input ")
+                }
+
             }
         )
     }
@@ -158,38 +172,38 @@ export class Login extends Component {
         return (
             <div>
                 <center>
-                <h2>Login</h2>
-                <br />
-                <BS.Table striped bordered condensed hover>
-                    <thead>
-                        <tr><th>Field</th><th>Value</th></tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>Username</td>
-                            <td>
-                                <BS.FormControl
-                                    type="text"
-                                    value={this.state.Username}
-                                    placeholder="Enter Username"
-                                    onChange={this.handleUsername}
-                                />
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>Password</td>
-                            <td>
-                                <BS.FormControl
-                                    type="password"
-                                    value={this.state.Password}
-                                    placeholder="Enter Password"
-                                    onChange={this.handlePassword}
-                                />
-                            </td>
-                        </tr>
-                    </tbody>
-                </BS.Table>
-                <BS.Button onClick={this.handleLogin}>Login</BS.Button>
+                    <h2>Login</h2>
+                    <br />
+                    <BS.Table striped bordered condensed hover>
+                        <thead>
+                            <tr><th>Field</th><th>Value</th></tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Username</td>
+                                <td>
+                                    <BS.FormControl
+                                        type="text"
+                                        value={this.state.Username}
+                                        placeholder="Enter Username"
+                                        onChange={this.handleUsername}
+                                    />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Password</td>
+                                <td>
+                                    <BS.FormControl
+                                        type="password"
+                                        value={this.state.Password}
+                                        placeholder="Enter Password"
+                                        onChange={this.handlePassword}
+                                    />
+                                </td>
+                            </tr>
+                        </tbody>
+                    </BS.Table>
+                    <BS.Button onClick={this.handleLogin}>Login</BS.Button>
                 </center>
             </div>
         )
