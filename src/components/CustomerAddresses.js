@@ -21,11 +21,15 @@ export class All extends Component {
         TogglePrice: false,
         ToggleCategory: false
     }
+
     db = new DB('http://localhost:51064/api/Addresses')
     dbUser = new DB('http://localhost:51064/api/User')
 
     componentDidMount() {
         this.findCurrentUser()
+    }
+    handleDelete = (AddressId) => {
+        this.db.destroy(AddressId, this.find)
     }
 
     find = (parameters) => {
@@ -105,8 +109,8 @@ export class All extends Component {
 
                                     <td>
 
-                                    <BS.Button onClick={() => this.handleDelete(address.AddressId)}>Delete</BS.Button>
-                                    
+                                        <BS.Button onClick={() => this.handleDelete(address.AddressId)}>Delete</BS.Button>
+
 
                                     </td>
 
@@ -168,14 +172,13 @@ export class One extends Component {
 export class Create extends Component {
 
     state = {
-        AddressId: '',
-        CustomerId: '',
+        AddressId: 999,
+        CustomerId: 0,
         Address1: '',
         Address2: '',
         City: '',
         Country: '',
         POBox: '',
-        Customers: []
     }
 
     db = new DB('http://localhost:51064/api/Addresses')
@@ -185,13 +188,11 @@ export class Create extends Component {
 
     findCurrentUser = async (parameters) => {
         await this.dbUser.find(
-            (data) => this.setState({CustomerId : data}),
+            (data) => this.setState({ CustomerId: data.CustomerId }),
             {
                 query: "customer"
             }
         )
-
-
     }
 
     componentDidMount() {
@@ -201,15 +202,17 @@ export class Create extends Component {
         this.db2.find(
             data => this.setState({ Customers: data })
         )
-        console.log(this.state.Customers)
-    }
+        this.findCurrentUser()
+        this.state({CustomerId: this.state.Customer.CustomerId})
+        
+        console.log(this.state.Customer)
 
+    }
 
 
     handleCreate = () => {
         this.db.create(this.state)
         RR.browserHistory.push("customeraddress/all")
-
     }
 
     handleId = (event) => {
@@ -242,9 +245,7 @@ export class Create extends Component {
         this.setState({ POBox: event.target.value })
     }
 
-    handleSelect = (event) => {
-        this.state.CustomerId = event.target.value
-    }
+
 
     render() {
         return (
@@ -254,37 +255,24 @@ export class Create extends Component {
                         <tr><th>Field</th><th>Value</th></tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td>Address Id</td>
-                            <td>
-                                <BS.FormControl
-                                    type="text"
-                                    value={this.state.AddressId}
-                                    placeholder="Enter AddressId"
-                                    onChange={this.handleId}
-                                />
-                            </td>
-                        </tr>
-                      
+           
+
 
                         <td>Customer Id</td>
-             
 
-                        <BS.FormGroup controlId="formControlsSelect">
+                        <td>
                             <BS.FormControl
-                                onChange={this.handleSelect}
-                                inputRef={el => this.inputEl = el}
-                                componentClass="select" placeholder="select">
-                                <option value="">select</option>
+                                type="text"
+                                value={this.state.CustomerId}
+                                placeholder="Enter AddressId"
+                                onChange={this.handleId}
+                                disabled = {true}
 
-                                {this.state.Customers.map(
-                                    (item) =>
-                                        <option value={item.CustomerId}>{item.CustomerId}</option>
+                            />
+                        </td>
 
-                                )
-                                }
-                            </BS.FormControl>
-                        </BS.FormGroup>
+
+
 
                         <tr>
                             <td>Address 1</td>
