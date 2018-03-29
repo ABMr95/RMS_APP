@@ -16,7 +16,8 @@ import * as Customeraddress from './CustomerAddresses'
 import * as MyOrder from './MyOrder'
 import * as Customers from './Customers'
 import AdminDashboard from './AdminDashboard'
-
+import * as AdminMemberships from './AdminMemberships'
+import * as AdminReservations from './AdminReservations'
 import '../stylesheet/App.css';
 
 
@@ -37,7 +38,7 @@ export default class App extends React.Component {
           <RR.Route path="customers/update/:id" component={Customers.Update} />
           
           <RR.Route path="customeraddress/all" component={Customeraddress.All} />
-          <RR.Route path="customeraddress/create" component={Customeraddress.Create} />
+          <RR.Route path="customeraddress/create" component={Customeraddress.Create}/>
           <RR.Route path="customerorders/all" component={CustomerOrders.All} />
           <RR.Route path="customerinfo/update" component={CustomerInfo.Update} />
           <RR.Route path="customerinfo/one" component={CustomerInfo.One} />
@@ -68,6 +69,14 @@ export default class App extends React.Component {
           <RR.Route path="adminaddress/all" component={AdminAddress.All} />
           <RR.Route path="adminaddress/create" component={AdminAddress.Create} />
           <RR.Route path="adminaddress/update/:id" component={AdminAddress.Update} />
+
+          <RR.Route path="adminmemberships/all" component={AdminMemberships.All} />
+          <RR.Route path="adminmemberships/create" component={AdminMemberships.Create} />
+          <RR.Route path="adminmemberships/update/:id" component={AdminMemberships.Update} />
+
+          <RR.Route path="adminreservations/all" component={AdminReservations.All} />
+          <RR.Route path="adminreservations/create" component={AdminReservations.Create} />
+          <RR.Route path="adminreservations/update/:id" component={AdminReservations.Update} />
 
          
           {/* Utils */}

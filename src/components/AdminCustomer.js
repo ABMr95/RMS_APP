@@ -53,6 +53,8 @@ export class All extends Component {
                         <LinkContainer to='/adminorderitems/all'><BS.NavItem>Order Items</BS.NavItem></LinkContainer>
                         <LinkContainer to='/adminaddress/all'><BS.NavItem>Addresses</BS.NavItem></LinkContainer>
                         <LinkContainer to='/admincategory/all'><BS.NavItem>Categories</BS.NavItem></LinkContainer>
+                        <LinkContainer to='/adminmemberships/all'><BS.NavItem>Memberships</BS.NavItem></LinkContainer>
+                        <LinkContainer to='/adminreservations/all'><BS.NavItem>Reservations</BS.NavItem></LinkContainer>
                     </BS.Nav>
                 </div>
                 <center><h1>Admin Customers</h1>
@@ -61,7 +63,7 @@ export class All extends Component {
                 <center>
                     <BS.Table striped bordered condensed hover style={{ width: '70%' }} >
                     <thead>
-                        <tr><th>Id</th><th>Username</th><th>name</th><th>age</th><th>gender</th><th>Actions</th></tr>
+                        <tr><th>Id</th><th>Username</th><th>name</th><th>age</th><th>gender</th><th>Membership</th><th>Actions</th></tr>
                     </thead>
                     <tbody>
                         {this.state.customers.map(
@@ -72,6 +74,7 @@ export class All extends Component {
                                     <td>{customer.CustomerName}</td>
                                     <td>{customer.Age}</td>
                                     <td>{customer.Gender}</td>
+                                    <td>{customer.Membership.Type}</td>
                                     <td>
                                         <center>
                                             <LinkContainer to={'/admincustomers/update/' + customer.CustomerId}>
@@ -186,16 +189,16 @@ export class Create extends Component {
                                 />
                             </td>
                         </tr>
-                        {/* <tr>
-                            <td>Membership Id</td>
-                            <td> */}
+                         {/* <tr>
+                            <td>MembershipId</td>
+                            <td>  */}
                         {/* <BS.FormControl
                                     type="text"
                                     value={this.state.Name}
                                     placeholder="Enter Membership Id"
                                     onChange={this.handleName}
                                 /> */}
-                        {/* <BS.DropdownButton title='Select Membership Id' id='owners' onSelect={this.handleOwnerId}>
+                         {/* <BS.DropdownButton title='Select Membership Id' id='owners' onSelect={this.handleMembershipId}>
                                     {
                                         this.state.owners.map(
                                             owner =>
@@ -208,7 +211,7 @@ export class Create extends Component {
                                     }
                                 </BS.DropdownButton>
                             </td>
-                        </tr> */}
+                        </tr>  */}
 
 
 
@@ -227,7 +230,8 @@ export class Update extends Component {
         Name: '',
         CustomerName: '',
         Age: '',
-        Gender: ''
+        Gender: '',
+        MembershipId: ''
     }
 
     db = new DB('http://localhost:51064/api/Customers')
@@ -240,8 +244,6 @@ export class Update extends Component {
         )
 
     }
-
-
 
 
     handleName = (event) => {
@@ -260,7 +262,9 @@ export class Update extends Component {
         this.setState({ Gender: event.target.value })
     }
 
-
+    handleMembershipId = (event) => {
+        this.setState({ MembershipId: event.target.value })
+    }
 
     handleUpdate = () => {
         let r1 = /^[0-9]*$/
@@ -277,8 +281,9 @@ export class Update extends Component {
         this.state.Gender = event.target.value
     }
 
-
-
+    handleSelect2 = (event) => {
+        this.state.MembershipId = event.target.value
+    }
 
     render() {
         return (
@@ -360,6 +365,34 @@ export class Update extends Component {
                             </td>
                         </tr>
 
+                        <tr>
+                            <td>MembershipId</td>
+                            <td> 
+                            <BS.FormGroup controlId="formControlsSelect">
+                                    <BS.FormControl
+                                        onChange={this.handleSelect2}
+                                        inputRef={el => this.inputEl = el}
+                                        componentClass="select" placeholder="select">
+                                        <option value="">select</option>
+                                        <option value="Gold">Gold</option>
+                                        <option value="Silver">Silver</option>
+                                        <option value="Platinium">Platinium</option>
+                                    </BS.FormControl>
+                                </BS.FormGroup>
+                         {/* <BS.DropdownButton title='Select Membership Id' id='memberships' onSelect={this.handleMembershipId}>
+                                    {
+                                        this.state.memberships.map(
+                                            membership =>
+                                                <BS.MenuItem
+                                                    key={membership.MembershipId}
+                                                    eventKey={membership.MembershipId}>
+                                                    {membership.Type} 
+                                                </BS.MenuItem>
+                                        )
+                                    }
+                                </BS.DropdownButton> */}
+                            </td>
+                        </tr> 
 
 
 
