@@ -25,10 +25,7 @@ export class All extends Component {
 
     componentDidMount() {
         this.find(
-
         )
-
-
     }
 
     find = (parameters) => {
@@ -44,8 +41,6 @@ export class All extends Component {
             parameters
         )
     }
-
-
 
     Quary = (parameters) => {
         this.buy.find(
@@ -183,15 +178,10 @@ export class All extends Component {
                             }
                         }
                     }
-
                     >
                         <BS.Button onClick={this.handleBetween}>Show with ID between Min and Max</BS.Button>
                     </LinkContainer>
-
-
                 </BS.Form> <br />
-
-
                 <BS.Form inline>
                     <BS.FormControl
                         type="text"
@@ -207,13 +197,8 @@ export class All extends Component {
                     } >
                         <BS.Button onClick={this.handleSearchByName}>Search By Name</BS.Button>
                     </LinkContainer>
-
-
                 </BS.Form> <br />
-
                 <br />
-
-
                 <BS.Table striped bordered condensed hover>
                     <thead> <tr>
                         <th>
@@ -228,49 +213,27 @@ export class All extends Component {
                         <th>
                             <BS.Button bsStyle='link'>options</BS.Button>
                         </th>
-
-
                     </tr>
                     </thead>
 
                     <tbody>
-
                         {this.state.orders.map(
-
                             (order) =>
-
                                 <tr key={order.OrderId}>
-
                                     <td>{order.OrderId}</td>
-
                                     <td>{order.Customer.Name}</td>
-
                                     <td>{order.Status}</td>
-
                                     {/* <td><BS.Button bsStyle="link" onClick={() => this.handleFindBy(order.OwnerId)}>{order.Owner.Name}</BS.Button></td> */}
-
                                     <td>
-
                                         {/* <LinkContainer to={'/orders/update/' + order.Id}>
-
                                             <BS.Button >Update</BS.Button>
-
                                         </LinkContainer> */}
-
                                         {/* <BS.Button onClick={() => this.handleDelete(order.Id)}>Delete</BS.Button> */}
-
                                         <BS.Button onClick={() => this.handleBuy(order.OrderId)} >Buy</BS.Button>
-
-
-
                                     </td>
-
                                 </tr>
-
                         )}
-
                     </tbody>
-
                 </BS.Table>
             </div>
         )
@@ -343,7 +306,6 @@ export class One extends Component {
             query: "checkout"
 
         })
-
     }
 
     handleEmptyCart = () => {
@@ -352,95 +314,70 @@ export class One extends Component {
             query: "emptycart"
 
         })
-
     }
-
-
-
-
-
 
     render() {
         return (
             <div>
-                <h1>My order</h1>
+                <center><h1>My order</h1></center>
                 {this.state.order
                     ?
-                    <BS.Table striped bordered condensed hover>
-                        <thead>
-                            <tr><th>Field</th><th>Value</th></tr>
-                        </thead>
-                        <tbody>
-                            <tr><td>Id</td><td>{this.state.order.OrderId}</td></tr>
-                            <tr><td>Name</td><td>{this.state.order.Customer.Name}</td></tr>
-                            <tr><td>Status</td><td>{this.state.order.Status}</td></tr>
-                        </tbody>
-                    </BS.Table>
+                    <center>
+                        <BS.Table striped bordered condensed hover style={{ width: '60%' }}>
+                            <thead>
+                                <tr><th>Field</th><th>Value</th></tr>
+                            </thead>
+                            <tbody>
+                                <tr><td>Id</td><td>{this.state.order.OrderId}</td></tr>
+                                <tr><td>Name</td><td>{this.state.order.Customer.Name}</td></tr>
+                                <tr><td>Status</td><td>{this.state.order.Status}</td></tr>
+                            </tbody>
+                        </BS.Table>
+                    </center>
                     :
                     <p>Loading...</p>
                 }
 
-                <BS.Table striped bordered condensed hover>
-                    <thead> <tr>{/* onClick={this.handleOrderById} */}
-                        <th>
-                            <BS.Button bsStyle='link' >Meal Name</BS.Button>
-                        </th>
-                        <th>
-                            <BS.Button bsStyle='link'>Price</BS.Button>
-                        </th>
-                        <th>
-                            <BS.Button bsStyle='link'>Quantity</BS.Button>
-                        </th>
-                        <th>
-                            <BS.Button bsStyle='link'>option</BS.Button>
-                        </th>
+                <center>
+                    <BS.Table striped bordered condensed hover style={{ width: '70%' }}>
+                        <thead> <tr>{/* onClick={this.handleOrderById} */}
+                            <th>
+                                <BS.Button bsStyle='link' >Meal Name</BS.Button>
+                            </th>
+                            <th>
+                                <BS.Button bsStyle='link'>Price</BS.Button>
+                            </th>
+                            <th>
+                                <BS.Button bsStyle='link'>Quantity</BS.Button>
+                            </th>
+                            <th>
+                                <BS.Button bsStyle='link'>option</BS.Button>
+                            </th>
+                        </tr>
+                        </thead>
 
-
-                    </tr>
-                    </thead>
-
-                    <tbody>
-
-                        {this.state.OrderItems.map(
-
-                            (orderItem) =>
-
-                                <tr key={orderItem.ItemId}>
-
-                                    <td>{orderItem.Meal.Name}</td>
-
-                                    <td>{orderItem.Meal.Price}</td>
-
-                                    <td>{orderItem.Quantity}</td>
-
-                                    {/* <td><BS.Button bsStyle="link" onClick={() => this.handleFindBy(order.OwnerId)}>{order.Owner.Name}</BS.Button></td> */}
-
-                                    <td>
-
-                                        {/* <LinkContainer to={'/orders/update/' + order.Id}>
-
+                        <tbody>
+                            {this.state.OrderItems.map(
+                                (orderItem) =>
+                                    <tr key={orderItem.ItemId}>
+                                        <td>{orderItem.Meal.Name}</td>
+                                        <td>{orderItem.Meal.Price}</td>
+                                        <td>{orderItem.Quantity}</td>
+                                        {/* <td><BS.Button bsStyle="link" onClick={() => this.handleFindBy(order.OwnerId)}>{order.Owner.Name}</BS.Button></td> */}
+                                        <td>
+                                            {/* <LinkContainer to={'/orders/update/' + order.Id}>
                                             <BS.Button >Update</BS.Button>
-
                                         </LinkContainer> */}
-
-                                        {/* <BS.Button onClick={() => this.handleDelete(order.Id)}>Delete</BS.Button> */}
-
-                                        {/* <BS.Button  onClick={() =>  console.log("delete")} >Delete</BS.Button> */}
-
-                                    </td>
-
-                                </tr>
-                        )}
-
-                    </tbody>
-
-                </BS.Table>
-
-                <BS.Button onClick={() => this.handleCheckout()} >Checkout</BS.Button>
-
-                <BS.Button onClick={() => this.handleEmptyCart()} >Empty cart</BS.Button>
-
-
+                                            {/* <BS.Button onClick={() => this.handleDelete(order.Id)}>Delete</BS.Button> */}
+                                            {/* <BS.Button  onClick={() =>  console.log("delete")} >Delete</BS.Button> */}
+                                        </td>
+                                    </tr>
+                            )}
+                        </tbody>
+                    </BS.Table>
+                    <BS.Button onClick={() => this.handleCheckout()} >Checkout</BS.Button>
+                    <BS.Button onClick={() => this.handleEmptyCart()} >Empty cart</BS.Button>
+                </center>
             </div>
         )
     }

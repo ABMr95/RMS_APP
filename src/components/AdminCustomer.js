@@ -58,9 +58,10 @@ export class All extends Component {
                 <center><h1>Admin Customers</h1>
                     <BS.Button onClick={this.handleShowAll}>Show All</BS.Button></center>
                 <br />
-                <BS.Table striped bordered condensed hover>
+                <center>
+                    <BS.Table striped bordered condensed hover style={{ width: '70%' }} >
                     <thead>
-                        <tr><th>Id</th><th>Username</th><th>name</th><th>age</th><th>gender</th></tr>
+                        <tr><th>Id</th><th>Username</th><th>name</th><th>age</th><th>gender</th><th>Actions</th></tr>
                     </thead>
                     <tbody>
                         {this.state.customers.map(
@@ -72,14 +73,17 @@ export class All extends Component {
                                     <td>{customer.Age}</td>
                                     <td>{customer.Gender}</td>
                                     <td>
-                                        <LinkContainer to={'/admincustomers/update/' + customer.CustomerId}>
+                                        <center>
+                                            <LinkContainer to={'/admincustomers/update/' + customer.CustomerId}>
                                             <BS.Button >Update</BS.Button>
                                         </LinkContainer>
+                                        </center>
                                     </td>
                                 </tr>
                         )}
                     </tbody>
                 </BS.Table>
+                </center>
             </div>
         )
     }

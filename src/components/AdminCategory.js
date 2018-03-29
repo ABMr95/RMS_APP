@@ -55,14 +55,15 @@ export class All extends Component {
                 </div>
                 <center><h1>Admin Categories</h1></center>
 
-                <LinkContainer to={{ pathname: '/admincategory/create' }}>
-                    <BS.Button>Create</BS.Button>
-                </LinkContainer>
-
                 
-                <BS.Table striped bordered condensed hover>
+
+                <center>
+                <BS.Table striped bordered condensed hover style={{ width: '70%' }}>
                     <thead> <tr>
-                        <th>Id</th><th>Name</th>
+                        <th>Id</th><th>Name</th><th>Actions</th>
+                        <th><LinkContainer to={{ pathname: '/admincategory/create' }}>
+                            <BS.Button>Create</BS.Button>
+                        </LinkContainer></th>
                     </tr>
                     </thead>
                     <tbody>
@@ -93,6 +94,7 @@ export class All extends Component {
                     </tbody>
 
                 </BS.Table>
+                </center>
             </div>
         )
     }

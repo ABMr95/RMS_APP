@@ -43,7 +43,6 @@ export class One extends Component {
                 query: "customer"
             }
         )
-
     }
 
     findOrder = async (val) => {
@@ -53,7 +52,6 @@ export class One extends Component {
                 CustomerID: val
             }
         )
-
     }
 
 
@@ -91,6 +89,7 @@ export class One extends Component {
                     <h1>My Info </h1>
                     {this.state.customer
                         ?
+                        
                         <BS.Table striped bordered condensed hover style={{ width: '50%' }}>
                             <thead>
                                 <tr><th>Field</th><th>Value</th></tr>
@@ -109,7 +108,7 @@ export class One extends Component {
                     }
 
                     <LinkContainer to='customerinfo/update'>
-                        <BS.Button  >Update Info</BS.Button>
+                        <BS.Button>Update Info</BS.Button>
                     </LinkContainer>
                 </center>
             </div>
@@ -187,6 +186,7 @@ export class Update extends Component {
     render() {
         return (
             <div>
+                <center>
                 <BS.Table striped bordered condensed hover style={{ width: '50%' }}>
                     <thead>
                         <tr><th>Field</th><th>Value</th></tr>
@@ -246,6 +246,7 @@ export class Update extends Component {
                     </tbody>
                 </BS.Table>
                 <BS.Button onClick={this.handleUpdate}>Update</BS.Button>
+                </center>
             </div>
         )
     }

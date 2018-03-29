@@ -25,7 +25,6 @@ export class All extends Component {
 
     componentDidMount() {
         this.findCurrentUser()
-        
     }
 
     find = (parameters) => {
@@ -49,7 +48,6 @@ export class All extends Component {
                 query: "customer"
             }
         )
-        
     }
 
     findOrder = async (val) => {
@@ -57,76 +55,41 @@ export class All extends Component {
             (data) => this.setState({ orders: data }),
             {
                 CustomerID: val
-
             }
         )
-        
     }
-
-    
-
 
     render() {
         console.log('render: ', this.props.location.query)
         return (
             <div>
-                <h1>My History Orders</h1>
-
-
-              
-
-                <BS.Table striped bordered condensed hover>
-                    <thead> <tr>
-                        <th>
-                            Id
+                <center>
+                    <h1>My History Orders</h1>
+                    <BS.Table striped bordered condensed hover style={{ width: '60%' }}>
+                        <thead> <tr>
+                            <th>
+                                Id
                         </th>
-                        <th>
-                            Status
+                            <th>
+                                Status
                         </th>
-
-                        <th>
-                            Customer
+                            <th>
+                                Customer
                         </th>
-                       
-
-
-                    </tr>
-                    </thead>
-
-                    <tbody>
-
-                        {this.state.orders.map(
-
-                            (order) =>
-
-                                <tr key={order.OrderId}>
-
-                                    <td>{order.OrderId}</td>
-
-                                    <td>{order.Status}</td>
-
-
-                                    <td>{order.Customer.Name}</td>
-
-                                    {/* <td><BS.Button bsStyle="link" onClick={() => this.handleFindBy(order.CategoryId)}>{order.Category.Name}</BS.Button></td> */}
-
-                                    <td>
-
-  
-
-     
-
-
-
-                                    </td>
-
-                                </tr>
-
-                        )}
-
-                    </tbody>
-
-                </BS.Table>
+                        </tr>
+                        </thead>
+                        <tbody>
+                            {this.state.orders.map(
+                                (order) =>
+                                    <tr key={order.OrderId}>
+                                        <td>{order.OrderId}</td>
+                                        <td>{order.Status}</td>
+                                        <td>{order.Customer.Name}</td>
+                                    </tr>
+                            )}
+                        </tbody>
+                    </BS.Table>
+                </center>
             </div>
         )
     }

@@ -56,48 +56,48 @@ export class All extends Component {
                         <LinkContainer to='/admincategory/all'><BS.NavItem>Categories</BS.NavItem></LinkContainer>
                     </BS.Nav>
                 </div>
-                <h1>Admin Addresses</h1>
+                <center><h1>Admin Addresses</h1></center>
 
-                <LinkContainer to={{ pathname: '/adminaddress/create' }}>
-                    <BS.Button>Create</BS.Button>
-                </LinkContainer>
+                <center>
+                    <BS.Table striped bordered condensed hover style={{ width: '70%' }}>
+                        <thead>
+                            <tr>
+                                <th>AddressId</th><th>CustomerName</th><th>Address1</th><th>Address2</th><th>City</th><th>Country</th><th>POBox</th><th>Actions</th>
+                                <th><LinkContainer to={{ pathname: '/adminaddress/create' }}>
+                                    <BS.Button>Create</BS.Button>
+                                </LinkContainer></th>
+                            </tr>
+                        </thead>
 
-
-                <BS.Table striped bordered condensed hover style={{ width: '50%' }}>
-                    <thead>
-                        <tr>
-                            <th>AddressId</th><th>CustomerName</th><th>Address1</th><th>Address2</th><th>City</th><th>Country</th><th>POBox</th>
-                        </tr>
-                    </thead>
-
-                    <tbody>
-                        {this.state.addresses.map(
-                            (address) =>
-                                <tr key={address.AddressId}>
-                                    <td>{address.AddressId}</td>
-                                    {
-                                        address.Customer.CustomerName == null
-                                            ?
-                                            <td>unamed customer</td>
-                                            :
-                                            <td>{address.Customer.CustomerName}</td>
-                                    }
-                                    <td>{address.Customer.CustomerName}</td>
-                                    <td>{address.Address1}</td>
-                                    <td>{address.Address2}</td>
-                                    <td>{address.City}</td>
-                                    <td>{address.Country}</td>
-                                    <td>{address.POBox}</td>
-                                    <td>
-                                        <LinkContainer to={'/adminaddress/update/' + address.AddressId}>
-                                            <BS.Button >Update</BS.Button>
-                                        </LinkContainer>
-                                        <BS.Button onClick={() => this.handleDelete(address.AddressId)}>Delete</BS.Button>
-                                    </td>
-                                </tr>
-                        )}
-                    </tbody>
-                </BS.Table>
+                        <tbody>
+                            {this.state.addresses.map(
+                                (address) =>
+                                    <tr key={address.AddressId}>
+                                        <td>{address.AddressId}</td>
+                                        {
+                                            address.Customer.CustomerName == null
+                                                ?
+                                                <td>unamed customer</td>
+                                                :
+                                                <td>{address.Customer.CustomerName}</td>
+                                        }
+                                        <td>{address.Customer.CustomerName}</td>
+                                        <td>{address.Address1}</td>
+                                        <td>{address.Address2}</td>
+                                        <td>{address.City}</td>
+                                        <td>{address.Country}</td>
+                                        <td>{address.POBox}</td>
+                                        <td>
+                                            <LinkContainer to={'/adminaddress/update/' + address.AddressId}>
+                                                <BS.Button >Update</BS.Button>
+                                            </LinkContainer>
+                                            <BS.Button onClick={() => this.handleDelete(address.AddressId)}>Delete</BS.Button>
+                                        </td>
+                                    </tr>
+                            )}
+                        </tbody>
+                    </BS.Table>
+                </center>
             </div>
         )
     }
