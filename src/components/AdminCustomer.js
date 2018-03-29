@@ -74,7 +74,13 @@ export class All extends Component {
                                     <td>{customer.CustomerName}</td>
                                     <td>{customer.Age}</td>
                                     <td>{customer.Gender}</td>
-                                    <td>{customer.Membership.Type}</td>
+                                    {
+                                        customer.MembershipId
+                                        ?
+                                        <td>{customer.Membership.Type}</td>
+                                        :
+                                        <td>None</td>
+                                    }
                                     <td>
                                         <center>
                                             <LinkContainer to={'/admincustomers/update/' + customer.CustomerId}>
