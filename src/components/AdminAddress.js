@@ -150,7 +150,7 @@ export class Create extends Component {
 
     state = {
         AddressId: '',
-        CustomerId: 0,
+        CustomerId: '',
         Address1: '',
         Address2: '',
         City: '',
@@ -163,11 +163,13 @@ export class Create extends Component {
     db2 = new DB('http://localhost:51064/api/Customers')
 
     componentDidMount() {
-        this.addresses.find(
+        this.db.find(
             (data) => this.setState({ addresses: data }))
+
         this.db2.find(
             data => this.setState({ Customers: data })
         )
+        console.log(this.state.Customers)
     }
 
     handleCreate = () => {
@@ -206,6 +208,12 @@ export class Create extends Component {
         this.setState({ POBox: event.target.value })
     }
 
+    handleSelect = (event) => {
+        this.state.CustomerId = event.target.value
+
+
+    }
+
     render() {
         return (
             <div>
@@ -225,31 +233,26 @@ export class Create extends Component {
                                 />
                             </td>
                         </tr>
-                        <tr>
-                            <td>Customer Id</td>
-                            <td>
-                                <BS.FormControl
-                                    type="text"
-                                    value={this.state.CustomerId}
-                                    placeholder="Enter CustomerId"
-                                    onChange={this.CustomerId}
-                                    disabled={true}
-                                />
-                            </td>
-                        </tr>
+                      
 
-                        {/* <td>Customer Id</td>
-                        <td>
-                            <BS.DropdownButton title='Select Customers' id='Customers' onSelect={this.handleCategoryId}>
-                                {
-                                    this.state.Customers.map(
-                                        customer =>
-                                            <BS.MenuItem key={customer.CustomerId} eventKey={customer.CustomerId}> {customer.CustomerName}
-                                            </BS.MenuItem>
-                                    )
+                        <td>Customer Id</td>
+             
+
+                        <BS.FormGroup controlId="formControlsSelect">
+                            <BS.FormControl
+                                onChange={this.handleSelect}
+                                inputRef={el => this.inputEl = el}
+                                componentClass="select" placeholder="select">
+                                <option value="">select</option>
+
+                                {this.state.Customers.map(
+                                    (item) =>
+                                        <option value={item.CustomerId}>{item.CustomerId}</option>
+
+                                )
                                 }
-                            </BS.DropdownButton>
-                        </td> */}
+                            </BS.FormControl>
+                        </BS.FormGroup>
 
                         <tr>
                             <td>Address 1</td>
@@ -329,6 +332,7 @@ export class Update extends Component {
         City: '',
         Country: '',
         POBox: '',
+        Customer: [],
         Customers: []
     }
 
@@ -384,6 +388,11 @@ export class Update extends Component {
         console.log("eventkey" + eventKey)
     }
 
+    handleSelect = (event) => {
+        this.state.CustomerId = event.target.value
+        this.state.Customer.CustomerId = event.target.value
+    }
+
     render() {
         return (
             <div>
@@ -403,20 +412,24 @@ export class Update extends Component {
                                 />
                             </td>
                         </tr>
-                        
 
-                        {/* <td>Customer Id</td>
-                        <td>
-                            <BS.DropdownButton title='Select Customers' id='Customers' onSelect={this.handleCustomerId} disable={true}>
-                                {
-                                    this.state.Customers.map(
-                                        customer =>
-                                            <BS.MenuItem key={customer.CustomerId} eventKey={customer.CustomerId}> {customer.CustomerName}
-                                            </BS.MenuItem>
-                                    )
+
+                        <td>Customer Id</td>
+                        <BS.FormGroup controlId="formControlsSelect">
+                            <BS.FormControl
+                                onChange={this.handleSelect}
+                                inputRef={el => this.inputEl = el}
+                                componentClass="select" placeholder="select">
+                                <option value="">select</option>
+
+                                {this.state.Customers.map(
+                                    (item) =>
+                                        <option value={item.CustomerId}>{item.CustomerId}</option>
+
+                                )
                                 }
-                            </BS.DropdownButton>
-                        </td> */}
+                            </BS.FormControl>
+                        </BS.FormGroup>
 
                         <tr>
                             <td>Address 1</td>

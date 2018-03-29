@@ -34,6 +34,8 @@ export default class NB extends Component {
                                     console.log()
                             }
 
+
+
                             {
                                 sessionStorage.getItem('token') && sessionStorage.getItem("userName") === "admin@admin.com"
                                     ?
@@ -76,7 +78,11 @@ export default class NB extends Component {
                                     <BS.NavDropdown title="My Account" id="nav-dropdown">
 
                                         <LinkContainer to='customerorders/all'>
-                                            <BS.NavItem >My Orders List</BS.NavItem>
+                                            <BS.NavItem >My Order History</BS.NavItem>
+                                        </LinkContainer>
+
+                                        <LinkContainer to='customeraddress/all'>
+                                            <BS.NavItem >My address</BS.NavItem>
                                         </LinkContainer>
 
                                         {/* <LinkContainer to='/orders/myorder'>
@@ -109,7 +115,6 @@ export default class NB extends Component {
                                     <LinkContainer to='/register'>
                                         <BS.NavItem >Register</BS.NavItem>
                                     </LinkContainer>
-
                                 </BS.Nav>
                         }
 
