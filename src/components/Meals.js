@@ -289,27 +289,14 @@ export class All extends Component {
                                             <tr key={meal.MealId}>
                                                 {/* <td>{meal.MealId}</td> */}
                                                 <td><center><p style={{ paddingTop: 35 }}>{meal.Name}</p></center></td>
-
-
                                                 <td><center>
-
-
-
-
-                                                    {
-                                                        meal.ImageName
-                                                            ?
-                                                            <img src={require('../images/' + meal.ImageName + '.jpg')} width="160" height="100" style={{ padding: 5, borderRadius: 10 }} />
-                                                            :
-                                                            <img src={require('../images/default-thumbnail.jpg')} width="160" height="100" style={{ padding: 5, borderRadius: 10 }} />
-
-                                                    }
-
-
-
-
-
-
+                                                 {
+                                                     meal.ImageName
+                                                     ?
+                                                     <img   src={require('../images/' + meal.ImageName + '.jpg')} width="160" height="100" style={{ padding: 5, borderRadius: 10 }} />
+                                                     :
+                                                     <img   src={require('../images/default-thumbnail.jpg')} width="160" height="100" style={{ padding: 5, borderRadius: 10 }} />
+                                                 }
                                                 </center></td>
                                                 <td><center><p style={{ paddingTop: 35 }}>{meal.Category.Name}</p></center></td>
                                                 <td><center><p style={{ paddingTop: 35 }}>{meal.Description}</p></center></td>
