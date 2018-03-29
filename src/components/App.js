@@ -37,6 +37,7 @@ export default class App extends React.Component {
           <RR.Route path="customers/update/:id" component={Customers.Update} />
           
           <RR.Route path="customeraddress/all" component={Customeraddress.All} />
+          <RR.Route path="customeraddress/create" component={Customeraddress.Create} />
           <RR.Route path="customerorders/all" component={CustomerOrders.All} />
           <RR.Route path="customerinfo/update" component={CustomerInfo.Update} />
           <RR.Route path="customerinfo/one" component={CustomerInfo.One} />
