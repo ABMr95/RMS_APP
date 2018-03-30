@@ -244,7 +244,8 @@ export class One extends Component {
 
     state = {
         order: null,
-        OrderItems: []
+        OrderItems: [],
+        total: 0
     }
 
     db = new DB('http://localhost:51064/api/Orders')
@@ -298,6 +299,7 @@ export class One extends Component {
                 query: "orderitems"
             }
         )
+        this.getTotal()
     }
 
     handleCheckout = () => {
@@ -316,7 +318,32 @@ export class One extends Component {
         })
     }
 
+    getTotal = () => {
+        let tempTotal = 0;
+        this.state.OrderItems.map((orderItem, index) =>
+            tempTotal += orderItem.Meal.Price
+        )
+        if (this.state.order.Customer.Membership.Type == "Uranium")
+            {
+                tempTotal = tempTotal * 0.5;
+            }
+            else if (this.state.order.Customer.Membership.Type== "Gold")
+            {
+                tempTotal = tempTotal * 0.25;
+            }
+            else if (this.state.order.Customer.Membership.Type == "Silver")
+            {
+                tempTotal = tempTotal * 0.10;
+            }
+            else if (this.state.order.Customer.Membership.Type == "Bronze")
+            {
+                tempTotal = tempTotal * 0.05;
+            }
+        this.setState({ total: tempTotal })
+    }
+
     render() {
+
         return (
             <div>
                 <center><h1>My order</h1></center>
@@ -331,6 +358,7 @@ export class One extends Component {
                                 <tr><td>Id</td><td>{this.state.order.OrderId}</td></tr>
                                 <tr><td>Name</td><td>{this.state.order.Customer.Name}</td></tr>
                                 <tr><td>Status</td><td>{this.state.order.Status}</td></tr>
+                                <tr><td>Membership</td><td>{this.state.order.Customer.Membership.Type}</td></tr>
                             </tbody>
                         </BS.Table>
                     </center>
@@ -359,12 +387,12 @@ export class One extends Component {
                         <tbody>
                             {this.state.OrderItems.map(
                                 (orderItem) =>
-                                    <tr key={orderItem.ItemId}>
+                                    < tr key={orderItem.ItemId} >
                                         <td>{orderItem.Meal.Name}</td>
                                         <td>{orderItem.Meal.Price}</td>
                                         <td>{orderItem.Quantity}</td>
-                                        {/* <td><BS.Button bsStyle="link" onClick={() => this.handleFindBy(order.OwnerId)}>{order.Owner.Name}</BS.Button></td> */}
-                                        <td>
+
+                                        < td >
                                             {/* <LinkContainer to={'/orders/update/' + order.Id}>
                                             <BS.Button >Update</BS.Button>
                                         </LinkContainer> */}
@@ -377,8 +405,10 @@ export class One extends Component {
                     </BS.Table>
                     <BS.Button onClick={() => this.handleCheckout()} >Checkout</BS.Button>
                     <BS.Button onClick={() => this.handleEmptyCart()} >Empty cart</BS.Button>
+
+                    <h2>Total = {this.state.total}</h2>
                 </center>
-            </div>
+            </div >
         )
     }
 }
