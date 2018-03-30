@@ -325,19 +325,19 @@ export class One extends Component {
         )
         if (this.state.order.Customer.Membership.Type == "Uranium")
             {
-                tempTotal = tempTotal * 0.5;
+                tempTotal = tempTotal - tempTotal * 0.5;
             }
             else if (this.state.order.Customer.Membership.Type== "Gold")
             {
-                tempTotal = tempTotal * 0.25;
+                tempTotal = tempTotal -  tempTotal * 0.25;
             }
             else if (this.state.order.Customer.Membership.Type == "Silver")
             {
-                tempTotal = tempTotal * 0.10;
+                tempTotal =tempTotal -tempTotal * 0.10;
             }
             else if (this.state.order.Customer.Membership.Type == "Bronze")
             {
-                tempTotal = tempTotal * 0.05;
+                tempTotal =tempTotal -tempTotal * 0.05;
             }
         this.setState({ total: tempTotal })
     }
