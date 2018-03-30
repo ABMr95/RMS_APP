@@ -67,7 +67,7 @@ export class All extends Component {
                 <center>
                     <BS.Table striped bordered condensed hover style={{ width: '70%' }}>
                         <thead> <tr>
-                            <th>Id</th><th>Status</th><th>OrderDate</th><th>OrderReady</th><th>OrderDelivered</th><th>OrderType</th><th>Customer</th><th>Actions</th>
+                            <th>Id</th><th>Status</th><th>OrderDate</th><th>Total</th><th>OrderDelivered</th><th>OrderType</th><th>Customer</th><th>Actions</th>
                             <th> <LinkContainer to={{ pathname: '/adminorders/create' }}>
                                 <BS.Button>Create</BS.Button>
                             </LinkContainer></th>

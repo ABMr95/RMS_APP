@@ -70,11 +70,16 @@ export class All extends Component {
                             <th>
                                 Id
                         </th>
+
                             <th>
                                 Status
                         </th>
+
                             <th>
                                 Customer
+                        </th>
+                        <th>
+                                Total
                         </th>
                         </tr>
                         </thead>
@@ -85,6 +90,7 @@ export class All extends Component {
                                         <td>{order.OrderId}</td>
                                         <td>{order.Status}</td>
                                         <td>{order.Customer.Name}</td>
+                                        <td>{order.OrderReady}</td>
                                     </tr>
                             )}
                         </tbody>

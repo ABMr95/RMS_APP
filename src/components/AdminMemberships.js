@@ -75,7 +75,7 @@ export class All extends Component {
                                             <LinkContainer to={'/adminmemberships/update/' + membership.MembershipId}>
                                                 <BS.Button >Update</BS.Button>
                                             </LinkContainer>
-                                            <BS.Button onClick={() => this.handleDelete(membership.MembershipId)}>Delete</BS.Button>
+                                            <BS.Button disabled onClick={() => this.handleDelete(membership.MembershipId)}>Delete</BS.Button>
                                         </td>
                                     </tr>
                             )}
