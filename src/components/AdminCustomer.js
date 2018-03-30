@@ -62,36 +62,36 @@ export class All extends Component {
                 <br />
                 <center>
                     <BS.Table striped bordered condensed hover style={{ width: '70%' }} >
-                    <thead>
-                        <tr><th>Id</th><th>Username</th><th>name</th><th>age</th><th>gender</th><th>Membership</th><th>Actions</th></tr>
-                    </thead>
-                    <tbody>
-                        {this.state.customers.map(
-                            (customer) =>
-                                <tr key={customer.CustomerId}>
-                                    <td>{customer.CustomerId}</td>
-                                    <td>{customer.Name}</td>
-                                    <td>{customer.CustomerName}</td>
-                                    <td>{customer.Age}</td>
-                                    <td>{customer.Gender}</td>
-                                    {
-                                        customer.MembershipId
-                                        ?
-                                        <td>{customer.Membership.Type}</td>
-                                        :
-                                        <td>None</td>
-                                    }
-                                    <td>
-                                        <center>
-                                            <LinkContainer to={'/admincustomers/update/' + customer.CustomerId}>
-                                            <BS.Button >Update</BS.Button>
-                                        </LinkContainer>
-                                        </center>
-                                    </td>
-                                </tr>
-                        )}
-                    </tbody>
-                </BS.Table>
+                        <thead>
+                            <tr><th>Id</th><th>Username</th><th>name</th><th>age</th><th>gender</th><th>Membership</th><th>Actions</th></tr>
+                        </thead>
+                        <tbody>
+                            {this.state.customers.map(
+                                (customer) =>
+                                    <tr key={customer.CustomerId}>
+                                        <td>{customer.CustomerId}</td>
+                                        <td>{customer.Name}</td>
+                                        <td>{customer.CustomerName}</td>
+                                        <td>{customer.Age}</td>
+                                        <td>{customer.Gender}</td>
+                                        {
+                                            customer.MembershipId
+                                                ?
+                                                <td>{customer.Membership.Type}</td>
+                                                :
+                                                <td>None</td>
+                                        }
+                                        <td>
+                                            <center>
+                                                <LinkContainer to={'/admincustomers/update/' + customer.CustomerId}>
+                                                    <BS.Button >Update</BS.Button>
+                                                </LinkContainer>
+                                            </center>
+                                        </td>
+                                    </tr>
+                            )}
+                        </tbody>
+                    </BS.Table>
                 </center>
             </div>
         )
@@ -195,7 +195,7 @@ export class Create extends Component {
                                 />
                             </td>
                         </tr>
-                         {/* <tr>
+                        {/* <tr>
                             <td>MembershipId</td>
                             <td>  */}
                         {/* <BS.FormControl
@@ -204,7 +204,7 @@ export class Create extends Component {
                                     placeholder="Enter Membership Id"
                                     onChange={this.handleName}
                                 /> */}
-                         {/* <BS.DropdownButton title='Select Membership Id' id='owners' onSelect={this.handleMembershipId}>
+                        {/* <BS.DropdownButton title='Select Membership Id' id='owners' onSelect={this.handleMembershipId}>
                                     {
                                         this.state.owners.map(
                                             owner =>
@@ -237,10 +237,13 @@ export class Update extends Component {
         CustomerName: '',
         Age: '',
         Gender: '',
-        MembershipId: ''
+        MembershipId: '',
+        membershipArray: [],
+        Membership: []
     }
 
     db = new DB('http://localhost:51064/api/Customers')
+    membershipDB = new DB('http://localhost:51064/api/Memberships')
 
     componentDidMount() {
         this.db.findOne(
@@ -248,7 +251,15 @@ export class Update extends Component {
             this.props.params.id,
             data => this.setState(data)
         )
+        this.getMembership()
 
+    }
+
+    getMembership = (parameters) => {
+        this.membershipDB.find(
+            (data) => this.setState({ membershipArray: data }),
+            parameters
+        )
     }
 
 
@@ -273,9 +284,18 @@ export class Update extends Component {
     }
 
     handleUpdate = () => {
+        let TempCustomer ={
+            CustomerId: this.state.CustomerId,
+            Name: this.state.Name,
+            MembershipId: this.state.MembershipId,
+            CustomerName: this.state.CustomerName,
+            Age: this.state.Age,
+            Gender: this.state.Gender,
+            Membership: this.state.Membership
+        }
         let r1 = /^[0-9]*$/
         if (r1.test(this.state.Age)) {
-            this.db.update(this.state.CustomerId, this.state)
+            this.db.update(this.state.CustomerId, TempCustomer)
             alert("profile has been updated")
         } else {
             alert("please input only numbers")
@@ -287,8 +307,10 @@ export class Update extends Component {
         this.state.Gender = event.target.value
     }
 
-    handleSelect2 = (event) => {
+
+    handleSelectMembership = (event) => {
         this.state.MembershipId = event.target.value
+        this.state.Membership.MembershipId= event.target.value
     }
 
     render() {
@@ -307,7 +329,7 @@ export class Update extends Component {
                                     value={this.state.CustomerId}
                                     placeholder="Enter CustomerId"
                                     onChange={this.handleId}
-                                    disabled= {true}
+                                    disabled={true}
                                 />
                             </td>
                         </tr>
@@ -319,7 +341,7 @@ export class Update extends Component {
                                     value={this.state.Name}
                                     placeholder="Enter Name"
                                     onChange={this.handleName}
-                                    disabled= {true}
+                                    disabled={true}
                                 />
                             </td>
                         </tr>
@@ -373,32 +395,22 @@ export class Update extends Component {
 
                         <tr>
                             <td>MembershipId</td>
-                            <td> 
-                            <BS.FormGroup controlId="formControlsSelect">
+                            <td>
+                                <BS.FormGroup controlId="formControlsSelect">
                                     <BS.FormControl
-                                        onChange={this.handleSelect2}
+                                        style={{ width: '20%' }}
+                                        onChange={this.handleSelectMembership}
                                         inputRef={el => this.inputEl = el}
                                         componentClass="select" placeholder="select">
-                                        <option value="">select</option>
-                                        <option value="Gold">Gold</option>
-                                        <option value="Silver">Silver</option>
-                                        <option value="Platinium">Platinium</option>
+                                        <option value="">All</option>
+
+                                        {this.state.membershipArray.map((item) =><option value={item.MembershipId}>{item.Type}</option>)
+                                        }
                                     </BS.FormControl>
                                 </BS.FormGroup>
-                         {/* <BS.DropdownButton title='Select Membership Id' id='memberships' onSelect={this.handleMembershipId}>
-                                    {
-                                        this.state.memberships.map(
-                                            membership =>
-                                                <BS.MenuItem
-                                                    key={membership.MembershipId}
-                                                    eventKey={membership.MembershipId}>
-                                                    {membership.Type} 
-                                                </BS.MenuItem>
-                                        )
-                                    }
-                                </BS.DropdownButton> */}
+                           
                             </td>
-                        </tr> 
+                        </tr>
 
 
 
