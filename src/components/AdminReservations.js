@@ -145,6 +145,9 @@ export class Create extends Component {
         ReservationId: '',
         CustomerId: '',
         Time: '',
+        hour: 0,
+        min: 0,
+        seconds: 0,
         TableNo: '',
         Customers: []
     }
@@ -163,6 +166,11 @@ export class Create extends Component {
     }
 
     handleCreate = () => {
+        // console.log(event.target.value)
+        var tempDate = (this.state.Time).split("-")
+        var tempDateUTC = new Date(tempDate[0], tempDate[1], tempDate[2], this.state.hour )
+        this.state.Time = tempDateUTC
+
         this.db.create(this.state)
         RR.browserHistory.push("adminreservations/all")
     }
@@ -176,8 +184,26 @@ export class Create extends Component {
     }
 
     handleTime = (event) => {
+        // console.log(event.target.value)
+        // var tempDate = (event.target.value).split("-")
+        // var tempDateUTC = new Date()
+        //new Date(year, month, day, hours, minutes, seconds, milliseconds)
         this.setState({ Time: event.target.value })
     }
+
+    handleHour = (event) => {
+        console.log(event.target.value)
+        this.state.hour = event.target.value
+    }
+
+    handleMin = (event) => {
+        this.setState({ handleMin: event.target.value })
+    }
+
+    handleSec = (event) => {
+        this.setState({ handleSec: event.target.value })
+    }
+
 
     handleTableNo = (event) => {
         this.setState({ TableNo: event.target.value })
@@ -207,10 +233,11 @@ export class Create extends Component {
                                 />
                             </td>
                         </tr>
-                      
+
 
                         <td>Customer Id</td>
-             
+
+
 
                         <BS.FormGroup controlId="formControlsSelect">
                             <BS.FormControl
@@ -218,7 +245,6 @@ export class Create extends Component {
                                 inputRef={el => this.inputEl = el}
                                 componentClass="select" placeholder="select">
                                 <option value="">select</option>
-
                                 {this.state.Customers.map(
                                     (item) =>
                                         <option value={item.CustomerId}>{item.CustomerId}</option>
@@ -232,11 +258,60 @@ export class Create extends Component {
                             <td>Time</td>
                             <td>
                                 <BS.FormControl
-                                    type="text"
+                                    type="date"
                                     value={this.state.Time}
                                     placeholder="Enter Time"
                                     onChange={this.handleTime}
                                 />
+
+                                {/* <BS.FormControl
+                                    type="number"
+                                    value={this.state.hour}
+                                    placeholder="Enter a hour"
+                                    onChange={this.handleHour}
+                                /> */}
+
+                                <BS.FormControl
+                                    onChange={this.handleHour}
+                                    inputRef={el => this.inputEl = el}
+                                    componentClass="select" placeholder="select">
+                                    <option value="">select time</option>
+
+                                    <option value="5">8 AM</option>
+                                    <option value="6">9 AM</option>
+                                    <option value="7">10 AM</option>
+                                    <option value="8">11 AM</option>
+                                    <option value="9">12 PM</option>
+                                    <option value="10">1 PM</option>
+                                    <option value="11">2 PM</option>
+                                    <option value="12">3 PM</option>
+                                    <option value="13">4 PM</option>
+                                    <option value="14">5 PM</option>
+                                    <option value="15">6 PM</option>
+                                    <option value="16">7 PM</option>
+                                    <option value="17">8 PM</option>
+                                    <option value="18">9 PM</option>
+                                    <option value="19">10 PM</option>
+                                
+
+                                  
+                                    }
+                                </BS.FormControl>
+
+                                {/* <BS.FormControl
+                                    type="number"
+                                    value={this.state.min}
+                                    placeholder="Enter a min"
+                                    onChange={this.handleMin}
+                                />
+
+                                <BS.FormControl
+                                    type="number"
+                                    value={this.state.seconds}
+                                    placeholder="Enter a sec"
+                                    onChange={this.handleSec}
+                                /> */}
+
                             </td>
                         </tr>
 
@@ -244,9 +319,9 @@ export class Create extends Component {
                             <td>TableNo</td>
                             <td>
                                 <BS.FormControl
-                                    type="text"
+                                    type="number"
                                     value={this.state.TableNo}
-                                    placeholder="Enter TableNo"
+                                    placeholder="Enter a number between 1-10"
                                     onChange={this.handleTableNo}
                                 />
                             </td>
