@@ -218,10 +218,19 @@ export class Update extends Component {
 
     db = new DB('http://localhost:51064/api/Memberships')
 
+    
+
     componentDidMount() {
-        this.db.find(
-            (data) => this.setState({ memberships: data }))
+        this.db.findOne(
+            //this.props.CategoryId,
+            this.props.params.id,
+            data => this.setState(data)
+        )
+        this.customers.find(
+            data => this.setState({ memberships: data })
+        )
     }
+
 
 
     handleUpdate = () => {
