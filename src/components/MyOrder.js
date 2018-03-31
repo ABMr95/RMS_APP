@@ -15,6 +15,8 @@ export class One extends Component {
 
     db = new DB('http://localhost:51064/api/Orders')
     dbUser = new DB('http://localhost:51064/api/User')
+    dbOrderItems = new DB('http://localhost:51064/api/OrderItems')
+
 
     componentDidMount() {
         this.findCurrentUser()
@@ -63,6 +65,14 @@ export class One extends Component {
             query: "emptycart"
 
         })
+    }
+
+    handleDelete = (ItemId) => {
+        this.dbOrderItems.destroy(ItemId, this.find)
+        this.findOrderItem()
+        this.setState({})
+        RR.browserHistory.push("/orders/MyOrder")
+
     }
 
     getTotal = () => {
@@ -138,7 +148,7 @@ export class One extends Component {
                                         <td>{orderItem.Meal.Name}</td>
                                         <td>{orderItem.Meal.Price}</td>
                                         <td>{orderItem.Quantity}</td>
-
+                                        <td><BS.Button onClick={() => this.handleDelete(orderItem.ItemId)}>Delete</BS.Button></td>
                                         
                                     </tr>
                             )}
