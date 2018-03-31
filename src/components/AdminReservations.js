@@ -13,6 +13,7 @@ export class All extends Component {
         TableNo: '',
     }
 
+
     db = new DB('http://localhost:51064/api/Reservations')
     componentDidMount() {
         this.find()
@@ -62,9 +63,10 @@ export class All extends Component {
                         <thead>
                             <tr>
                                 <th>ReservationId</th><th>CustomerName</th><th>Time</th><th>TableNo</th><th>Actions</th>
-                                <th><LinkContainer to={{ pathname: '/adminreservations/create' }}>
-                                    <BS.Button>Create</BS.Button>
-                                </LinkContainer></th>
+                                <th>
+                                    <LinkContainer to={{ pathname: '/adminreservations/create' }}>
+                                        <BS.Button>Create</BS.Button>
+                                    </LinkContainer></th>
                             </tr>
                         </thead>
 
@@ -82,7 +84,7 @@ export class All extends Component {
                                         }
                                         {/* <td>{reservation.Customer.CustomerName}</td> */}
                                         <td>{reservation.Time}</td>
-                                        <td>{reservation.TableNo}</td>
+                                        <td>{reservation.Table.Name}</td>
                                         <td>
                                             <LinkContainer to={'/adminreservations/update/' + reservation.ReservationId}>
                                                 <BS.Button >Update</BS.Button>
@@ -150,7 +152,8 @@ export class Create extends Component {
         seconds: 0,
         TableNo: '',
         Customers: [],
-        Tables: []
+        Tables: [],
+        flag: "false"
     }
 
     db = new DB('http://localhost:51064/api/Reservations')
@@ -210,6 +213,28 @@ export class Create extends Component {
 
     handleSelect = (event) => {
         this.state.CustomerId = event.target.value
+
+    }
+
+    checkDateApi = async() => {
+        this.state.Time = this.state.Time + " " + this.state.hour
+        await this.db.find(
+            (data) => this.checkDate(data),
+            {
+                txtDate: this.state.Time
+            }
+        )
+    }
+
+    checkDate = (val) => {
+        console.log("the value is: " + val)
+    
+        if(val == "true"){
+            alert("the date is taken, please select a diffrent time")
+        }else if((val == "false")){
+            this.db.create(this.state)
+            RR.browserHistory.push("adminreservations/all")
+        }
 
     }
 
@@ -322,7 +347,7 @@ export class Create extends Component {
                         </tr>
                     </tbody>
                 </BS.Table>
-                <BS.Button onClick={this.handleCreate}>create</BS.Button>
+                <BS.Button onClick={this.checkDateApi}>create</BS.Button>
             </div>
         )
     }
@@ -378,6 +403,8 @@ export class Update extends Component {
         this.state.CustomerId = event.target.value
         this.state.Customer.CustomerId = event.target.value
     }
+
+
 
     render() {
         return (
