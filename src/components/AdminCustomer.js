@@ -158,12 +158,6 @@ export class Create extends Component {
     handleName = (event) => {
         this.setState({ Name: event.target.value })
     }
-    // handleMembershipId = (event) => {
-    //     this.setState({ MembershipId: event.target.value })
-    // }
-    // handleAddressId = (event) => {
-    //     this.setState({ AddressId: event.target.value })
-    //}
 
     render() {
         return (
