@@ -19,7 +19,7 @@ export class All extends Component {
         ToggleName: false,
         TogglePrice: false,
         ToggleCategory: false,
-        select: 'F',
+        select: '',
         category: []
     }
     // small bug in the order
@@ -58,9 +58,7 @@ export class All extends Component {
 
     }
 
-    // handleUpdate = (MealId) => {
-    //     this.props.onSelect(<Update MealId={MealId} />)
-    // }
+ 
 
 
     handleMinPrice = (event) => {

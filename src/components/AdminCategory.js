@@ -33,9 +33,7 @@ export class All extends Component {
         this.props.onSelect(<Update CategoryId={CategoryId} />)
     }
 
-    // handleCustomerText = (event) => {
-    //     this.setState({ CustomerName: event.target.value })
-    // }
+
 
     render() {
         console.log('render: ', this.props.location.query)
@@ -102,43 +100,7 @@ export class All extends Component {
     }
 }
 
-export class One extends Component {
 
-    state = {
-        category: null
-    }
-
-    db = new DB('http://localhost:51064/api/Categories')
-
-    componentDidMount() {
-        this.db.findOne(
-            this.props.CategoryId,
-            (data) => this.setState({ category: data })
-        )
-    }
-
-    render() {
-        console.log('Category: ', this.state.category)
-        return (
-            <div>
-                {this.state.category
-                    ?
-                    <BS.Table striped bordered condensed hover>
-                        <thead>
-                            <tr><th>Field</th><th>Value</th></tr>
-                        </thead>
-                        <tbody>
-                            <tr><td>Id</td><td>{this.state.category.CategoryId}</td></tr>
-                            <tr><td>Status</td><td>{this.state.category.Name}</td></tr>
-                        </tbody>
-                    </BS.Table>
-                    :
-                    <p>Loading...</p>
-                }
-            </div>
-        )
-    }
-}
 
 export class Create extends Component {
 

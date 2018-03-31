@@ -92,7 +92,14 @@ export class All extends Component {
                                             <LinkContainer to={'/adminorders/update/' + order.OrderId}>
                                                 <BS.Button >Update</BS.Button>
                                             </LinkContainer>
-                                            <BS.Button onClick={() => this.handleDelete(order.OrderId)}>Delete</BS.Button>
+                                            {
+                                                order.Status=="paid" 
+                                                ?
+                                                <BS.Button disabled onClick={() => this.handleDelete(order.OrderId)}>Delete</BS.Button>
+                                                :
+                                                <BS.Button onClick={() => this.handleDelete(order.OrderId)}>Delete</BS.Button>
+                                            }
+                                            
                                         </td>
                                     </tr>
                             )}
@@ -104,48 +111,7 @@ export class All extends Component {
     }
 }
 
-export class One extends Component {
 
-    state = {
-        order: null
-    }
-
-    db = new DB('http://localhost:51064/api/Orders')
-
-    componentDidMount() {
-        this.db.findOne(
-            this.props.OrderId,
-            (data) => this.setState({ order: data })
-        )
-    }
-
-    render() {
-        console.log('Order: ', this.state.order)
-        return (
-            <div>
-                {this.state.order
-                    ?
-                    <BS.Table striped bordered condensed hover>
-                        <thead>
-                            <tr><th>Field</th><th>Value</th></tr>
-                        </thead>
-                        <tbody>
-                            <tr><td>Id</td><td>{this.state.order.OrderId}</td></tr>
-                            <tr><td>Status</td><td>{this.state.order.Status}</td></tr>
-                            <tr><td>OrderDate</td><td>{this.state.order.OrderDate}</td></tr>
-                            <tr><td>OrderReady</td><td>{this.state.order.OrderReady}</td></tr>
-                            <tr><td>OrderDelivered</td><td>{this.state.order.OrderDelivered}</td></tr>
-                            <tr><td>OrderType</td><td>{this.state.order.OrderType}</td></tr>
-                            <tr><td>Customer</td><td>{this.state.order.Customer.Name}</td></tr>
-                        </tbody>
-                    </BS.Table>
-                    :
-                    <p>Loading...</p>
-                }
-            </div>
-        )
-    }
-}
 
 export class Create extends Component {
 

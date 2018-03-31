@@ -17,15 +17,20 @@ export class All extends Component {
         ToggleId: false,
         ToggleName: false,
         TogglePrice: false,
-        ToggleCategory: false
+        ToggleCategory: false,
+        category: [],
+        select: '',
     }
     // small bug in the order
     db = new DB('http://localhost:51064/api/Meals')
     buy = new DB('http://localhost:51064/api/User')
+    categoryDB = new DB('http://localhost:51064/api/Categories')
+
 
 
     componentWillMount() {
         this.find()
+        this.getCategory()
     }
 
     find = (parameters) => {
@@ -38,6 +43,13 @@ export class All extends Component {
     Quary = (parameters) => {
         this.buy.find(
             (data) => this.setState({}),
+            parameters
+        )
+    }
+
+    getCategory = (parameters) => {
+        this.categoryDB.find(
+            (data) => this.setState({ category: data }),
             parameters
         )
     }
@@ -169,6 +181,23 @@ export class All extends Component {
         )
     }
 
+    handleSelect = (event) => {
+        this.state.select = event.target.value
+
+        this.state.select === ''
+            ?
+            this.find()
+            :
+            this.handleSearchByCategory()
+    }
+
+    handleSearchByCategory = () => {
+        this.find({
+            Category: this.state.select
+        })
+    }
+
+
 
     render() {
         console.log('render: ', this.props.location.query)
@@ -198,13 +227,13 @@ export class All extends Component {
                         <BS.FormControl
                             type="text"
                             value={this.state.MinPrice}
-                            placeholder="Enter Min Id"
+                            placeholder="Enter Min Price"
                             onChange={this.handleMinPrice}
                         />
                         <BS.FormControl
                             type="text"
                             value={this.state.MaxPrice}
-                            placeholder="Enter Max Id"
+                            placeholder="Enter Max Price"
                             onChange={this.handleMaxPrice}
                         />
 
@@ -245,23 +274,22 @@ export class All extends Component {
 
                     <br />
 
-                    <BS.Form inline>
-                        <BS.FormControl
-                            type="text"
-                            value={this.state.CategoryName}
-                            placeholder="Enter CategoryName"
-                            onChange={this.handleCategoryText}
-                        />
-                        <LinkContainer to={
-                            {
-                                pathname: '/adminmeals/all',
-                                query: { CategoryName: this.state.CategoryName }
-                            }
-                        } >
-                            <BS.Button onClick={this.handleSearchByCategory}>Search By Category Name</BS.Button>
-                        </LinkContainer>
-
-                    </BS.Form>
+                    <BS.FormGroup controlId="formControlsSelect">
+                            <BS.ControlLabel>Select</BS.ControlLabel>
+                            <BS.FormControl
+                                style={{ width:'20%'}}
+                                onChange={this.handleSelect}
+                                inputRef={el => this.inputEl = el}
+                                componentClass="select" placeholder="select">
+                                <option value="">All</option>
+                                
+                                {this.state.category.map(
+                                    (item) =>
+                                    <option value={item.Name}>{item.Name}</option>          
+                                )
+                                }
+                            </BS.FormControl>
+                        </BS.FormGroup>
                     <br />
                 </center>
 
@@ -285,7 +313,7 @@ export class All extends Component {
                                 <BS.Button bsStyle='link' onClick={this.handleOrderByCategory}>Category</BS.Button>
                             </th>
                             <th>
-                                <BS.Button bsStyle='link' onClick={this.handleOrderByPrice}>options</BS.Button>
+                            options
                             </th>
                             <th>
                                 <LinkContainer to={{ pathname: '/adminmeals/create' }}>
@@ -320,44 +348,6 @@ export class All extends Component {
     }
 }
 
-export class One extends Component {
-
-    state = {
-        meal: null
-    }
-
-    db = new DB('http://localhost:51064/api/Meals')
-
-    componentDidMount() {
-        this.db.findOne(
-            this.props.Id,
-            (data) => this.setState({ meal: data })
-        )
-    }
-
-    render() {
-        console.log('Pet: ', this.state.meal)
-        return (
-            <div>
-                {this.state.meal
-                    ?
-                    <BS.Table striped bordered condensed hover>
-                        <thead>
-                            <tr><th>Field</th><th>Value</th></tr>
-                        </thead>
-                        <tbody>
-                            <tr><td>Id</td><td>{this.state.meal.Id}</td></tr>
-                            <tr><td>Name</td><td>{this.state.meal.Name}</td></tr>
-                            <tr><td>Category</td><td>{this.state.meal.Category.Name}</td></tr>
-                        </tbody>
-                    </BS.Table>
-                    :
-                    <p>Loading...</p>
-                }
-            </div>
-        )
-    }
-}
 
 export class Create extends Component {
 

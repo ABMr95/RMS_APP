@@ -16,25 +16,9 @@ export class One extends Component {
     dbUser = new DB('http://localhost:51064/api/User')
 
     componentDidMount() {
-        // this.find()
-        // this.findOrderItem()
         this.findCurrentUser()
-        // console.log("Hola"+this.state.customer)
     }
 
-    find = async (parameters) => {
-        await this.db.findOne(
-            2,
-            (data) => this.setState({ customer: data })
-        )
-    }
-
-    Quary = (parameters) => {
-        this.dbUser.find(
-            (data) => this.setState({}),
-            parameters
-        )
-    }
 
     findCurrentUser = async (parameters) => {
         await this.dbUser.find(
@@ -45,43 +29,7 @@ export class One extends Component {
         )
     }
 
-    findOrder = async (val) => {
-        await this.db.find(
-            (data) => this.setState({ orders: data }),
-            {
-                CustomerID: val
-            }
-        )
-    }
-
-
-    findOrderItem = async (parameters) => {
-        await this.dbUser.find(
-            (data) => this.setState({ OrderItems: data }),
-            {
-                query: "orderitems"
-            }
-        )
-    }
-
-    handleCheckout = () => {
-        console.log("im checking out ")
-        this.Quary({
-            query: "checkout"
-
-        })
-    }
-
-    handleEmptyCart = () => {
-        console.log("im emypying cart ")
-        this.Quary({
-            query: "emptycart"
-
-        })
-
-    }
-
-
+    
     render() {
         return (
             <div>
@@ -182,7 +130,6 @@ export class Update extends Component {
     }
 
 
-
     render() {
         return (
             <div>
@@ -221,12 +168,7 @@ export class Update extends Component {
                         <tr>
                             <td> Gender</td>
                             <td>
-                                {/* <BS.FormControl
-                                    type="text"
-                                    value={this.state.Gender}
-                                    placeholder="Enter Gender"
-                                    onChange={this.handleGender}
-                                /> */}
+
 
                                 <BS.FormGroup controlId="formControlsSelect">
                                     <BS.FormControl

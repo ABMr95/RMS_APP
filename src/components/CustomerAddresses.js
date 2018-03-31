@@ -130,45 +130,6 @@ export class All extends Component {
     }
 }
 
-export class One extends Component {
-
-    state = {
-        address: null
-    }
-
-    db = new DB('http://localhost:51064/api/Orders')
-
-    componentDidMount() {
-        this.db.findOne(
-            this.props.Id,
-            (data) => this.setState({ address: data })
-        )
-    }
-
-    render() {
-        console.log('Pet: ', this.state.address)
-        return (
-            <div>
-                {this.state.address
-                    ?
-                    <BS.Table striped bordered condensed hover>
-                        <thead>
-                            <tr><th>Field</th><th>Value</th></tr>
-                        </thead>
-                        <tbody>
-                            <tr><td>Id</td><td>{this.state.address.Id}</td></tr>
-                            <tr><td>Name</td><td>{this.state.address.Name}</td></tr>
-                            <tr><td>Category</td><td>{this.state.address.Category.Name}</td></tr>
-                        </tbody>
-                    </BS.Table>
-                    :
-                    <p>Loading...</p>
-                }
-            </div>
-        )
-    }
-}
-
 export class Create extends Component {
 
     state = {

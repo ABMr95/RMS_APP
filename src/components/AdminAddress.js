@@ -105,48 +105,7 @@ export class All extends Component {
     }
 }
 
-export class One extends Component {
 
-    state = {
-        address: null
-    }
-
-    db = new DB('http://localhost:51064/api/Addresses')
-
-    componentDidMount() {
-        this.db.findOne(
-            this.props.AddressId,
-            (data) => this.setState({ address: data })
-        )
-    }
-
-    render() {
-        console.log('Address: ', this.state.address)
-        return (
-            <div>
-                {this.state.address
-                    ?
-                    <BS.Table striped bordered condensed hover style={{ width: '50%' }}>
-                        <thead>
-                            <tr><th>Field</th><th>Value</th></tr>
-                        </thead>
-                        <tbody>
-                            <tr><td>AddressId</td><td>{this.state.address.AddressId}</td></tr>
-                            <tr><td>CustomerName</td><td>{this.state.address.CustomerName}</td></tr>
-                            <tr><td>Address1</td><td>{this.state.address.Address1}</td></tr>
-                            <tr><td>Address2</td><td>{this.state.address.Address2}</td></tr>
-                            <tr><td>City</td><td>{this.state.address.City}</td></tr>
-                            <tr><td>Country</td><td>{this.state.address.Country}</td></tr>
-                            <tr><td>POBox</td><td>{this.state.address.POBox}</td></tr>
-                        </tbody>
-                    </BS.Table>
-                    :
-                    <p>Loading...</p>
-                }
-            </div>
-        )
-    }
-}
 
 export class Create extends Component {
 
