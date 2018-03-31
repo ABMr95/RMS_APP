@@ -125,18 +125,18 @@ export class One extends Component {
 
                 <center>
                     <BS.Table striped bordered condensed hover style={{ width: '70%' }}>
-                        <thead> <tr>{/* onClick={this.handleOrderById} */}
+                        <thead> <tr>
                             <th>
-                                <BS.Button bsStyle='link' >Meal Name</BS.Button>
+                                Meal Name
                             </th>
                             <th>
-                                <BS.Button bsStyle='link'>Price</BS.Button>
+                                Price
                             </th>
                             <th>
-                                <BS.Button bsStyle='link'>Quantity</BS.Button>
+                                Quantity
                             </th>
                             <th>
-                                <BS.Button bsStyle='link'>option</BS.Button>
+                                option
                             </th>
                         </tr>
                         </thead>
@@ -157,7 +157,7 @@ export class One extends Component {
                     <BS.Button onClick={() => this.handleCheckout()} >Checkout</BS.Button>
                     <BS.Button onClick={() => this.handleEmptyCart()} >Empty cart</BS.Button>
 
-                    <h2>Total = {this.state.total}</h2>
+                    <h2>Total Price:  {this.state.total}</h2>
                 </center>
             </div >
         )

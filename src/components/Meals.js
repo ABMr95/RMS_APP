@@ -12,7 +12,6 @@ export class All extends Component {
         MaxPrice: '',
         Name: '',
         CategoryName: '',
-        categoryName: 'Select Category',
         Column: '',
         Order: '',
         ToggleId: false,
@@ -57,9 +56,6 @@ export class All extends Component {
         this.db.destroy(Id, this.find)
 
     }
-
- 
-
 
     handleMinPrice = (event) => {
         this.setState({ MinPrice: event.target.value })
@@ -197,17 +193,7 @@ export class All extends Component {
     }
 
     render() {
-        console.log('render: ', this.props.location.query)
-        try {
-            var foo = require('../images/Adobo.jpg');
-            console.log("yes")
-        }
-        catch (e) {
-            if (e instanceof Error && e.code === "MODULE_NOT_FOUND")
-                console.log("Can't load foo!");
-            else
-                throw e;
-        }
+        
 
         return (
             <div>
