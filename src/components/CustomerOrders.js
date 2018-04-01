@@ -9,7 +9,6 @@ export class All extends Component {
         orders: [],
 
     }
-    // small bug in the order
     db = new DB('http://localhost:51064/api/Orders')
     dbUser = new DB('http://localhost:51064/api/User')
 

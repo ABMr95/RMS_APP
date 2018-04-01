@@ -81,13 +81,14 @@ export default class NB extends Component {
                                             <BS.NavItem >My Order History</BS.NavItem>
                                         </LinkContainer>
 
+                                        <LinkContainer to='customerreservations/all'>
+                                            <BS.NavItem >My Reservations</BS.NavItem>
+                                        </LinkContainer>
+
                                         <LinkContainer to='customeraddress/all'>
                                             <BS.NavItem >My address</BS.NavItem>
                                         </LinkContainer>
 
-                                        {/* <LinkContainer to='/orders/myorder'>
-                                            <BS.NavItem >My cart</BS.NavItem>
-                                        </LinkContainer> */}
 
                                         <LinkContainer to='customerinfo/one'>
                                             <BS.NavItem >Info setting</BS.NavItem>
