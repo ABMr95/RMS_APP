@@ -221,7 +221,8 @@ export class Create extends Component {
         await this.db.find(
             (data) => this.checkDate(data),
             {
-                txtDate: this.state.Time
+                txtDate: this.state.Time,
+                TableNumber: this.state.TableNo
             }
         )
     }
@@ -230,7 +231,7 @@ export class Create extends Component {
         console.log("the value is: " + val)
     
         if(val == "true"){
-            alert("the date is taken, please select a diffrent time")
+            alert("the table taken during that time, please select a diffrent time or a diffrent table")
         }else if((val == "false")){
             this.db.create(this.state)
             RR.browserHistory.push("adminreservations/all")
