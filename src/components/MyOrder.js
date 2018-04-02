@@ -100,7 +100,11 @@ export class One extends Component {
     }
 
     render() {
-
+        const popoverClickRootClose = (
+            <BS.Popover id="popover-trigger-click-root-close" title="You are about to delete your cart">
+              <strong>Be careful!</strong> <center>This process can't be repeated.</center>
+            </BS.Popover>
+          );
         return (
             <div>
                 <center><h1>My order</h1></center>
@@ -115,7 +119,7 @@ export class One extends Component {
                                 <tr><td>Id</td><td>{this.state.order.OrderId}</td></tr>
                                 <tr><td>Name</td><td>{this.state.order.Customer.Name}</td></tr>
                                 <tr><td>Status</td><td>{this.state.order.Status}</td></tr>
-                                <tr><td>Membership</td><td>{this.state.order.Customer.Membership.Type}</td></tr>
+                                <tr><td><strong>Membership</strong></td><td><strong>{this.state.order.Customer.Membership.Type}</strong></td></tr>
                             </tbody>
                         </BS.Table>
                     </center>
@@ -125,20 +129,13 @@ export class One extends Component {
 
                 <center>
                     <BS.Table striped bordered condensed hover style={{ width: '70%' }}>
-                        <thead> <tr>
-                            <th>
-                                Meal Name
-                            </th>
-                            <th>
-                                Price
-                            </th>
-                            <th>
-                                Quantity
-                            </th>
-                            <th>
-                                option
-                            </th>
-                        </tr>
+                        <thead>
+                            <tr>
+                                <th>Meal Name</th>
+                                <th>Price</th>
+                                <th>Quantity</th>
+                                <th>option</th>
+                            </tr>
                         </thead>
 
                         <tbody>
@@ -154,9 +151,16 @@ export class One extends Component {
                             )}
                         </tbody>
                     </BS.Table>
-                    <BS.Button onClick={() => this.handleCheckout()} >Checkout</BS.Button>
-                    <BS.Button onClick={() => this.handleEmptyCart()} >Empty cart</BS.Button>
-
+                            <BS.Button bsStyle="success" onClick={() => this.handleCheckout()} >Checkout</BS.Button>
+                            <BS.OverlayTrigger
+                                trigger={['hover']}
+                                rootClose
+                                placement="bottom"
+                                overlay={popoverClickRootClose}
+                            >
+                                <BS.Button bsStyle="danger" onClick={() => this.handleEmptyCart()} >Empty cart</BS.Button>
+                            </BS.OverlayTrigger>
+                    
                     <h2>Total Price:  {this.state.total}</h2>
                 </center>
             </div >

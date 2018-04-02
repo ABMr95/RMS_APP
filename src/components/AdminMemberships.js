@@ -38,7 +38,7 @@ export class All extends Component {
         return (
             <div>
                 <div>
-                    <h3>Admin Dashboard</h3>
+                    <h3 style={{ paddingLeft: 20 }}>Admin Dashboard</h3>
                     <br />
                     <BS.Nav bsStyle="tabs" onSelect={this.handleSelect}>
                         <LinkContainer to='/admincustomers/all'><BS.NavItem>Customers</BS.NavItem></LinkContainer>
@@ -59,7 +59,7 @@ export class All extends Component {
                             <tr>
                                 <th>MembershipId</th><th>Type</th><th>ExpiryDate</th><th>Actions</th>
                                 <th><LinkContainer to={{ pathname: '/adminmemberships/create' }}>
-                                    <BS.Button>Create</BS.Button>
+                                    <BS.Button>Create a Membership</BS.Button>
                                 </LinkContainer></th>
                             </tr>
                         </thead>
@@ -72,10 +72,12 @@ export class All extends Component {
                                         <td>{membership.Type}</td>
                                         <td>{membership.ExpiryDate}</td>
                                         <td>
+                                        <BS.ButtonToolbar>
                                             <LinkContainer to={'/adminmemberships/update/' + membership.MembershipId}>
-                                                <BS.Button >Update</BS.Button>
+                                                <BS.Button>Edit</BS.Button>
                                             </LinkContainer>
-                                            <BS.Button disabled onClick={() => this.handleDelete(membership.MembershipId)}>Delete</BS.Button>
+                                            <BS.Button disabled bsStyle="danger" onClick={() => this.handleDelete(membership.MembershipId)}>Delete</BS.Button>
+                                        </BS.ButtonToolbar>
                                         </td>
                                     </tr>
                             )}
@@ -161,7 +163,9 @@ export class Create extends Component {
     render() {
         return (
             <div>
-                <BS.Table striped bordered condensed hover style={{ width: '50%' }}>
+                <center>
+                    <h1>Create a Membership</h1>
+                <BS.Table striped bordered condensed hover style={{ width: '60%' }}>
                     <thead>
                         <tr><th>Field</th><th>Value</th></tr>
                     </thead>
@@ -202,7 +206,8 @@ export class Create extends Component {
                         </tr>
                     </tbody>
                 </BS.Table>
-                <BS.Button onClick={this.handleCreate}>create</BS.Button>
+                <BS.Button bsStyle="success" onClick={this.handleCreate}>create</BS.Button>
+                </center>
             </div>
         )
     }
@@ -253,7 +258,9 @@ export class Update extends Component {
     render() {
         return (
             <div>
-                <BS.Table striped bordered condensed hover style={{ width: '50%' }}>
+                <center>
+                    <h1>Edit a Membership</h1>
+                <BS.Table striped bordered condensed hover style={{ width: '60%' }}>
                     <thead>
                         <tr><th>Field</th><th>Value</th></tr>
                     </thead>
@@ -295,7 +302,8 @@ export class Update extends Component {
 
                     </tbody>
                 </BS.Table>
-                <BS.Button onClick={this.handleUpdate}>Update</BS.Button>
+                <BS.Button bsStyle="success" onClick={this.handleUpdate}>Save</BS.Button>
+                </center>
             </div>
         )
     }

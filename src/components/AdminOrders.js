@@ -46,10 +46,15 @@ export class All extends Component {
 
     render() {
         console.log('render: ', this.props.location.query)
+        const popoverClickRootClose = (
+            <BS.Popover id="popover-trigger-click-root-close" title="You are about to delete your cart">
+              <strong>Be careful!</strong> <center>This process can't be repeated.</center>
+            </BS.Popover>
+          );
         return (
             <div>
                 <div>
-                    <h3>Admin Dashboard</h3>
+                    <h3 style={{ paddingLeft: 20 }}>Admin Dashboard</h3>
                     <br />
                     <BS.Nav bsStyle="tabs" onSelect={this.handleSelect}>
                         <LinkContainer to='/admincustomers/all'><BS.NavItem>Customers</BS.NavItem></LinkContainer>
@@ -64,19 +69,17 @@ export class All extends Component {
                 </div>
                 <center><h1>Admin Orders</h1></center>
 
-
-
                 <center>
                     <BS.Table striped bordered condensed hover style={{ width: '70%' }}>
                         <thead> <tr>
                             <th>Id</th><th>Status</th><th>OrderDate</th><th>Total</th><th>OrderDelivered</th><th>OrderType</th><th>Customer</th><th>Actions</th>
                             <th> <LinkContainer to={{ pathname: '/adminorders/create' }}>
-                                <BS.Button>Create</BS.Button>
+                                <BS.Button>Create an Order</BS.Button>
                             </LinkContainer></th>
                         </tr>
                         </thead>
-                        <tbody>
 
+                        <tbody>
                             {this.state.orders.map(
                                 (order) =>
                                     <tr key={order.OrderId}>
@@ -87,19 +90,26 @@ export class All extends Component {
                                         <td>{order.OrderDelivered}</td>
                                         <td>{order.OrderType}</td>
                                         <td>{order.Customer.Name}</td>
-                                        {/* <td><BS.Button bsStyle="link" onClick={() => this.handleFindBy(meal.CategoryId)}>{meal.Category.Name}</BS.Button></td> */}
                                         <td>
+                                        <BS.ButtonToolbar>
                                             <LinkContainer to={'/adminorders/update/' + order.OrderId}>
-                                                <BS.Button >Update</BS.Button>
+                                                <BS.Button>Edit</BS.Button>
                                             </LinkContainer>
                                             {
-                                                order.Status=="paid" 
-                                                ?
-                                                <BS.Button disabled onClick={() => this.handleDelete(order.OrderId)}>Delete</BS.Button>
-                                                :
-                                                <BS.Button onClick={() => this.handleDelete(order.OrderId)}>Delete</BS.Button>
+                                                order.Status == "paid"
+                                                    ?
+                                                    <BS.Button bsStyle="danger" disabled onClick={() => this.handleDelete(order.OrderId)}>Delete</BS.Button>
+                                                    :
+                                                        <BS.OverlayTrigger
+                                                            trigger={['hover']}
+                                                            rootClose
+                                                            placement="bottom"
+                                                            overlay={popoverClickRootClose}
+                                                        >
+                                                            <BS.Button bsStyle="danger" onClick={() => this.handleDelete(order.OrderId)}>Delete</BS.Button>
+                                                        </BS.OverlayTrigger>
                                             }
-                                            
+                                        </BS.ButtonToolbar>
                                         </td>
                                     </tr>
                             )}
@@ -110,8 +120,6 @@ export class All extends Component {
         )
     }
 }
-
-
 
 export class Create extends Component {
 
@@ -168,7 +176,9 @@ export class Create extends Component {
     render() {
         return (
             <div>
-                <BS.Table striped bordered condensed hover>
+                <center>
+                    <h1>Create an Order</h1>
+                <BS.Table striped bordered condensed hover style={{ width: '60%' }}>
                     <thead>
                         <tr><th>Field</th><th>Value</th></tr>
                     </thead>
@@ -240,7 +250,8 @@ export class Create extends Component {
                         </tr>
                     </tbody>
                 </BS.Table>
-                <BS.Button onClick={this.handleCreate}>Create</BS.Button>
+                <BS.Button bsStyle="success" onClick={this.handleCreate}>Create</BS.Button>
+                </center>
             </div>
         )
     }
@@ -312,7 +323,9 @@ export class Update extends Component {
     render() {
         return (
             <div>
-                <BS.Table striped bordered condensed hover>
+                <center>
+                    <h1>Edit Order</h1>
+                <BS.Table striped bordered condensed hover style={{ width: '60%' }}>
                     <thead>
                         <tr><th>Field</th><th>Value</th></tr>
                     </thead>
@@ -396,7 +409,8 @@ export class Update extends Component {
                         </tr>
                     </tbody>
                 </BS.Table>
-                <BS.Button onClick={this.handleUpdate}>Update</BS.Button>
+                <BS.Button bsStyle="success" onClick={this.handleUpdate}>Save</BS.Button>
+                </center>
             </div>
         )
     }

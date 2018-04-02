@@ -42,10 +42,15 @@ export class All extends Component {
 
     render() {
         console.log('render: ', this.props.location.query)
+        const popoverClickRootClose = (
+            <BS.Popover id="popover-trigger-click-root-close" title="You are about to delete your cart">
+              <strong>Be careful!</strong> <center>This process can't be repeated.</center>
+            </BS.Popover>
+          );
         return (
             <div>
                 <div>
-                    <h3>Admin Dashboard</h3>
+                    <h3 style={{ paddingLeft: 20 }}>Admin Dashboard</h3>
                     <br />
                     <BS.Nav bsStyle="tabs" onSelect={this.handleSelect}>
                         <LinkContainer to='/admincustomers/all'><BS.NavItem>Customers</BS.NavItem></LinkContainer>
@@ -66,7 +71,7 @@ export class All extends Component {
                             <tr>
                                 <th>AddressId</th><th>CustomerName</th><th>Address1</th><th>Address2</th><th>City</th><th>Country</th><th>POBox</th><th>Actions</th>
                                 <th><LinkContainer to={{ pathname: '/adminaddress/create' }}>
-                                    <BS.Button>Create</BS.Button>
+                                    <BS.Button>Create a Customer Address</BS.Button>
                                 </LinkContainer></th>
                             </tr>
                         </thead>
@@ -83,17 +88,25 @@ export class All extends Component {
                                                 :
                                                 <td>{address.Customer.CustomerName}</td>
                                         }
-                                        <td>{address.Customer.CustomerName}</td>
                                         <td>{address.Address1}</td>
                                         <td>{address.Address2}</td>
                                         <td>{address.City}</td>
                                         <td>{address.Country}</td>
                                         <td>{address.POBox}</td>
                                         <td>
+                                        <BS.ButtonToolbar>
                                             <LinkContainer to={'/adminaddress/update/' + address.AddressId}>
-                                                <BS.Button >Update</BS.Button>
+                                                <BS.Button >Edit</BS.Button>
                                             </LinkContainer>
-                                            <BS.Button onClick={() => this.handleDelete(address.AddressId)}>Delete</BS.Button>
+                                            <BS.OverlayTrigger
+                                                trigger={['hover']}
+                                                rootClose
+                                                placement="bottom"
+                                                overlay={popoverClickRootClose}
+                                            >
+                                                <BS.Button bsStyle="danger" onClick={() => this.handleDelete(address.AddressId)}>Delete</BS.Button>
+                                            </BS.OverlayTrigger>
+                                        </BS.ButtonToolbar>
                                         </td>
                                     </tr>
                             )}
@@ -104,8 +117,6 @@ export class All extends Component {
         )
     }
 }
-
-
 
 export class Create extends Component {
 
@@ -178,7 +189,9 @@ export class Create extends Component {
     render() {
         return (
             <div>
-                <BS.Table striped bordered condensed hover style={{ width: '50%' }}>
+                <center>
+                    <h1>Create a Customer Address</h1>
+                <BS.Table striped bordered condensed hover style={{ width: '60%' }}>
                     <thead>
                         <tr><th>Field</th><th>Value</th></tr>
                     </thead>
@@ -195,25 +208,22 @@ export class Create extends Component {
                             </td>
                         </tr>
                       
-
-                        <td>Customer Id</td>
-             
-
-                        <BS.FormGroup controlId="formControlsSelect">
-                            <BS.FormControl
-                                onChange={this.handleSelect}
-                                inputRef={el => this.inputEl = el}
-                                componentClass="select" placeholder="select">
-                                <option value="">select</option>
-
-                                {this.state.Customers.map(
-                                    (item) =>
-                                        <option value={item.CustomerId}>{item.CustomerId}</option>
-
-                                )
-                                }
-                            </BS.FormControl>
-                        </BS.FormGroup>
+                        <tr>
+                            <td>Customer Id</td>
+                            <td>
+                                <BS.FormControl
+                                    onChange={this.handleSelect}
+                                    inputRef={el => this.inputEl = el}
+                                    componentClass="select" placeholder="select">
+                                    <option value="">select</option>
+                                    {this.state.Customers.map(
+                                        (item) =>
+                                            <option value={item.CustomerId}>{item.CustomerId}</option>
+                                    )
+                                    }
+                                </BS.FormControl>
+                            </td>
+                        </tr>
 
                         <tr>
                             <td>Address 1</td>
@@ -277,7 +287,8 @@ export class Create extends Component {
 
                     </tbody>
                 </BS.Table>
-                <BS.Button onClick={this.handleCreate}>create</BS.Button>
+                <BS.Button bsStyle="success" onClick={this.handleCreate}>create</BS.Button>
+                </center>
             </div>
         )
     }
@@ -357,7 +368,9 @@ export class Update extends Component {
     render() {
         return (
             <div>
-                <BS.Table striped bordered condensed hover style={{ width: '50%' }}>
+                <center>
+                    <h1>Edit a Customer Address</h1>
+                <BS.Table striped bordered condensed hover style={{ width: '60%' }}>
                     <thead>
                         <tr><th>Field</th><th>Value</th></tr>
                     </thead>
@@ -374,23 +387,22 @@ export class Update extends Component {
                             </td>
                         </tr>
 
-
-                        <td>Customer Id</td>
-                        <BS.FormGroup controlId="formControlsSelect">
-                            <BS.FormControl
-                                onChange={this.handleSelect}
-                                inputRef={el => this.inputEl = el}
-                                componentClass="select" placeholder="select">
-                                <option value="">select</option>
-
-                                {this.state.Customers.map(
-                                    (item) =>
-                                        <option value={item.CustomerId}>{item.CustomerId}</option>
-
-                                )
-                                }
-                            </BS.FormControl>
-                        </BS.FormGroup>
+                        <tr>
+                            <td>Customer Id</td>
+                            <td>
+                                <BS.FormControl
+                                    onChange={this.handleSelect}
+                                    inputRef={el => this.inputEl = el}
+                                    componentClass="select" placeholder="select">
+                                    <option value="">select</option>
+                                    {this.state.Customers.map(
+                                        (item) =>
+                                            <option value={item.CustomerId}>{item.CustomerId}</option>
+                                    )
+                                    }
+                                </BS.FormControl>
+                            </td>
+                        </tr>
 
                         <tr>
                             <td>Address 1</td>
@@ -454,7 +466,8 @@ export class Update extends Component {
 
                     </tbody>
                 </BS.Table>
-                <BS.Button onClick={this.handleUpdate}>Update</BS.Button>
+                <BS.Button bsStyle="success" onClick={this.handleUpdate}>Save</BS.Button>
+                </center>
             </div>
         )
     }

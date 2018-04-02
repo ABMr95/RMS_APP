@@ -74,57 +74,35 @@ export class All extends Component {
         console.log('render: ', this.props.location.query)
         return (
             <div>
-                <h1>My Address</h1>
-
-                <BS.Table striped bordered condensed hover>
-                    <thead>
-                        <tr>
-                            <th>AddressId</th><th>CustomerName</th><th>Address1</th><th>Address2</th><th>City</th><th>Country</th><th>POBox</th>
-                        </tr>
-                    </thead>
-
-                    <tbody>
-
-                        {this.state.addresses.map(
-
-                            (address) =>
-
-                                <tr key={address.AddressId}>
-
-                                    <td>{address.AddressId}</td>
-
-                                    <td>{address.Customer.CustomerName}</td>
-
-
-                                    <td>{address.Address1}</td>
-
-                                    <td>{address.Address2}</td>
-
-                                    <td>{address.City}</td>
-
-                                    <td>{address.Country}</td>
-
-                                    <td>{address.POBox}</td>
-
-
-                                    <td>
-
-                                        <BS.Button onClick={() => this.handleDelete(address.AddressId)}>Delete</BS.Button>
-
-
-                                    </td>
-
-                                </tr>
-
-                        )}
-
-                    </tbody>
-
-                </BS.Table>
-
-                <LinkContainer to={{ pathname: '/customeraddress/create' }}>
-                    <BS.Button>Add a new address</BS.Button>
-                </LinkContainer>
+                <center>
+                    <h1>My Address</h1>
+                    <BS.Table striped bordered condensed hover style={{ width: "80%" }}>
+                        <thead>
+                            <tr><th>AddressId</th><th>CustomerName</th><th>Address1</th><th>Address2</th><th>City</th><th>Country</th><th>POBox</th></tr>
+                        </thead>
+                        
+                        <tbody>
+                            {this.state.addresses.map(
+                                (address) =>
+                                    <tr key={address.AddressId}>
+                                        <td>{address.AddressId}</td>
+                                        <td>{address.Customer.CustomerName}</td>
+                                        <td>{address.Address1}</td>
+                                        <td>{address.Address2}</td>
+                                        <td>{address.City}</td>
+                                        <td>{address.Country}</td>
+                                        <td>{address.POBox}</td>
+                                        <td>
+                                            <BS.Button onClick={() => this.handleDelete(address.AddressId)}>Delete</BS.Button>
+                                        </td>
+                                    </tr>
+                            )}
+                        </tbody>
+                    </BS.Table>
+                        <LinkContainer to={{ pathname: '/customeraddress/create' }}>
+                            <BS.Button>Add a new address</BS.Button>
+                        </LinkContainer>
+                </center>
             </div>
         )
     }

@@ -87,10 +87,6 @@ export class All extends Component {
         this.setState({ Order: event.target.value })
     }
 
-    handleShowAll = () => {
-        this.find()
-    }
-
     handleBetween = () => {
         this.find({
             MinPrice: this.state.MinPrice, MaxPrice: this.state.MaxPrice,
@@ -201,10 +197,15 @@ export class All extends Component {
 
     render() {
         console.log('render: ', this.props.location.query)
+        const popoverClickRootClose = (
+            <BS.Popover id="popover-trigger-click-root-close" title="You are about to delete your cart">
+              <strong>Be careful!</strong> <center>This process can't be repeated.</center>
+            </BS.Popover>
+          );
         return (
             <div>
                 <div>
-                    <h3>Admin Dashboard</h3>
+                    <h3 style={{ paddingLeft: 20 }}>Admin Dashboard</h3>
                     <br />
                     <BS.Nav bsStyle="tabs" onSelect={this.handleSelect}>
                         <LinkContainer to='/admincustomers/all'><BS.NavItem>Customers</BS.NavItem></LinkContainer>
@@ -220,8 +221,6 @@ export class All extends Component {
                 <center>
 
                     <h1>Admin Meals</h1>
-
-                    <BS.Button onClick={this.handleShowAll}>Show All</BS.Button>
                     <br />
                     <BS.Form inline>
                         <BS.FormControl
@@ -297,7 +296,7 @@ export class All extends Component {
                     
 
 
-                    <BS.Table striped bordered condensed hover style={{ width: '50%' }}>
+                    <BS.Table striped bordered condensed hover style={{ width: '70%' }}>
                         <thead> <tr>
                             <th>
                                 <BS.Button bsStyle='link' onClick={this.handleOrderById}>Id</BS.Button>
@@ -332,11 +331,20 @@ export class All extends Component {
                                         <td>{meal.Price}</td>
                                         <td>{meal.Category.Name}</td>
                                         <td>
+                                            <BS.ButtonToolbar>
                                             <LinkContainer to={'/adminmeals/update/' + meal.MealId}>
-                                                <BS.Button >Update</BS.Button>
+                                                <BS.Button >Edit</BS.Button>
                                             </LinkContainer>
-                                            <BS.Button onClick={() => this.handleDelete(meal.MealId)}>Delete</BS.Button>
-                                            <BS.Button onClick={() => this.handleBuy(meal.MealId)} >Buy</BS.Button>
+                                                <BS.OverlayTrigger
+                                                    trigger={['hover']}
+                                                    rootClose
+                                                    placement="bottom"
+                                                    overlay={popoverClickRootClose}
+                                                >
+                                                    <BS.Button bsStyle="danger" onClick={() => this.handleDelete(meal.MealId)}>Delete</BS.Button>
+                                                </BS.OverlayTrigger>
+                                            <BS.Button bsStyle="info"onClick={() => this.handleBuy(meal.MealId)}>Buy</BS.Button>
+                                            </BS.ButtonToolbar>
                                         </td>
                                     </tr>
                             )}
@@ -347,7 +355,6 @@ export class All extends Component {
         )
     }
 }
-
 
 export class Create extends Component {
 
@@ -397,7 +404,9 @@ export class Create extends Component {
     render() {
         return (
             <div>
-                <BS.Table striped bordered condensed hover>
+                <center>
+                    <h1>Create Meal</h1>
+                <BS.Table striped bordered condensed hover style={{ width: '60%' }}>
                     <thead>
                         <tr><th>Field</th><th>Value</th></tr>
                     </thead>
@@ -464,11 +473,12 @@ export class Create extends Component {
                         </tr>
                     </tbody>
                 </BS.Table>
-                <BS.Button onClick={this.handleCreate}>Create</BS.Button>
+                <BS.Button bsStyle="success" onClick={this.handleCreate}>Create</BS.Button>
 
                 <LinkContainer to='adminmeals/all'>
                     <BS.Button >Back to list</BS.Button>
                 </LinkContainer>
+                </center>
             </div>
         )
     }
@@ -540,8 +550,9 @@ export class Update extends Component {
     render() {
         return (
             <div>
-
-                <BS.Table striped bordered condensed hover>
+            <center>
+                <h1>Update Meal</h1>
+                <BS.Table striped bordered condensed hover style={{ width: '60%' }}>
                     <thead>
                         <tr><th>Field</th><th>Value</th></tr>
                     </thead>
@@ -608,12 +619,13 @@ export class Update extends Component {
                         </tr>
                     </tbody>
                 </BS.Table>
-                <BS.Button onClick={this.handleUpdate}>Update</BS.Button>
+                <BS.Button bsStyle="success" onClick={this.handleUpdate}>Update</BS.Button>
 
 
                 <LinkContainer to='adminmeals/all'>
                     <BS.Button >Back to list</BS.Button>
                 </LinkContainer>
+                </center>
             </div>
         )
     }

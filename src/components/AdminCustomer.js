@@ -40,7 +40,7 @@ export class All extends Component {
         return (
             <div>
                 <div>
-                    <h3>Admin Dashboard</h3>
+                    <h3 style={{ paddingLeft: 20 }}>Admin Dashboard</h3>
                     <br />
                     <BS.Nav bsStyle="tabs" onSelect={this.handleSelect}>
                         <LinkContainer to='/admincustomers/all'><BS.NavItem>Customers</BS.NavItem></LinkContainer>
@@ -54,7 +54,7 @@ export class All extends Component {
                     </BS.Nav>
                 </div>
                 <center><h1>Admin Customers</h1>
-                    <BS.Button onClick={this.handleShowAll}>Show All</BS.Button></center>
+                    <BS.Button onClick={this.handleShowAll}>Refresh</BS.Button></center>
                 <br />
                 <center>
                     <BS.Table striped bordered condensed hover style={{ width: '70%' }} >
@@ -80,7 +80,7 @@ export class All extends Component {
                                         <td>
                                             <center>
                                                 <LinkContainer to={'/admincustomers/update/' + customer.CustomerId}>
-                                                    <BS.Button >Update</BS.Button>
+                                                    <BS.Button bsStyle="success">Edit</BS.Button>
                                                 </LinkContainer>
                                             </center>
                                         </td>
@@ -93,8 +93,6 @@ export class All extends Component {
         )
     }
 }
-
-
 
 export class Update extends Component {
 
@@ -183,7 +181,9 @@ export class Update extends Component {
     render() {
         return (
             <div>
-                <BS.Table striped bordered condensed hover>
+                <center>
+                    <h1>Edit Customer Information</h1>
+                <BS.Table striped bordered condensed hover style={{ width: '70%' }}>
                     <thead>
                         <tr><th>Field</th><th>Value</th></tr>
                     </thead>
@@ -240,50 +240,36 @@ export class Update extends Component {
                         <tr>
                             <td> Gender</td>
                             <td>
-                                {/* <BS.FormControl
-                                    type="text"
-                                    value={this.state.Gender}
-                                    placeholder="Enter Gender"
-                                    onChange={this.handleGender}
-                                /> */}
-
-                                <BS.FormGroup controlId="formControlsSelect">
-                                    <BS.FormControl
-                                        onChange={this.handleSelect}
-                                        inputRef={el => this.inputEl = el}
-                                        componentClass="select" placeholder="select">
-                                        <option value="">select</option>
-                                        <option value="Male">Male</option>
-                                        <option value="Female">Female</option>
-                                    </BS.FormControl>
-                                </BS.FormGroup>
+                                <BS.FormControl
+                                    onChange={this.handleSelect}
+                                    inputRef={el => this.inputEl = el}
+                                    componentClass="select" placeholder="select">
+                                    <option value="">select</option>
+                                    <option value="Male">Male</option>
+                                    <option value="Female">Female</option>
+                                </BS.FormControl>
                             </td>
                         </tr>
 
                         <tr>
                             <td>MembershipId</td>
                             <td>
-                                <BS.FormGroup controlId="formControlsSelect">
-                                    <BS.FormControl
-                                        style={{ width: '20%' }}
-                                        onChange={this.handleSelectMembership}
-                                        inputRef={el => this.inputEl = el}
-                                        componentClass="select" placeholder="select">
-                                        <option value="">All</option>
-
-                                        {this.state.membershipArray.map((item) =><option value={item.MembershipId}>{item.Type}</option>)
-                                        }
-                                    </BS.FormControl>
-                                </BS.FormGroup>
-                           
+                                <BS.FormControl
+                                    style={{ width: '20%' }}
+                                    onChange={this.handleSelectMembership}
+                                    inputRef={el => this.inputEl = el}
+                                    componentClass="select" placeholder="select">
+                                    <option value="">All</option>
+                                    {this.state.membershipArray.map((item) =><option value={item.MembershipId}>{item.Type}</option>)
+                                    }
+                                </BS.FormControl>
                             </td>
                         </tr>
 
-
-
                     </tbody>
                 </BS.Table>
-                <BS.Button onClick={this.handleUpdate}>Update</BS.Button>
+                <BS.Button bsStyle="success" onClick={this.handleUpdate}>Save</BS.Button>
+                </center>
             </div>
         )
     }

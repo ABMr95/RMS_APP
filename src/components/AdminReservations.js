@@ -40,10 +40,15 @@ export class All extends Component {
 
     render() {
         console.log('render: ', this.props.location.query)
+        const popoverClickRootClose = (
+            <BS.Popover id="popover-trigger-click-root-close" title="You are about to delete your cart">
+              <strong>Be careful!</strong> <center>This process can't be repeated.</center>
+            </BS.Popover>
+          );
         return (
             <div>
                 <div>
-                    <h3>Admin Dashboard</h3>
+                    <h3 style={{ paddingLeft: 20 }}>Admin Dashboard</h3>
                     <br />
                     <BS.Nav bsStyle="tabs" onSelect={this.handleSelect}>
                         <LinkContainer to='/admincustomers/all'><BS.NavItem>Customers</BS.NavItem></LinkContainer>
@@ -65,7 +70,7 @@ export class All extends Component {
                                 <th>ReservationId</th><th>CustomerName</th><th>Time</th><th>TableNo</th><th>Actions</th>
                                 <th>
                                     <LinkContainer to={{ pathname: '/adminreservations/create' }}>
-                                        <BS.Button>Create</BS.Button>
+                                        <BS.Button>Create a Reservation</BS.Button>
                                     </LinkContainer></th>
                             </tr>
                         </thead>
@@ -82,14 +87,22 @@ export class All extends Component {
                                                 :
                                                 <td>{reservation.Customer.CustomerName}</td>
                                         }
-                                        {/* <td>{reservation.Customer.CustomerName}</td> */}
                                         <td>{reservation.Time}</td>
                                         <td>{reservation.Table.Name}</td>
                                         <td>
+                                        <BS.ButtonToolbar>
                                             <LinkContainer to={'/adminreservations/update/' + reservation.ReservationId}>
-                                                <BS.Button >Update</BS.Button>
+                                                <BS.Button >Edit</BS.Button>
                                             </LinkContainer>
-                                            <BS.Button onClick={() => this.handleDelete(reservation.ReservationId)}>Delete</BS.Button>
+                                            <BS.OverlayTrigger
+                                                trigger={['hover']}
+                                                rootClose
+                                                placement="bottom"
+                                                overlay={popoverClickRootClose}
+                                            >
+                                            <BS.Button bsStyle="danger" onClick={() => this.handleDelete(reservation.ReservationId)}>Delete</BS.Button>
+                                            </BS.OverlayTrigger>
+                                            </BS.ButtonToolbar>
                                         </td>
                                     </tr>
                             )}
@@ -242,45 +255,33 @@ export class Create extends Component {
     render() {
         return (
             <div>
-                <BS.Table striped bordered condensed hover style={{ width: '50%' }}>
+                <center>
+                    <h1>Create a reservation</h1>
+                <BS.Table striped bordered condensed hover style={{ width: '60%' }}>
                     <thead>
                         <tr><th>Field</th><th>Value</th></tr>
                     </thead>
+
                     <tbody>
-                        {/* <tr>
-                            <td>Reservation Id</td>
+                        <tr>
+                            <td>Customer Id</td>
                             <td>
                                 <BS.FormControl
-                                    type="text"
-                                    value={this.state.ReservationId}
-                                    placeholder="Enter ReservationId"
-                                    onChange={this.handleId}
-                                />
+                                    onChange={this.handleSelect}
+                                    inputRef={el => this.inputEl = el}
+                                    componentClass="select" placeholder="select">
+                                    <option value="">select</option>
+                                    {this.state.Customers.map(
+                                        (item) =>
+                                            <option value={item.CustomerId}>{item.CustomerId}</option>
+                                    )
+                                    }
+                                </BS.FormControl>
                             </td>
-                        </tr> */}
-
-
-                        <td>Customer Id</td>
-
-
-
-                        <BS.FormGroup controlId="formControlsSelect">
-                            <BS.FormControl
-                                onChange={this.handleSelect}
-                                inputRef={el => this.inputEl = el}
-                                componentClass="select" placeholder="select">
-                                <option value="">select</option>
-                                {this.state.Customers.map(
-                                    (item) =>
-                                        <option value={item.CustomerId}>{item.CustomerId}</option>
-
-                                )
-                                }
-                            </BS.FormControl>
-                        </BS.FormGroup>
+                        </tr>
 
                         <tr>
-                            <td>Time</td>
+                            <td>Date{<br />}&{<br />}Time</td>
                             <td>
                                 <BS.FormControl
                                     type="date"
@@ -288,9 +289,6 @@ export class Create extends Component {
                                     placeholder="Enter Time"
                                     onChange={this.handleTime}
                                 />
-
-
-
                                 <BS.FormControl
                                     onChange={this.handleHour}
                                     inputRef={el => this.inputEl = el}
@@ -312,26 +310,14 @@ export class Create extends Component {
                                     <option value="20:00">8 PM</option>
                                     <option value="21:00">9 PM</option>
                                     <option value="22:00">10 PM</option>
-
-
-
                                     }
                                 </BS.FormControl>
-
-
                             </td>
                         </tr>
 
                         <tr>
-                            <td>TableNo</td>
+                            <td>Table Number</td>
                             <td>
-                                {/* <BS.FormControl
-                                    type="number"
-                                    value={this.state.TableNo}
-                                    placeholder="Enter a number between 1-10"
-                                    onChange={this.handleTableNo}
-                                /> */}
-
                                 <BS.FormControl
                                     onChange={this.handleTableNo}
                                     inputRef={el => this.inputEl = el}
@@ -340,15 +326,16 @@ export class Create extends Component {
                                     {this.state.Tables.map(
                                         (item) =>
                                             <option value={item.Id}>{item.Name}</option>
-
                                     )
                                     }
                                 </BS.FormControl>
                             </td>
                         </tr>
+
                     </tbody>
                 </BS.Table>
-                <BS.Button onClick={this.checkDateApi}>create</BS.Button>
+                <BS.Button bsStyle="success" onClick={this.checkDateApi}>create</BS.Button>
+                </center>
             </div>
         )
     }
@@ -410,7 +397,9 @@ export class Update extends Component {
     render() {
         return (
             <div>
-                <BS.Table striped bordered condensed hover style={{ width: '50%' }}>
+                <center>
+                    <h1>Edit a Reservation</h1>
+                <BS.Table striped bordered condensed hover style={{ width: '60%' }}>
                     <thead>
                         <tr><th>Field</th><th>Value</th></tr>
                     </thead>
@@ -427,23 +416,22 @@ export class Update extends Component {
                             </td>
                         </tr>
 
-
-                        <td>Customer Id</td>
-                        <BS.FormGroup controlId="formControlsSelect">
-                            <BS.FormControl
-                                onChange={this.handleSelect}
-                                inputRef={el => this.inputEl = el}
-                                componentClass="select" placeholder="select">
-                                <option value="">select</option>
-
-                                {this.state.Customers.map(
-                                    (item) =>
-                                        <option value={item.CustomerId}>{item.CustomerId}</option>
-
-                                )
-                                }
-                            </BS.FormControl>
-                        </BS.FormGroup>
+                        <tr>
+                            <td>Customer Id</td>
+                            <td>
+                                <BS.FormControl
+                                    onChange={this.handleSelect}
+                                    inputRef={el => this.inputEl = el}
+                                    componentClass="select" placeholder="select">
+                                    <option value="">select</option>
+                                    {this.state.Customers.map(
+                                        (item) =>
+                                            <option value={item.CustomerId}>{item.CustomerId}</option>
+                                    )
+                                    }
+                                </BS.FormControl>
+                            </td>
+                        </tr>
 
                         <tr>
                             <td>Time</td>
@@ -470,7 +458,8 @@ export class Update extends Component {
                         </tr>
                     </tbody>
                 </BS.Table>
-                <BS.Button onClick={this.handleUpdate}>Update</BS.Button>
+                <BS.Button bsStyle="success" onClick={this.handleUpdate}>Save</BS.Button>
+                </center>
             </div>
         )
     }

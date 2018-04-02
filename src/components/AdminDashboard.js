@@ -9,7 +9,7 @@ export default class AdminDashboard extends Component {
     render() {
         return (
             <div>
-                <center><h3>Admin Dashboard</h3></center>
+                <h3 style={{ paddingLeft: 20 }}>Admin Dashboard</h3>
                 <br />
                 <BS.Nav bsStyle="tabs" onSelect={this.handleSelect}>
                     <LinkContainer to='/admincustomers/all'><BS.NavItem>Customers</BS.NavItem></LinkContainer>
