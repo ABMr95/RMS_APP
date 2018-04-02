@@ -104,7 +104,7 @@ export class All extends Component {
                                             placement="bottom"
                                             overlay={popoverClickRootClose}
                                         >
-                                            <BS.Button onClick={() => this.handleDelete(address.AddressId)}>Delete</BS.Button>
+                                            <BS.Button bsStyle="danger" onClick={() => this.handleDelete(address.AddressId)}>Delete</BS.Button>
                                         </BS.OverlayTrigger>
                                         </td>
                                     </tr>
