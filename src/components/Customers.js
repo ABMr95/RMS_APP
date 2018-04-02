@@ -60,7 +60,6 @@ export class All extends Component {
                                             <BS.Button >Update</BS.Button>
 
                                         </LinkContainer>
-                                        {/* <BS.Button onClick={() => this.handleUpdate(customer.CustomerId)}>Update</BS.Button> */}
                                          <BS.Button onClick={() => this.handleDelete(customer.CustomerId)}>Delete</BS.Button> 
                                     </td>
                                 </tr>
@@ -168,29 +167,7 @@ export class Create extends Component {
                                 />
                             </td>
                         </tr>
-                        {/* <tr>
-                            <td>Membership Id</td>
-                            <td> */}
-                        {/* <BS.FormControl
-                                    type="text"
-                                    value={this.state.Name}
-                                    placeholder="Enter Membership Id"
-                                    onChange={this.handleName}
-                                /> */}
-                        {/* <BS.DropdownButton title='Select Membership Id' id='owners' onSelect={this.handleOwnerId}>
-                                    {
-                                        this.state.owners.map(
-                                            owner =>
-                                                <BS.MenuItem
-                                                    key={owner.Id}
-                                                    eventKey={owner.Id}>
-                                                    {owner.Name}
-                                                </BS.MenuItem>
-                                        )
-                                    }
-                                </BS.DropdownButton>
-                            </td>
-                        </tr> */}
+                        
 
 
 

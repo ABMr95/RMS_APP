@@ -205,24 +205,7 @@ export class One extends Component {
             <div>
                 <center><h1>My Orderitems </h1></center>
 
-                {/* {this.state.order
-                    ?
-                    <center>
-                        <BS.Table striped bordered condensed hover style={{ width: '60%' }}>
-                            <thead>
-                                <tr><th>Field</th><th>Value</th></tr>
-                            </thead>
-                            <tbody>
-                                <tr><td>Id</td><td>{this.state.order.OrderId}</td></tr>
-                                <tr><td>Name</td><td>{this.state.order.Customer.Name}</td></tr>
-                                <tr><td>Status</td><td>{this.state.order.Status}</td></tr>
-                                <tr><td>Membership</td><td>{this.state.order.Customer.Membership.Type}</td></tr>
-                            </tbody>
-                        </BS.Table>
-                    </center>
-                    :
-                    <p>Loading...</p>
-                } */}
+                
 
                 <center>
 

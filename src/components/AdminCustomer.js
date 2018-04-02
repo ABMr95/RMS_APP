@@ -240,12 +240,7 @@ export class Update extends Component {
                         <tr>
                             <td> Gender</td>
                             <td>
-                                {/* <BS.FormControl
-                                    type="text"
-                                    value={this.state.Gender}
-                                    placeholder="Enter Gender"
-                                    onChange={this.handleGender}
-                                /> */}
+                                
 
                                 <BS.FormGroup controlId="formControlsSelect">
                                     <BS.FormControl

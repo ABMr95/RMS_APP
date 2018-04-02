@@ -87,7 +87,6 @@ export class All extends Component {
                                         <td>{order.OrderDelivered}</td>
                                         <td>{order.OrderType}</td>
                                         <td>{order.Customer.Name}</td>
-                                        {/* <td><BS.Button bsStyle="link" onClick={() => this.handleFindBy(meal.CategoryId)}>{meal.Category.Name}</BS.Button></td> */}
                                         <td>
                                             <LinkContainer to={'/adminorders/update/' + order.OrderId}>
                                                 <BS.Button >Update</BS.Button>

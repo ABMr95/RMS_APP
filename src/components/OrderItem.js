@@ -51,10 +51,7 @@ export class All extends Component {
                                 <tr key={orderitem.Id}>
                                     <td>{orderitem.Id}</td>
                                     <td><BS.Button bsStyle="link" onClick={() => this.handleFindBy(orderitem.Id)}>{orderitem.Name}</BS.Button></td>
-                                    {/* <td>
-                                        <BS.Button onClick={() => this.handleUpdate(orderitem.Id)}>Update</BS.Button>
-                                        <BS.Button onClick={() => this.handleDelete(orderitem.Id)}>Delete</BS.Button>
-                                    </td> */}
+                                    
                                 </tr>
                         )}
                     </tbody>
