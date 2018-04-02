@@ -38,7 +38,7 @@ export class One extends Component {
                     {this.state.customer
                         ?
                         
-                        <BS.Table striped bordered condensed hover style={{ width: '50%' }}>
+                        <BS.Table striped bordered condensed hover style={{ width: '60%' }}>
                             <thead>
                                 <tr><th>Field</th><th>Value</th></tr>
                             </thead>
@@ -56,7 +56,7 @@ export class One extends Component {
                     }
 
                     <LinkContainer to='customerinfo/update'>
-                        <BS.Button>Update Info</BS.Button>
+                        <BS.Button bsStyle="info">Edit Your Information</BS.Button>
                     </LinkContainer>
                 </center>
             </div>
@@ -134,7 +134,7 @@ export class Update extends Component {
         return (
             <div>
                 <center>
-                <BS.Table striped bordered condensed hover style={{ width: '50%' }}>
+                <BS.Table striped bordered condensed hover style={{ width: '60%' }}>
                     <thead>
                         <tr><th>Field</th><th>Value</th></tr>
                     </thead>
@@ -170,7 +170,6 @@ export class Update extends Component {
                             <td>
 
 
-                                <BS.FormGroup controlId="formControlsSelect">
                                     <BS.FormControl
                                         onChange={this.handleSelect}
                                         inputRef={el => this.inputEl = el}
@@ -179,7 +178,6 @@ export class Update extends Component {
                                         <option value="Male">Male</option>
                                         <option value="Female">Female</option>
                                     </BS.FormControl>
-                                </BS.FormGroup>
                             </td>
                         </tr>
 
@@ -187,7 +185,7 @@ export class Update extends Component {
 
                     </tbody>
                 </BS.Table>
-                <BS.Button onClick={this.handleUpdate}>Update</BS.Button>
+                <BS.Button bsStyle="success" onClick={this.handleUpdate}>Save</BS.Button>
                 </center>
             </div>
         )

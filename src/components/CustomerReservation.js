@@ -54,14 +54,18 @@ export class All extends Component {
 
     render() {
         console.log('render: ', this.props.location.query)
+        const popoverClickRootClose = (
+            <BS.Popover id="popover-trigger-click-root-close" title="You are about to delete your cart">
+              <strong>Be careful!</strong> <center>This process can't be repeated.</center>
+            </BS.Popover>
+          );
         return (
             <div>
                 <center>
-
                     <h1>My Reservations</h1>
                     <BS.Table striped bordered condensed hover style={{ width: '60%' }}>
                         <thead> <tr>
-                            <th>ReservationId</th><th>CustomerName</th><th>Time</th><th>TableNo</th><th>Actions</th>
+                            <th>Reservation Id</th><th>Customer Name</th><th>Time</th><th>Table Number</th><th>Actions</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -80,15 +84,21 @@ export class All extends Component {
                                         </td>
                                         <td>{reservation.Time}</td>
                                         <td>{reservation.Table.Name}</td>
-
-                                        <td><BS.Button onClick={() => this.handleDelete(reservation.ReservationId)}>Delete</BS.Button></td>
+                                        <BS.OverlayTrigger
+                                                trigger={['hover']}
+                                                rootClose
+                                                placement="bottom"
+                                                overlay={popoverClickRootClose}
+                                            >
+                                        <td><BS.Button bsStyle="danger" onClick={() => this.handleDelete(reservation.ReservationId)}>Delete</BS.Button></td>
+                                        </BS.OverlayTrigger>
                                     </tr>
                             )}
                         </tbody>
                     </BS.Table>
 
                     <LinkContainer to={{ pathname: '/customerreservations/create' }}>
-                        <BS.Button>Make a reservation</BS.Button>
+                        <BS.Button bsStyle="success">Make a reservation</BS.Button>
                     </LinkContainer>
                 </center>
             </div>
