@@ -209,18 +209,3 @@ export class Login extends Component {
         )
     }
 }
-
-// export const isUser = () => {
-//     return sessionStorage.getItem('token') && sessionStorage.getItem('username') !== "Admin@admin.com";
-// }
-
-// export const isAdmin = () => {
-//     return sessionStorage.getItem('token') && sessionStorage.getItem('username') === "Admin@admin.com";
-// }
-
-// // Remove token and then restart page to update view.
-// export const Logout = () => {
-//     sessionStorage.removeItem('token');
-//     sessionStorage.removeItem('username');
-//     RR.browserHistory.push("/");
-// }
