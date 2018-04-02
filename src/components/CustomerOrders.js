@@ -52,24 +52,9 @@ export class All extends Component {
                 <center>
                     <h1>My History Orders</h1>
                     <BS.Table striped bordered condensed hover style={{ width: '60%' }}>
-                        <thead> <tr>
-                            <th>
-                                Id
-                        </th>
-
-                            <th>
-                                Status
-                        </th>
-
-                            <th>
-                                Customer
-                        </th>
-                            <th>
-                                Total
-                        </th>
-                            <th>
-                                Action
-                        </th>
+                        <thead>
+                        <tr>
+                            <th>Id</th><th>Status</th><th>Customer</th><th>Total</th><th>Action</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -82,12 +67,9 @@ export class All extends Component {
                                         <td>{order.OrderReady}</td>
                                         <td>
                                             <LinkContainer to={'/customerorders/one/' + order.OrderId}>
-                                                <BS.Button >View meals</BS.Button>
+                                                <BS.Button bsStyle="info">View meals</BS.Button>
                                             </LinkContainer>
-
                                         </td>
-
-
                                     </tr>
                             )}
                         </tbody>
@@ -117,27 +99,6 @@ export class One extends Component {
         this.findCurrentUser()
     }
 
-
-    // findCurrentUser = async (parameters) => {
-    //     await this.dbUser.find(
-    //         (data) => this.findOrder(data.CustomerId),
-    //         {
-    //             query: "customer"
-    //         }
-    //     )
-    // }
-
-
-    // findCurrentUser = async (parameters) => {
-    //     await this.dbUser.find(
-    //         (data) => this.setState({ order: data }),
-    //         {
-    //             query: "order"
-    //         }
-    //     )
-    // }
-    //old 
-
     Quary = (parameters) => {
         this.dbUser.find(
             (data) => this.setState({}),
@@ -154,10 +115,6 @@ export class One extends Component {
         )
     }
 
-
-
-
-
     findOrderItem = async (val) => {
         await this.dbOrderItems.find(
             (data) => this.setState({ OrderItems: data }),
@@ -168,27 +125,6 @@ export class One extends Component {
         )
         this.getTotal()
     }
-
-
-    // findCurrentUser = async (parameters) => {
-    //     await this.dbUser.find(
-    //         async (data) => {
-    //             await this.dbOrderItems.find(
-    //                 (data) => this.setState({ OrderItems: data }),
-    //                 {
-    //                     CustomerID: data.CustomerId,
-    //                     OrderID: this.props.params.id
-    //                 }
-    //             )
-    //             this.getTotal()
-    //         },
-    //         {
-    //             query: "customer"
-    //         }
-    //     )
-    // }
-
-
 
     getTotal = () => {
         let tempTotal = 0;
@@ -205,25 +141,12 @@ export class One extends Component {
             <div>
                 <center><h1>My Orderitems </h1></center>
 
-                
-
                 <center>
+                    <BS.Table striped bordered condensed hover style={{ width: '60%' }}>
 
-                    <BS.Table striped bordered condensed hover style={{ width: '70%' }}>
-
-                        <thead> <tr>
-                            <th>
-                                Meal Name
-                            </th>
-                            <th>
-                                Price
-                            </th>
-                            <th>
-                                Quantity
-                            </th>
-
-                            <th>Order Id {this.props.params.id}</th>
-
+                        <thead>
+                        <tr>
+                            <th>Meal Name</th><th>Price</th><th>Quantity</th><th>Order Id {this.props.params.id}</th>
                         </tr>
                         </thead>
 
@@ -250,7 +173,7 @@ export class One extends Component {
                             <h2>loading</h2>
                     }
                     <LinkContainer to='customerorders/all'>
-                        <BS.Button >Back to My orders History</BS.Button>
+                        <BS.Button bsStyle="info">Back to My orders History</BS.Button>
                     </LinkContainer>
                 </center>
             </div >

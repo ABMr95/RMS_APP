@@ -72,13 +72,18 @@ export class All extends Component {
 
     render() {
         console.log('render: ', this.props.location.query)
+        const popoverClickRootClose = (
+            <BS.Popover id="popover-trigger-click-root-close" title="You are about to delete your cart">
+              <strong>Be careful!</strong> <center>This process can't be repeated.</center>
+            </BS.Popover>
+          );
         return (
             <div>
                 <center>
                     <h1>My Address</h1>
                     <BS.Table striped bordered condensed hover style={{ width: "80%" }}>
                         <thead>
-                            <tr><th>AddressId</th><th>CustomerName</th><th>Address1</th><th>Address2</th><th>City</th><th>Country</th><th>POBox</th></tr>
+                            <tr><th>AddressId</th><th>CustomerName</th><th>Address1</th><th>Address2</th><th>City</th><th>Country</th><th>POBox</th><th>Actions</th></tr>
                         </thead>
                         
                         <tbody>
@@ -93,14 +98,21 @@ export class All extends Component {
                                         <td>{address.Country}</td>
                                         <td>{address.POBox}</td>
                                         <td>
+                                        <BS.OverlayTrigger
+                                            trigger={['hover']}
+                                            rootClose
+                                            placement="bottom"
+                                            overlay={popoverClickRootClose}
+                                        >
                                             <BS.Button onClick={() => this.handleDelete(address.AddressId)}>Delete</BS.Button>
+                                        </BS.OverlayTrigger>
                                         </td>
                                     </tr>
                             )}
                         </tbody>
                     </BS.Table>
                         <LinkContainer to={{ pathname: '/customeraddress/create' }}>
-                            <BS.Button>Add a new address</BS.Button>
+                            <BS.Button bsStyle="success">Add a new address</BS.Button>
                         </LinkContainer>
                 </center>
             </div>
