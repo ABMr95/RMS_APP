@@ -57,7 +57,7 @@ export class All extends Component {
         return (
             <div>
                 <center>
-                    
+
                     <h1>My Reservations</h1>
                     <BS.Table striped bordered condensed hover style={{ width: '60%' }}>
                         <thead> <tr>
@@ -104,12 +104,10 @@ export class Create extends Component {
         CustomerId: '',
         Time: '',
         hour: 0,
-        min: 0,
-        seconds: 0,
         TableNo: '',
         Customers: [],
         Tables: [],
-        flag: "false"
+        v_date: ''
     }
 
     db = new DB('http://localhost:51064/api/Reservations')
@@ -140,11 +138,7 @@ export class Create extends Component {
 
     }
 
-    handleCreate = () => {
-        this.state.Time = this.state.Time + " " + this.state.hour
-        this.db.create(this.state)
-        RR.browserHistory.push("customerreservations/all")
-    }
+ 
 
     handleId = (event) => {
         this.setState({ ReservationId: event.target.value })
@@ -156,7 +150,7 @@ export class Create extends Component {
 
     handleTime = (event) => {
 
-        this.setState({ Time: event.target.value })
+        this.setState({ v_date: event.target.value })
     }
 
     handleHour = (event) => {
@@ -182,8 +176,18 @@ export class Create extends Component {
 
     }
 
-    checkDateApi = async () => {
-        this.state.Time = this.state.Time + " " + this.state.hour
+    handleCreate = async () => {
+        if (this.state.v_date == "") {
+            alert("Please select  a date")
+            return
+        }
+
+        if (this.state.hour == "") {
+            alert("Please select  a time")
+            return
+        }
+
+        this.state.Time = this.state.v_date + " " + this.state.hour
         await this.db.find(
             (data) => this.checkDate(data),
             {
@@ -198,6 +202,8 @@ export class Create extends Component {
 
         if (val == "true") {
             alert("the table taken during that time, please select a diffrent time or a diffrent table")
+            this.state.Time = ""
+            this.state.hour = ""
         } else if ((val == "false")) {
             this.db.create(this.state)
             RR.browserHistory.push("customerreservations/all")
@@ -228,7 +234,7 @@ export class Create extends Component {
                                 value={this.state.CustomerId}
                                 placeholder="Enter AddressId"
                                 onChange={this.handleId}
-                                disabled = {true}
+                                disabled={true}
 
                             />
                         </td>
@@ -238,7 +244,7 @@ export class Create extends Component {
                             <td>
                                 <BS.FormControl
                                     type="date"
-                                    value={this.state.Time}
+                                    value={this.state.v_date}
                                     placeholder="Enter Time"
                                     onChange={this.handleTime}
                                 />
@@ -279,12 +285,7 @@ export class Create extends Component {
                         <tr>
                             <td>TableNo</td>
                             <td>
-                                {/* <BS.FormControl
-                                    type="number"
-                                    value={this.state.TableNo}
-                                    placeholder="Enter a number between 1-10"
-                                    onChange={this.handleTableNo}
-                                /> */}
+
 
                                 <BS.FormControl
                                     onChange={this.handleTableNo}
@@ -302,7 +303,7 @@ export class Create extends Component {
                         </tr>
                     </tbody>
                 </BS.Table>
-                <BS.Button onClick={this.checkDateApi}>create</BS.Button>
+                <BS.Button onClick={this.handleCreate}>create</BS.Button>
             </div>
         )
     }

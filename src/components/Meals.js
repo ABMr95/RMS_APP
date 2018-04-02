@@ -45,8 +45,8 @@ export class All extends Component {
         )
     }
 
-    Quary = (parameters) => {
-        this.buy.find(
+     Quary = async(parameters) => {
+        await this.buy.find(
             (data) => this.setState({}),
             parameters
         )
@@ -167,16 +167,15 @@ export class All extends Component {
         }
     }
 
-    handleBuy = (val) => {
+    handleBuy = async(val) => {
         console.log("im buying: " + val)
-        this.Quary({
+        await this.Quary({
             query: "buy",
             id: val
         })
 
         sessionStorage.getItem('token')
             ?
-            // My cart
             RR.browserHistory.push("/orders/MyOrder")
             :
             RR.browserHistory.push("/login")

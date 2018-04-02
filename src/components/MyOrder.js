@@ -33,11 +33,12 @@ export class One extends Component {
         )
     }
 
-    Quary = (parameters) => {
-        this.dbUser.find(
+     Quary = async(parameters) => {
+        await this.dbUser.find(
             (data) => this.setState({}),
             parameters
         )
+        
     }
 
 
@@ -51,16 +52,16 @@ export class One extends Component {
         this.getTotal()
     }
 
-    handleCheckout = () => {
+    handleCheckout = async() => {
         console.log("im checking out ")
-        this.Quary({
+        alert("Thank you for your purchase")
+        await this.Quary({
             query: "checkout"
-
         })
     }
 
     handleEmptyCart = () => {
-        console.log("im emypying cart ")
+        alert("The order has been emptied")
         this.Quary({
             query: "emptycart"
 
@@ -80,23 +81,28 @@ export class One extends Component {
         this.state.OrderItems.map((orderItem, index) =>
             tempTotal += orderItem.Meal.Price
         )
-        if (this.state.order.Customer.Membership.Type == "Uranium")
-            {
-                tempTotal = tempTotal - tempTotal * 0.5;
+        if (this.state.order.Customer.Membership != null){
+            if (this.state.order.Customer.Membership.Type) {
+                if (this.state.order.Customer.Membership.Type == "Uranium") {
+                    tempTotal = tempTotal - tempTotal * 0.5;
+                }
+                else if (this.state.order.Customer.Membership.Type == "Gold") {
+                    tempTotal = tempTotal - tempTotal * 0.25;
+                }
+                else if (this.state.order.Customer.Membership.Type == "Silver") {
+                    tempTotal = tempTotal - tempTotal * 0.10;
+                }
+                else if (this.state.order.Customer.Membership.Type == "Bronze") {
+                    tempTotal = tempTotal - tempTotal * 0.05;
+                }
+                
             }
-            else if (this.state.order.Customer.Membership.Type== "Gold")
-            {
-                tempTotal = tempTotal -  tempTotal * 0.25;
-            }
-            else if (this.state.order.Customer.Membership.Type == "Silver")
-            {
-                tempTotal =tempTotal -tempTotal * 0.10;
-            }
-            else if (this.state.order.Customer.Membership.Type == "Bronze")
-            {
-                tempTotal =tempTotal -tempTotal * 0.05;
-            }
+        }
         this.setState({ total: tempTotal })
+
+        
+
+
     }
 
     render() {
@@ -119,7 +125,7 @@ export class One extends Component {
                                 <tr><td>Id</td><td>{this.state.order.OrderId}</td></tr>
                                 <tr><td>Name</td><td>{this.state.order.Customer.Name}</td></tr>
                                 <tr><td>Status</td><td>{this.state.order.Status}</td></tr>
-                                <tr><td><strong>Membership</strong></td><td><strong>{this.state.order.Customer.Membership.Type}</strong></td></tr>
+                                <tr><td>Membership</td><td>{this.state.order.Customer.Membership != null ?this.state.order.Customer.Membership.Type : "none"}</td></tr>
                             </tbody>
                         </BS.Table>
                     </center>
@@ -146,7 +152,7 @@ export class One extends Component {
                                         <td>{orderItem.Meal.Price}</td>
                                         <td>{orderItem.Quantity}</td>
                                         <td><BS.Button onClick={() => this.handleDelete(orderItem.ItemId)}>Delete</BS.Button></td>
-                                        
+
                                     </tr>
                             )}
                         </tbody>

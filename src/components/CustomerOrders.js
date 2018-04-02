@@ -67,7 +67,7 @@ export class All extends Component {
                             <th>
                                 Total
                         </th>
-                        <th>
+                            <th>
                                 Action
                         </th>
                         </tr>
@@ -80,9 +80,14 @@ export class All extends Component {
                                         <td>{order.Status}</td>
                                         <td>{order.Customer.Name}</td>
                                         <td>{order.OrderReady}</td>
-                                        <td><LinkContainer to='customerorders/one'>
-                                            <BS.Button>View</BS.Button>
-                                        </LinkContainer></td>
+                                        <td>
+                                            <LinkContainer to={'/customerorders/one/' + order.OrderId}>
+                                                <BS.Button >View meals</BS.Button>
+                                            </LinkContainer>
+
+                                        </td>
+
+
                                     </tr>
                             )}
                         </tbody>
@@ -99,7 +104,8 @@ export class One extends Component {
     state = {
         order: null,
         OrderItems: [],
-        total: 0
+        total: 0,
+        CustomerId: ''
     }
 
     db = new DB('http://localhost:51064/api/Orders')
@@ -109,18 +115,28 @@ export class One extends Component {
 
     componentDidMount() {
         this.findCurrentUser()
-        this.findOrderItem()
     }
 
 
-    findCurrentUser = async (parameters) => {
-        await this.dbUser.find(
-            (data) => this.setState({ order: data }),
-            {
-                query: "order"
-            }
-        )
-    }
+    // findCurrentUser = async (parameters) => {
+    //     await this.dbUser.find(
+    //         (data) => this.findOrder(data.CustomerId),
+    //         {
+    //             query: "customer"
+    //         }
+    //     )
+    // }
+
+
+    // findCurrentUser = async (parameters) => {
+    //     await this.dbUser.find(
+    //         (data) => this.setState({ order: data }),
+    //         {
+    //             query: "order"
+    //         }
+    //     )
+    // }
+    //old 
 
     Quary = (parameters) => {
         this.dbUser.find(
@@ -129,58 +145,57 @@ export class One extends Component {
         )
     }
 
-
-    findOrderItem = async (parameters) => {
+    findCurrentUser = async (parameters) => {
         await this.dbUser.find(
+            (data) => this.findOrderItem(data.CustomerId),
+            {
+                query: "customer"
+            }
+        )
+    }
+
+
+
+
+
+    findOrderItem = async (val) => {
+        await this.dbOrderItems.find(
             (data) => this.setState({ OrderItems: data }),
             {
-                query: "orderitems"
+                CustomerID: val,
+                OrderID: this.props.params.id
             }
         )
         this.getTotal()
     }
 
-    handleCheckout = () => {
-        console.log("im checking out ")
-        this.Quary({
-            query: "checkout"
 
-        })
-    }
+    // findCurrentUser = async (parameters) => {
+    //     await this.dbUser.find(
+    //         async (data) => {
+    //             await this.dbOrderItems.find(
+    //                 (data) => this.setState({ OrderItems: data }),
+    //                 {
+    //                     CustomerID: data.CustomerId,
+    //                     OrderID: this.props.params.id
+    //                 }
+    //             )
+    //             this.getTotal()
+    //         },
+    //         {
+    //             query: "customer"
+    //         }
+    //     )
+    // }
 
-    handleEmptyCart = () => {
-        console.log("im emypying cart ")
-        this.Quary({
-            query: "emptycart"
 
-        })
-    }
-
-    handleDelete = (ItemId) => {
-        this.dbOrderItems.destroy(ItemId, this.find)
-        this.findOrderItem()
-        this.setState({})
-        RR.browserHistory.push("/orders/MyOrder")
-
-    }
 
     getTotal = () => {
         let tempTotal = 0;
         this.state.OrderItems.map((orderItem, index) =>
             tempTotal += orderItem.Meal.Price
         )
-        if (this.state.order.Customer.Membership.Type == "Uranium") {
-            tempTotal = tempTotal - tempTotal * 0.5;
-        }
-        else if (this.state.order.Customer.Membership.Type == "Gold") {
-            tempTotal = tempTotal - tempTotal * 0.25;
-        }
-        else if (this.state.order.Customer.Membership.Type == "Silver") {
-            tempTotal = tempTotal - tempTotal * 0.10;
-        }
-        else if (this.state.order.Customer.Membership.Type == "Bronze") {
-            tempTotal = tempTotal - tempTotal * 0.05;
-        }
+
         this.setState({ total: tempTotal })
     }
 
@@ -188,28 +203,14 @@ export class One extends Component {
 
         return (
             <div>
-                <center><h1>My order</h1></center>
-                {this.state.order
-                    ?
-                    <center>
-                        <BS.Table striped bordered condensed hover style={{ width: '60%' }}>
-                            <thead>
-                                <tr><th>Field</th><th>Value</th></tr>
-                            </thead>
-                            <tbody>
-                                <tr><td>Id</td><td>{this.state.order.OrderId}</td></tr>
-                                <tr><td>Name</td><td>{this.state.order.Customer.Name}</td></tr>
-                                <tr><td>Status</td><td>{this.state.order.Status}</td></tr>
-                                <tr><td>Membership</td><td>{this.state.order.Customer.Membership.Type}</td></tr>
-                            </tbody>
-                        </BS.Table>
-                    </center>
-                    :
-                    <p>Loading...</p>
-                }
+                <center><h1>My Orderitems </h1></center>
+
+                
 
                 <center>
+
                     <BS.Table striped bordered condensed hover style={{ width: '70%' }}>
+
                         <thead> <tr>
                             <th>
                                 Meal Name
@@ -220,9 +221,9 @@ export class One extends Component {
                             <th>
                                 Quantity
                             </th>
-                            <th>
-                                option
-                            </th>
+
+                            <th>Order Id {this.props.params.id}</th>
+
                         </tr>
                         </thead>
 
@@ -233,16 +234,24 @@ export class One extends Component {
                                         <td>{orderItem.Meal.Name}</td>
                                         <td>{orderItem.Meal.Price}</td>
                                         <td>{orderItem.Quantity}</td>
-                                        <td><BS.Button onClick={() => this.handleDelete(orderItem.ItemId)}>Delete</BS.Button></td>
-
                                     </tr>
                             )}
                         </tbody>
                     </BS.Table>
-                    <BS.Button onClick={() => this.handleCheckout()} >Checkout</BS.Button>
-                    <BS.Button onClick={() => this.handleEmptyCart()} >Empty cart</BS.Button>
 
-                    <h2>Total Price:  {this.state.total}</h2>
+
+
+
+                    {
+                        this.state.total != 0
+                            ?
+                            <h2>Total Price:  {this.state.total}</h2>
+                            :
+                            <h2>loading</h2>
+                    }
+                    <LinkContainer to='customerorders/all'>
+                        <BS.Button >Back to My orders History</BS.Button>
+                    </LinkContainer>
                 </center>
             </div >
         )

@@ -161,12 +161,10 @@ export class Create extends Component {
         CustomerId: '',
         Time: '',
         hour: 0,
-        min: 0,
-        seconds: 0,
         TableNo: '',
         Customers: [],
         Tables: [],
-        flag: "false"
+        v_date: ''
     }
 
     db = new DB('http://localhost:51064/api/Reservations')
@@ -186,12 +184,6 @@ export class Create extends Component {
         console.log(this.state.Customers)
     }
 
-    handleCreate = () => {
-        // console.log(event.target.value)
-        this.state.Time = this.state.Time + " " + this.state.hour
-        this.db.create(this.state)
-        RR.browserHistory.push("adminreservations/all")
-    }
 
     handleId = (event) => {
         this.setState({ ReservationId: event.target.value })
@@ -203,7 +195,7 @@ export class Create extends Component {
 
     handleTime = (event) => {
 
-        this.setState({ Time: event.target.value })
+        this.setState({ v_date: event.target.value })
     }
 
     handleHour = (event) => {
@@ -229,8 +221,18 @@ export class Create extends Component {
 
     }
 
-    checkDateApi = async() => {
-        this.state.Time = this.state.Time + " " + this.state.hour
+    handleCreate = async () => {
+        if (this.state.v_date == "") {
+            alert("Please select  a date")
+            return
+        }
+
+        if (this.state.hour == "") {
+            alert("Please select  a time")
+            return
+        }
+
+        this.state.Time = this.state.v_date + " " + this.state.hour
         await this.db.find(
             (data) => this.checkDate(data),
             {
@@ -242,12 +244,14 @@ export class Create extends Component {
 
     checkDate = (val) => {
         console.log("the value is: " + val)
-    
-        if(val == "true"){
+
+        if (val == "true") {
             alert("the table taken during that time, please select a diffrent time or a diffrent table")
-        }else if((val == "false")){
+            this.state.Time = ""
+            this.state.hour = ""
+        } else if ((val == "false")) {
             this.db.create(this.state)
-            RR.browserHistory.push("adminreservations/all")
+            RR.browserHistory.push("customerreservations/all")
         }
 
     }
@@ -285,7 +289,7 @@ export class Create extends Component {
                             <td>
                                 <BS.FormControl
                                     type="date"
-                                    value={this.state.Time}
+                                    value={this.state.v_date}
                                     placeholder="Enter Time"
                                     onChange={this.handleTime}
                                 />
@@ -344,16 +348,19 @@ export class Create extends Component {
 export class Update extends Component {
 
     state = {
-        ReservationId: '',
+        ReservationId: "1",
         CustomerId: '',
         Time: '',
+        hour: 0,
         TableNo: '',
-        Customer: [],
-        Customers: []
+        Customers: [],
+        Tables: [],
+        v_date: ''
     }
 
     db = new DB('http://localhost:51064/api/Reservations')
     db2 = new DB('http://localhost:51064/api/Customers')
+    db3 = new DB('http://localhost:51064/api/Tables')
 
     componentDidMount() {
         this.db.findOne(
@@ -363,19 +370,24 @@ export class Update extends Component {
         this.db2.find(
             data => this.setState({ Customers: data })
         )
+        this.db3.find(
+            data => this.setState({ Tables: data })
+        )
     }
 
-    handleUpdate = () => {
-        this.db.update(this.state.ReservationId, this.state)
-        RR.browserHistory.push("adminreservations/all")
-    }
+    
 
     handleId = (event) => {
-        this.setState({ ReservationId: event.target.value })
+        this.setState({ CustomerId: event.target.value })
     }
 
     handleTime = (event) => {
-        this.setState({ Time: event.target.value })
+        this.setState({ v_date: event.target.value })
+    }
+
+    handleHour = (event) => {
+        console.log(event.target.value)
+        this.state.hour = event.target.value
     }
 
     handleTableNo = (event) => {
@@ -389,10 +401,54 @@ export class Update extends Component {
 
     handleSelect = (event) => {
         this.state.CustomerId = event.target.value
-        this.state.Customer.CustomerId = event.target.value
     }
 
+    handleUpdate = async () => {
+        if (this.state.v_date == "") {
+            alert("Please select  a date")
+            return
+        }
 
+        if (this.state.hour == "") {
+            alert("Please select  a time")
+            return
+        }
+
+        this.state.Time = this.state.v_date + " " + this.state.hour
+        await this.db.find(
+            (data) => this.checkDate(data),
+            {
+                txtDate: this.state.Time,
+                TableNumber: this.state.TableNo
+            }
+        )
+    }
+
+    checkDate = (val) => {
+        console.log("the value is: " + val)
+
+        if (val == "true") {
+            alert("the table taken during that time, please select a diffrent time or a diffrent table")
+            this.state.Time = ""
+            this.state.hour = ""
+        } else if ((val == "false")) {
+            let tempTable = {
+                Id : this.state.TableNo
+            }
+            let tempReservation = {
+                Customer: this.state.Customer,
+                Table: tempTable,
+                ReservationId: this.state.ReservationId,
+                Time: this.state.Time,
+                TableNo: this.state.TableNo,
+                CustomerId: this.state.CustomerId
+
+            }
+            this.db.update(this.state.ReservationId, tempReservation)
+            RR.browserHistory.push("adminreservations/all")
+        }
+
+    }
 
     render() {
         return (
@@ -404,17 +460,6 @@ export class Update extends Component {
                         <tr><th>Field</th><th>Value</th></tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td>Reservation Id</td>
-                            <td>
-                                <BS.FormControl
-                                    type="text"
-                                    value={this.state.ReservationId}
-                                    placeholder="Enter ReservationId"
-                                    onChange={this.handleId}
-                                />
-                            </td>
-                        </tr>
 
                         <tr>
                             <td>Customer Id</td>
@@ -437,23 +482,61 @@ export class Update extends Component {
                             <td>Time</td>
                             <td>
                                 <BS.FormControl
-                                    type="text"
-                                    value={this.state.Time}
+                                    type="date"
+                                    value={this.state.v_date}
                                     placeholder="Enter Time"
                                     onChange={this.handleTime}
                                 />
+
+
+
+                                <BS.FormControl
+                                    onChange={this.handleHour}
+                                    inputRef={el => this.inputEl = el}
+                                    componentClass="select" placeholder="select">
+
+                                    <option value="">select time</option>
+                                    <option value="08:00">8 AM</option>
+                                    <option value="09:00">9 AM</option>
+                                    <option value="10:00">10 AM</option>
+                                    <option value="11:00">11 AM</option>
+                                    <option value="12:00">12 PM</option>
+                                    <option value="13:00">1 PM</option>
+                                    <option value="14:00">2 PM</option>
+                                    <option value="15:00">3 PM</option>
+                                    <option value="16:00">4 PM</option>
+                                    <option value="17:00">5 PM</option>
+                                    <option value="18:00">6 PM</option>
+                                    <option value="19:00">7 PM</option>
+                                    <option value="20:00">8 PM</option>
+                                    <option value="21:00">9 PM</option>
+                                    <option value="22:00">10 PM</option>
+
+
+
+                                    }
+                                </BS.FormControl>
+
+
                             </td>
                         </tr>
 
                         <tr>
                             <td>TableNo</td>
                             <td>
+
                                 <BS.FormControl
-                                    type="text"
-                                    value={this.state.TableNo}
-                                    placeholder="Enter TableNo"
                                     onChange={this.handleTableNo}
-                                />
+                                    inputRef={el => this.inputEl = el}
+                                    componentClass="select" placeholder="select">
+                                    <option value="">select a table</option>
+                                    {this.state.Tables.map(
+                                        (item) =>
+                                            <option value={item.Id}>{item.Name}</option>
+
+                                    )
+                                    }
+                                </BS.FormControl>
                             </td>
                         </tr>
                     </tbody>
