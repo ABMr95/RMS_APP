@@ -33,11 +33,12 @@ export class One extends Component {
         )
     }
 
-    Quary = (parameters) => {
-        this.dbUser.find(
+     Quary = async(parameters) => {
+        await this.dbUser.find(
             (data) => this.setState({}),
             parameters
         )
+        
     }
 
 
@@ -51,12 +52,11 @@ export class One extends Component {
         this.getTotal()
     }
 
-    handleCheckout = () => {
+    handleCheckout = async() => {
         console.log("im checking out ")
         alert("Thank you for your purchase")
-        this.Quary({
+        await this.Quary({
             query: "checkout"
-
         })
     }
 
