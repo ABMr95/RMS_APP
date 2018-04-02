@@ -104,12 +104,10 @@ export class Create extends Component {
         CustomerId: '',
         Time: '',
         hour: 0,
-        min: 0,
-        seconds: 0,
         TableNo: '',
         Customers: [],
         Tables: [],
-        flag: "false"
+        v_date: ''
     }
 
     db = new DB('http://localhost:51064/api/Reservations')
@@ -152,7 +150,7 @@ export class Create extends Component {
 
     handleTime = (event) => {
 
-        this.setState({ Time: event.target.value })
+        this.setState({ v_date: event.target.value })
     }
 
     handleHour = (event) => {
@@ -179,7 +177,7 @@ export class Create extends Component {
     }
 
     handleCreate = async () => {
-        if (this.state.Time == "") {
+        if (this.state.v_date == "") {
             alert("Please select  a date")
             return
         }
@@ -189,7 +187,7 @@ export class Create extends Component {
             return
         }
 
-        this.state.Time = this.state.Time + " " + this.state.hour
+        this.state.Time = this.state.v_date + " " + this.state.hour
         await this.db.find(
             (data) => this.checkDate(data),
             {
@@ -246,7 +244,7 @@ export class Create extends Component {
                             <td>
                                 <BS.FormControl
                                     type="date"
-                                    value={this.state.Time}
+                                    value={this.state.v_date}
                                     placeholder="Enter Time"
                                     onChange={this.handleTime}
                                 />
