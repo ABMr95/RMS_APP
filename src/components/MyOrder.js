@@ -68,8 +68,8 @@ export class One extends Component {
         })
     }
 
-    handleDelete = (ItemId) => {
-        this.dbOrderItems.destroy(ItemId, this.find)
+    handleDelete = async(ItemId) => {
+        await this.dbOrderItems.destroy(ItemId, this.find)
         this.findOrderItem()
         this.setState({})
         RR.browserHistory.push("/orders/MyOrder")
