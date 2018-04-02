@@ -57,7 +57,7 @@ export class All extends Component {
         return (
             <div>
                 <center>
-                    
+
                     <h1>My Reservations</h1>
                     <BS.Table striped bordered condensed hover style={{ width: '60%' }}>
                         <thead> <tr>
@@ -140,11 +140,7 @@ export class Create extends Component {
 
     }
 
-    handleCreate = () => {
-        this.state.Time = this.state.Time + " " + this.state.hour
-        this.db.create(this.state)
-        RR.browserHistory.push("customerreservations/all")
-    }
+ 
 
     handleId = (event) => {
         this.setState({ ReservationId: event.target.value })
@@ -182,7 +178,17 @@ export class Create extends Component {
 
     }
 
-    checkDateApi = async () => {
+    handleCreate = async () => {
+        if (this.state.Time == "") {
+            alert("Please select  a date")
+            return
+        }
+
+        if (this.state.hour == "") {
+            alert("Please select  a time")
+            return
+        }
+
         this.state.Time = this.state.Time + " " + this.state.hour
         await this.db.find(
             (data) => this.checkDate(data),
@@ -198,6 +204,8 @@ export class Create extends Component {
 
         if (val == "true") {
             alert("the table taken during that time, please select a diffrent time or a diffrent table")
+            this.state.Time = ""
+            this.state.hour = ""
         } else if ((val == "false")) {
             this.db.create(this.state)
             RR.browserHistory.push("customerreservations/all")
@@ -228,7 +236,7 @@ export class Create extends Component {
                                 value={this.state.CustomerId}
                                 placeholder="Enter AddressId"
                                 onChange={this.handleId}
-                                disabled = {true}
+                                disabled={true}
 
                             />
                         </td>
@@ -279,12 +287,7 @@ export class Create extends Component {
                         <tr>
                             <td>TableNo</td>
                             <td>
-                                {/* <BS.FormControl
-                                    type="number"
-                                    value={this.state.TableNo}
-                                    placeholder="Enter a number between 1-10"
-                                    onChange={this.handleTableNo}
-                                /> */}
+
 
                                 <BS.FormControl
                                     onChange={this.handleTableNo}
@@ -302,7 +305,7 @@ export class Create extends Component {
                         </tr>
                     </tbody>
                 </BS.Table>
-                <BS.Button onClick={this.checkDateApi}>create</BS.Button>
+                <BS.Button onClick={this.handleCreate}>create</BS.Button>
             </div>
         )
     }

@@ -173,12 +173,6 @@ export class Create extends Component {
         console.log(this.state.Customers)
     }
 
-    handleCreate = () => {
-        // console.log(event.target.value)
-        this.state.Time = this.state.Time + " " + this.state.hour
-        this.db.create(this.state)
-        RR.browserHistory.push("adminreservations/all")
-    }
 
     handleId = (event) => {
         this.setState({ ReservationId: event.target.value })
@@ -216,7 +210,16 @@ export class Create extends Component {
 
     }
 
-    checkDateApi = async() => {
+    handleCreate = async() => {
+        if (this.state.Time == "") {
+            alert("Please select  a date")
+            return
+        }
+
+        if (this.state.hour == "") {
+            alert("Please select  a time")
+            return
+        }
         this.state.Time = this.state.Time + " " + this.state.hour
         await this.db.find(
             (data) => this.checkDate(data),
@@ -232,6 +235,8 @@ export class Create extends Component {
     
         if(val == "true"){
             alert("the table taken during that time, please select a diffrent time or a diffrent table")
+            this.state.Time = ""
+            this.state.hour = ""
         }else if((val == "false")){
             this.db.create(this.state)
             RR.browserHistory.push("adminreservations/all")
@@ -348,7 +353,7 @@ export class Create extends Component {
                         </tr>
                     </tbody>
                 </BS.Table>
-                <BS.Button onClick={this.checkDateApi}>create</BS.Button>
+                <BS.Button onClick={this.handleCreate}>create</BS.Button>
             </div>
         )
     }
